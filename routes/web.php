@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\indexController;
+use App\Http\Controllers\produtoController;
 
-Route::get('/' , [indexController::class, 'index']); 
-
+Route::get("/produto", [produtoController::class,"index"])->name('produto');

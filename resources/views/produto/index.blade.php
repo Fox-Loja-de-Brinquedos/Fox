@@ -22,7 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-</head>
+</head> 
 
 <body>
   <header>
@@ -196,23 +196,31 @@
       <h2 class="text-center mb-4">LANÇAMENTOS</h2>
       <div class="row d-flex justify-content-around">
 
-      <div class="card product-card" style="width: 18rem;">
-          <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
-            <img src="{{ asset('images/stitch.jpg') }}" class="card-img-top card-img-resize" alt="Imagem do produto">
-          </div>
-          <div class="card-body text-center">
-            <h5 class="card-title">Lorem Ipsum is simply dummy</h5>
+      @foreach ($produtos as $produto)
+    <div class="card product-card" style="width: 18rem;">
+        <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
+            @if ($produto->imagens->isNotEmpty())
+                <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
+            @else
+                <img src="{{ asset('caminho_para_imagem_padrao') }}" class="card-img-top card-img-resize" alt="Imagem padrão">
+            @endif
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
             <b>
-              <p class="card-text">R$ 489,00</p>
+                <p class="card-text">R$ {{ $produto->PRODUTO_PRECO }}</p>
             </b>
             <p>6x de R$ 81,50 sem juros</p>
             <a href="#" class="text-decoration-none">
-              <div class="py-2 add-to-cart-box">
-                Adicionar ao Carrinho
-              </div>
+                <div class="py-2 add-to-cart-box">
+                    Adicionar ao Carrinho
+                </div>
             </a>
-          </div>
         </div>
+    </div>
+@endforeach
+
+
 
         <!--Card produto 2-->
         <div class="card product-card" style="width: 18rem;">
@@ -273,7 +281,6 @@
       </div>
     </div>
 
-    
 
     <div class="container mt-5 mb-5">
   <div class="row justify-content-center">

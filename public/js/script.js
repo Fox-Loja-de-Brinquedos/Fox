@@ -1,25 +1,22 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const minusBtns = document.querySelectorAll(".minus-btn");
-    const plusBtns = document.querySelectorAll(".plus-btn");
+const entrarButton = document.getElementById('entrarButton');
+    const cadastrarButton = document.getElementById('cadastrarButton');
+    const entrarSection = document.getElementById('entrarSection');
+    const cadastrarSection = document.getElementById('cadastrarSection');
+    const loginOption = document.querySelector('.loginOption');
 
-    minusBtns.forEach(btn => {
-        btn.addEventListener("click", function() {
-            const input = btn.nextElementSibling;
-            let value = parseInt(input.value);
-            if (value > 1) {
-                value--;
-                input.value = value;
-            }
-        });
+    entrarButton.addEventListener('click', function() {
+        entrarSection.style.display = 'block';
+        cadastrarSection.style.display = 'none';
+
+        entrarButton.classList.add('log'); 
+        cadastrarButton.classList.remove('log'); 
     });
 
-    plusBtns.forEach(btn => {
-        btn.addEventListener("click", function() {
-            const input = btn.previousElementSibling;
-            let value = parseInt(input.value);
-            value++;
-            input.value = value;
-        });
-    });
-});
+    cadastrarButton.addEventListener('click', function() {
+        entrarSection.style.display = 'none';
+        cadastrarSection.style.display = 'block';
 
+        entrarButton.classList.remove('log');
+        cadastrarButton.classList.add('log'); 
+
+    });

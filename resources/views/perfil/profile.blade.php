@@ -17,28 +17,30 @@
       <li class="nav-item"><img src="images/seguro.png" alt="" width="23px" height="20px">Ambiente 100% seguro</li>
     </ul>
   </header>
-<hr>
 
 <main>
     <div class="welcome-section">
-        <span><i>*</i></span>
-        <h2>Bem-vinde</h2>
-        <h1>Lineu</h1>
-        <span><i>*</i></span>
+      <div class="star-section">
+        <span class="welcome-star"><img src="images/star.svg" alt=""></span>
+        <span class="welcome-star"><img src="images/star.svg" alt=""></span>
+      </div>        
+        <h2 class="welcome-msg">Bem-vinde</h2>
+        <h1 class="profile-name">LINEU</h1>
     </div>
 
     <div class="orders-section">
-    <h2>OS SEUS PRODUTOS</h2>
-    <span><i>D</i> Pedidos</span>
-    <hr>
+    <h2 class="order-title">OS SEUS PRODUTOS</h2>
+    <span class="order-icon"><img src="images/sacola.svg" alt=""> Pedidos</span>
+    <p class="orders">Ainda não foram realizadas encomendas.</p>
     </div>
 
     <div class="account-section">
-    <h2>DETALHES DA CONTA</h2>
-    <hr>
+    <h2 class="account-title">DETALHES DA CONTA</h2>
 
-    <button>Detalhes da conta <span> > </span></button>
-    <button>Endereços<span> > </span></button>
+    <div class="order-button">
+    <button>Detalhes pessoais <span> > </span> </button>
+    <button>Endereços <span> > </span> </button>
+    </div>
     <a href="">Sair</a>
     </div>
 </main>

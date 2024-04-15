@@ -57,13 +57,14 @@
     width: 23%;
     display: flex;
     gap: 3px;
-    padding-top: 2px;
+    padding-top: 5px;
     font-size: 13px;
 }
 
 .orders{
     border-bottom: solid 1px #000000;
     padding-left: 20px;
+    padding-bottom: 4px;
 }
 
 .account-section{
@@ -84,4 +85,24 @@
 
 .order-button{
     border-top: solid 1px #000000;
+    padding-top: 30px;
+    
+    display: flex;
+    gap: 20rem;
+}
+
+.btn-order{
+    background-color: transparent;
+    border: none;
+    display: flex;
+    gap: 10rem;
+
+    border-bottom: solid 1px black;
+    padding-bottom: 20px;
+}
+
+.logout{
+    color: black;
+    font-weight: bold;
+    margin-top: 20px;
 }

@@ -38,10 +38,10 @@
     <h2 class="account-title">DETALHES DA CONTA</h2>
 
     <div class="order-button">
-    <button>Detalhes pessoais <span> > </span> </button>
-    <button>Endereços <span> > </span> </button>
+    <button class="btn-order">Detalhes pessoais <span> > </span> </button>
+    <button class="btn-order">Endereços <span> > </span> </button>
+    <a href="" class="logout">Sair</a>
     </div>
-    <a href="">Sair</a>
     </div>
 </main>
 

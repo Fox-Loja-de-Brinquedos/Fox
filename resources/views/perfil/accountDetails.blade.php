@@ -21,44 +21,43 @@
 
 <main>
 <div class="title-section">
-  <h1>DETALHES PESSOAIS</h1>
+  <h1 class="title-details">DETALHES PESSOAIS</h1>
 </div>  
 
-<section>
-<h2>PERFIL</h2>
-<div class="bar"></div>
+<section class="profile-pref">
+<h2 class="title-detail">PERFIL</h2>
 
-<p>Nome</p>
-
-<form action="">
-  <input type="text" placeholder="Lineuzinho">
-  <button>ATUALIZAR PERFIL</button>
+<form class="formProfile profileForm" action="">
+  <label for="name" class="name-label">Nome</label>
+  <input  type="text" placeholder="Lineuzinho"  id="name">
+  <button class="btn-detail">ATUALIZAR PERFIL</button>
 </form>
 </section>
 
-<section>
-<h2>CONTATO</h2>
-<div class="bar"></div>
+<section class="profile-contact">
+<h2 class="title-detail">CONTATO</h2>
 
-<p>E-mail</p>
+<div class="profile-email">
+<label>E-mail</label>
 <p>lineuzinho@hotmail.com</p>
+</div>
 
-<form action="">
+
+<form class="formProfile " action="">
   <input type="text" placeholder="Novo E-mail">
-  <input type="password" placeholder="Senha Atual">
-  <button>ATUALIZAR ENDEREÇO DE E-MAIl</button>
+  <input type="password" placeholder="Senha Atual" >
+  <button class="btn-detail">ATUALIZAR ENDEREÇO DE E-MAIl</button>
 </form>
 </section>
 
-<section>
-<h2>SENHA</h2>
-<div class="bar"></div>
-<p>Todos os campos são obrigatórios</p>
+<section class="profile-password">
+<h2 class="title-detail">SENHA</h2>
+<p class="passWarning">Todos os campos são obrigatórios</p>
 
-<form action="">
+<form class="formProfile" action="">
   <input type="password" placeholder="Senha Atual">
   <input type="password" placeholder="Nova Senha">
-  <button>ALTERAR SENHA</button>
+  <button class="btn-detail">ALTERAR SENHA</button>
 </form>
 </section>
 

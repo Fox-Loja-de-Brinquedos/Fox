@@ -21,25 +21,27 @@
 
 <main>
 <div class="welcome-section">
-<h1>ENDEREÇOS</h1>
+<h1>LISTA DE ENDEREÇOS</h1>
 </div>
 
 <section> 
 <div class="address-save">
-<h2>ENDEREÇOS CADASTRADOS</h2>
+<h2 class="address-save-title">ENDEREÇOS CADASTRADOS</h2>
 <div class="progress-bar"></div>
 
-<p>ENDEREÇO DE ENTREGA</p>
-<p>casa do matue</p>
-<p>quando a onda bater, 666</p>
-<p>Calilandia</p>
-<p>Bahia</p>
-<p>04830-020</p>
-<p>Nordeste</p>
+<ul class="adress-list"> 
+  <li class="adreess-item address-send-title">ENDEREÇO DE ENTREGA</li>
+  <li class="adreess-item">casa do matue</li>
+  <li class="adreess-item">quando a onda bater, 666</li>
+  <li class="adreess-item">Calilandia</li>
+  <li class="adreess-item">Bahia</li>
+  <li class="adreess-item">04830-020</li>
+  <li class="adreess-item">Nordeste</li>
+</ul>
 
 <div class="address-button">
-<button>Modificar ></button>
-<button>Remover ></button>
+<button class="address-action">Modificar <span> > </span></button>
+<button class="address-action">Remover <span> > </span></button>
 </div>
 
 </div>
@@ -48,18 +50,18 @@
 <section>
   <div class="new-address">
 
-  <h2>ADICIONAR UM ENDEREÇO</h2>
+  <h2 class="address-add-title">ADICIONAR UM ENDEREÇO</h2>
   <div class="progress-bar"></div>
 
-  <form action="">
-    <input class="" type="text" placeholder="Nome"> 
-    <input class="" type="text" placeholder="Logradouro"> 
-    <input class="" type="text" placeholder="Número"> 
-    <input class="" type="text" placeholder="Cidade"> 
-    <input class="" type="text" placeholder="Estado"> 
-    <input class="" type="text" placeholder="CEP"> 
+  <form class="address-form" action="">
+    <input class="address-form-item formName" type="text" placeholder="Nome"> 
+    <input class="address-form-item formLog" type="text" placeholder="Logradouro"> 
+    <input class="address-form-item formNumber" type="text" placeholder="Número"> 
+    <input class="address-form-item formCity" type="text" placeholder="Cidade"> 
+    <input class="address-form-item formEstate" type="text" placeholder="Estado"> 
+    <input class="address-form-item formZipCode" type="text" placeholder="CEP"> 
     <button class="save-button">ADICIONAR ENDEREÇO</button>
-    <button class="cancel-button">cancelar</button>
+    <button class="cancel-button">Cancelar</button>
   </form>
   </div>
 </section>

@@ -10,4 +10,9 @@ class produtoController extends Controller
         $produtos = Produto::all();
         return view('produto.index')->with('produtos', $produtos);
     }
+
+    public function search(){
+        $produtos = Produto::all();
+        return view('produto.pesquisa-produto')->with('produtos', $produtos);
+    }
 }

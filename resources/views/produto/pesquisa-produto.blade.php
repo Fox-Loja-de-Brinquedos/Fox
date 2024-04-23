@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+
+<head>
+    <title>Fox Store - Loja de brinquedos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="container-fluid">
+
+            <!-- Linha do Frete Grátis -->
+            <div class="row justify-content-center">
+                <div class="col-12 text-center ps-0 pe-0">
+                    <div class="header-top">
+                        <p style="margin-bottom: 0;"><strong>Frete grátis</strong> acima de R$ 199,99 em compras!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <!-- Linha do Logo, Barra de Pesquisa e Botões -->
+            <div class="row mt-3 mb-3 d-flex justify-content-between" style="position: relative;">
+                <div class="col-1" style="position: absolute; top: -45px">
+                    <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
+                </div>
+                <div class="col-6" style="margin-left: 120px;">
+                    <form class="form-inline">
+                        <input class="form-control mr-2 searchbar" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;">
+                        <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="col-2">
+                    <button class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt=""> Entrar /
+                        Cadastrar</button>
+                </div>
+                <div class="col-2">
+                    <button class="btn text-uppercase fw-bold btn-cart"><img src="{{ asset('images/icon-cart.png') }}" alt=""> Meu
+                        Carrinho</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Linha da Navegação -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="categories-menu navbar-nav mx-auto">
+                                <li class="nav-item custom-nav-item">
+                                    <a class="nav-link nav-link-uppercase" href="#">Bonecas</a>
+                                </li>
+                                <li class="nav-item custom-nav-item">
+                                    <a class="nav-link nav-link-uppercase" href="#">Veículos</a>
+                                </li>
+                                <li class="nav-item custom-nav-item">
+                                    <a class="nav-link nav-link-uppercase" href="#">Pelúcias</a>
+                                </li>
+                                <li class="nav-item custom-nav-item">
+                                    <a class="nav-link nav-link-uppercase" href="#">Jogos de cartas</a>
+                                </li>
+                                <li class="nav-item custom-nav-item">
+                                    <a class="nav-link nav-link-uppercase" href="#">Tabuleiros</a>
+                                </li>
+                                <li class="nav-item custom-nav-item">
+                                    <a class="nav-link nav-link-uppercase" href="#">Eletrônicos</a>
+                                </li>
+                                <li class="nav-item custom-nav-item">
+                                    <a class="nav-link nav-link-uppercase" href="#">Outros brinquedos</a>
+                                </li>
+                                <li class="nav-item custom-nav-item">
+                                    <a class="nav-link nav-link-uppercase lancamentos" href="#">Lançamentos</a>
+                                </li>
+                                <li class="nav-item custom-nav-item">
+                                    <a class="nav-link nav-link-uppercase ofertas" href="#">Ofertas</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <h1 class="fs-4 text-center mt-5 mb-5">Resultado da Pesquisa: 36 produtos encontrados</h1>
+
+    <!--Container Produtos e filtro-->
+    <div class="container-fluid d-flex">
+
+        <!--Container filtros-->
+        <div class="mt-5" style="width: 15%; border: 2px solid black;">
+
+            <!--Filtro por Categoria-->
+            <div class="mb-5">
+                <h2 class="fs-5">Filtrar por:</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
+                        <label class="form-check-label" for="firstRadio">Bonecas</label>
+                    </li>
+                    <li class="list-group-item">
+                        <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
+                        <label class="form-check-label" for="firstRadio">Carros</label>
+                    </li>
+                    <li class="list-group-item">
+                        <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
+                        <label class="form-check-label" for="firstRadio">Facas de brinquedo</label>
+                    </li>
+                </ul>
+            </div>
+
+            <!--Slider de valores-->
+            <div>
+                <label for="customRange1" class="form-label">Example range</label>
+                <input type="range" class="form-range" id="customRange1">
+            </div>
+
+        </div>
+
+        <!--Container Cards de Produtos-->
+        <div class="container mb-5">
+            <div class="d-flex justify-content-end">
+                <div class="dropdown me-5 mb-3">
+                    <button class="dropdown-toggle filter-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ordenar
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Mais vendidos</a></li>
+                        <li><a class="dropdown-item" href="#">Descontos</a></li>
+                        <li><a class="dropdown-item" href="#">Maior preço</a></li>
+                        <li><a class="dropdown-item" href="#">Menor preço</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-around">
+                @foreach ($produtos as $produto)
+                    <div class="card product-card" style="width: 18rem;">
+                        <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
+                            @if ($produto->imagens->isNotEmpty())
+                            <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
+                            @else
+                            <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
+                            @endif
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
+                            <b>
+                                <p class="card-text">R$ {{ $produto->PRODUTO_PRECO }}</p>
+                            </b>
+                            <p>6x de R$ 81,50 sem juros</p>
+                            <a href="#" class="text-decoration-none">
+                                <div class="py-2 add-to-cart-box">
+                                    Adicionar ao Carrinho
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+
+            <!--Icones de navegação de págs-->
+    <div class="container d-flex justify-content-center mt-5 mb-5">
+        <div class="w-25 d-flex justify-content-around align-items-center">
+            <div class="col-auto">
+                <a href="#">
+                    <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
+                        <path d="M241,451.75l-18.11,18.1L9.07,256,222.92,42.15,241,60.25,45.28,256Z"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <div>
+                <span>3</span>
+                <span>/</span>
+                <span>3</span>
+
+            </div>
+
+            <div>
+                <a href="#">
+                    <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
+                        <path d="M210.72,256,15,60.25l18.11-18.1L246.93,256,33.08,469.85,15,451.75Z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--Container Cards de Produtos
+ <div class="container mb-5 mt-5">
+        <h1 class="fs-4 text-center mt-5 mb-5">Resultado da Pesquisa: 36 produtos encontrados</h1>
+        <div class="d-flex justify-content-end">
+            <div class="dropdown me-5 mb-3">
+                <button class="dropdown-toggle filter-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Ordenar
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Mais vendidos</a></li>
+                    <li><a class="dropdown-item" href="#">Descontos</a></li>
+                    <li><a class="dropdown-item" href="#">Maior preço</a></li>
+                    <li><a class="dropdown-item" href="#">Menor preço</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-around">
+            @foreach ($produtos as $produto)
+            <div class="card product-card" style="width: 18rem;">
+                <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
+                    @if ($produto->imagens->isNotEmpty())
+                    <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
+                    @else
+                    <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
+                    @endif
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
+                    <b>
+                        <p class="card-text">R$ {{ $produto->PRODUTO_PRECO }}</p>
+                    </b>
+                    <p>6x de R$ 81,50 sem juros</p>
+                    <a href="#" class="text-decoration-none">
+                        <div class="py-2 add-to-cart-box">
+                            Adicionar ao Carrinho
+                        </div>
+                    </a>
+                </div>
+            </div>
+            @endforeach
+
+        </div>
+    </div>
+-->
+
+
+
+
+    
+
+
+
+
+    <footer>
+        <!--Receba promoções banner-->
+        <div id="news-and-promotions-banner" class="container-fluid">
+            <div class="row h-100 d-flex align-items-center justify-content-center">
+                <div class="col col-4 fs-3 text-light fw-semibold">RECEBA PROMOÇÕES E NOVIDADES!</div>
+
+                <div class="col col-4 d-flex justify-content-evenly">
+                    <input type="email" class="form-control text-us-input" placeholder="Seu nome">
+                    <input type="email" class="form-control text-us-input" placeholder="E-mail">
+                    <button type="button" class="btn btn-dark px-4">Enviar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="social-midia-footer" class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                <div class="col col-2 d-flex flex-column footer-column">
+                    <h3 class="fs-5 text-uppercase">Institucional</h3>
+                    <p>Sobre a marca</p>
+                    <p>Trocas e devoluções</p>
+                    <p>Políticas de privacidade</p>
+                    <p>Dúvidas frequentes</p>
+                </div>
+                <div class="col col-2 d-flex flex-column footer-column">
+                    <h3 class="fs-5 text-uppercase">Loja</h3>
+                    <p>Minha conta</p>
+                    <p>Meu carrinho</p>
+                    <p>Meus pedidos</p>
+                </div>
+                <div class="col col-2 d-flex flex-column footer-column">
+                    <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
+                    <div class="d-flex justify-content-start mb-4">
+                        <img src="{{ asset('images/facebook.png') }}" class="footer-icon-resize me-2" alt="Icone Facebook">
+                        <p class="m-0">@lojafoxbrinquedos</p>
+                    </div>
+
+                    <div class="d-flex justify-content-start">
+                        <img src="{{ asset('images/instagram.png') }}" class="footer-icon-resize me-2" alt="Icone Instagram">
+                        <p class="m-0">@lojafoxbrinquedos</p>
+                    </div>
+                </div>
+                <div class="col col-2 footer-column">
+                    <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
+                    <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div id="copyright-footer" class="container-fluid d-flex mb-3 mt-3 justify-content-between align-items-center">
+            <img src="{{ asset('images/fox.png') }}" alt="Logo Fox" class="object-fit-contain ms-3" width="65px">
+
+            <i>
+                <p>Fox Store © 2024 - Todos os direitos reservados</p>
+            </i>
+
+            <a href="#"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
+            </a>
+        </div>
+    </footer>
+
+    <script src="{{ asset('js/script.js') }}"></script>
+</body>
+
+</html>

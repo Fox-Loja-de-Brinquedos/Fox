@@ -1,3 +1,7 @@
+/*Imports*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
 body {
     font-family: "Montserrat", sans-serif;
   }
@@ -78,10 +82,7 @@ body {
   .categories-menu .nav-link{
     margin: 0 5px;
   }
-  .divisor {
-    width: 100%;
-    border-bottom: 1px solid #ddd;
-  }
+
   .btn-login, .btn-cart {
     font-size: 12px;
   }
@@ -132,7 +133,7 @@ body {
 }
 
 #social-midia-footer {
-  height: 360px; 
+  height: 330px; 
   margin-top: 5rem;
 }
 
@@ -214,4 +215,19 @@ body {
   height: auto;
   margin: 0 5px;
   cursor: pointer;
+}
+
+
+/*Pesquisa de produto*/
+
+.filter-button {
+  border: none;
+  border-radius: 1rem;
+  padding: 4px 16px;
+  background-color: #F9A80C;
+  color: white;
+}
+
+.shaft-icon{
+  width: 15px;
 }

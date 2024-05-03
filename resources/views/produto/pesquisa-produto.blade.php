@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
 </head>
 
 <body>
@@ -96,45 +97,80 @@
         </div>
     </header>
 
-    <h1 class="fs-4 text-center mt-5 mb-5">Resultado da Pesquisa: 36 produtos encontrados</h1>
 
-    <!--Container Produtos e filtro-->
-    <div class="container-fluid d-flex">
 
-        <!--Container filtros-->
-        <div class="mt-5" style="width: 15%; border: 2px solid black;">
+    <!--Container Filtros e Listagem de Produtos-->
+    <div class="container-fluid d-flex justify-content-around mt-5">
 
-            <!--Filtro por Categoria-->
-            <div class="mb-5">
-                <h2 class="fs-5">Filtrar por:</h2>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
-                        <label class="form-check-label" for="firstRadio">Bonecas</label>
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
-                        <label class="form-check-label" for="firstRadio">Carros</label>
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
-                        <label class="form-check-label" for="firstRadio">Facas de brinquedo</label>
-                    </li>
-                </ul>
-            </div>
-
-            <!--Slider de valores-->
+        <!--Container Filtros-->
+        <aside id="filter-container">
             <div>
-                <label for="customRange1" class="form-label">Example range</label>
-                <input type="range" class="form-range" id="customRange1">
+                <h2 class="fs-5 fw-semibold">Selecione os filtros</h2>
+
+                <div>
+                    <!--Filtrar por Categoria-->
+                    <p class="fs-5 ms-3 fw-semibold">Categoria</p>
+                    <div class="ms-2 overflow-y-scroll" id="category-list">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex align-items-center">
+                                <input class="form-check-input my-0" type="checkbox">
+                                <p class="ms-2 my-0">Bonecas</p>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <input class="form-check-input my-0" type="checkbox">
+                                <p class="ms-2 my-0">Rifles de Assalto</p>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <input class="form-check-input my-0" type="checkbox">
+                                <p class="ms-2 my-0">Eróticos</p>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <input class="form-check-input my-0" type="checkbox">
+                                <p class="ms-2 my-0">Homossexual</p>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <input class="form-check-input my-0" type="checkbox">
+                                <p class="ms-2 my-0">Venenoso</p>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <input class="form-check-input my-0" type="checkbox">
+                                <p class="ms-2 my-0">Morte</p>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <input class="form-check-input my-0" type="checkbox">
+                                <p class="ms-2 my-0">Perigo</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!--Filtrar por Promoção-->
+                <p class="fs-5 ms-3 mt-4 fw-semibold">Promoção</p>
+                <div class="ms-2">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex align-items-center">
+                            <input class="form-check-input my-0" type="checkbox">
+                            <p class="ms-2 my-0">Produtos em Promoção</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--Filtrar por Preço-->
+                <p class="fs-5 ms-3 mt-4 fw-semibold">Faixa de Preço</p>
+                <div class="container">
+                    <input type="range" class="form-range" id="customRange1">
+                </div>
+
             </div>
+        </aside>
 
-        </div>
+        <!--Container Resultado da Pesquisa-->
+        <div class="container m-0">
 
-        <!--Container Cards de Produtos-->
-        <div class="container mb-5">
-            <div class="d-flex justify-content-end">
-                <div class="dropdown me-5 mb-3">
+            <h1 class="fs-4 text-center my-0">Resultado da Pesquisa: 36 produtos encontrados</h1>
+
+            <div class="d-flex justify-content-end mb-4">
+                <div class="dropdown me-5">
                     <button class="dropdown-toggle filter-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Ordenar
                     </button>
@@ -147,8 +183,11 @@
                 </div>
             </div>
 
-            <div class="row d-flex justify-content-around">
-                @foreach ($produtos as $produto)
+            <div class="container-fluid d-flex justify-content-center">
+                <!--Cards Container-->
+                <div class="d-flex justify-content-left w-100 row flex-wrap gap-4 ps-2">
+                    <!--Card-->
+                    @foreach ($produtos as $produto)
                     <div class="card product-card" style="width: 18rem;">
                         <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
                             @if ($produto->imagens->isNotEmpty())
@@ -170,135 +209,44 @@
                             </a>
                         </div>
                     </div>
-                @endforeach
+                    @endforeach
+                </div>
 
             </div>
-
             <!--Icones de navegação de págs-->
-    <div class="container d-flex justify-content-center mt-5 mb-5">
-        <div class="w-25 d-flex justify-content-around align-items-center">
-            <div class="col-auto">
-                <a href="#">
-                    <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
-                        <path d="M241,451.75l-18.11,18.1L9.07,256,222.92,42.15,241,60.25,45.28,256Z"></path>
-                    </svg>
-                </a>
-            </div>
+            <div class="container d-flex justify-content-center mt-5 mb-5">
+                <div class="w-25 d-flex justify-content-around align-items-center">
+                    <div class="col-auto">
+                        <a href="#">
+                            <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
+                                <path d="M241,451.75l-18.11,18.1L9.07,256,222.92,42.15,241,60.25,45.28,256Z"></path>
+                            </svg>
+                        </a>
+                    </div>
 
-            <div>
-                <span>3</span>
-                <span>/</span>
-                <span>3</span>
+                    <div>
+                        <span>3</span>
+                        <span>/</span>
+                        <span>3</span>
 
-            </div>
+                    </div>
 
-            <div>
-                <a href="#">
-                    <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
-                        <path d="M210.72,256,15,60.25l18.11-18.1L246.93,256,33.08,469.85,15,451.75Z"></path>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </div>
-
-        </div>
-
-
-
-    </div>
-
-
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--Container Cards de Produtos
- <div class="container mb-5 mt-5">
-        <h1 class="fs-4 text-center mt-5 mb-5">Resultado da Pesquisa: 36 produtos encontrados</h1>
-        <div class="d-flex justify-content-end">
-            <div class="dropdown me-5 mb-3">
-                <button class="dropdown-toggle filter-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Ordenar
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Mais vendidos</a></li>
-                    <li><a class="dropdown-item" href="#">Descontos</a></li>
-                    <li><a class="dropdown-item" href="#">Maior preço</a></li>
-                    <li><a class="dropdown-item" href="#">Menor preço</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="row d-flex justify-content-around">
-            @foreach ($produtos as $produto)
-            <div class="card product-card" style="width: 18rem;">
-                <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
-                    @if ($produto->imagens->isNotEmpty())
-                    <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
-                    @else
-                    <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
-                    @endif
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
-                    <b>
-                        <p class="card-text">R$ {{ $produto->PRODUTO_PRECO }}</p>
-                    </b>
-                    <p>6x de R$ 81,50 sem juros</p>
-                    <a href="#" class="text-decoration-none">
-                        <div class="py-2 add-to-cart-box">
-                            Adicionar ao Carrinho
-                        </div>
-                    </a>
+                    <div>
+                        <a href="#">
+                            <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
+                                <path d="M210.72,256,15,60.25l18.11-18.1L246.93,256,33.08,469.85,15,451.75Z"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
-            @endforeach
-
         </div>
     </div>
--->
-
-
-
-
-    
-
-
 
 
     <footer>
         <!--Receba promoções banner-->
-        <div id="news-and-promotions-banner" class="container-fluid">
+        <div id="news-and-promotions-banner" class="container-fluid mt-5">
             <div class="row h-100 d-flex align-items-center justify-content-center">
                 <div class="col col-4 fs-3 text-light fw-semibold">RECEBA PROMOÇÕES E NOVIDADES!</div>
 

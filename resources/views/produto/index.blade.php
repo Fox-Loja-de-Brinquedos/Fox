@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+  <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
 </head>
 
 <body>
@@ -304,7 +305,6 @@
         </div>
       </div>
     </div>
-
 
     <div class="container mt-5 mb-5">
       <div class="row">

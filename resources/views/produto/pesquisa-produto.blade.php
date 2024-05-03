@@ -161,6 +161,12 @@
                     <input type="range" class="form-range" id="customRange1">
                 </div>
 
+                <!--Limpar Filtros-->
+                <p class="fs-5 ms-3 mt-4 fw-semibold">Limpar Filtros</p>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="button">Limpar</button>
+                </div>
+
             </div>
         </aside>
 
@@ -185,7 +191,7 @@
 
             <div class="container-fluid d-flex justify-content-center">
                 <!--Cards Container-->
-                <div class="d-flex justify-content-left w-100 row flex-wrap gap-4 ps-2">
+                <div class="d-flex justify-content-left w-100 row flex-wrap gap-4 ps-4">
                     <!--Card-->
                     @foreach ($produtos as $produto)
                     <div class="card product-card" style="width: 18rem;">

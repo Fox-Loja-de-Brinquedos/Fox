@@ -23,3 +23,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+//Reset de Filtros de Pesquisa
+function resetFilters() {
+    var checkboxes = document.querySelectorAll('#filter-container input[type="checkbox"]');
+    var slider = document.getElementById("valueRange");
+
+    // Percorre todos os checkboxes e desmarca-os
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    // Volta para posição inicial o Slider
+    slider.value = slider.defaultValue;
+
+}
+
+

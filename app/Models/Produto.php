@@ -16,7 +16,7 @@ class Produto extends Model
         return $this->hasMany(Produto_Imagem::class , "PRODUTO_ID");
         }
 
-        public function estoque(){
+        public function estoque(){ 
             return $this->belongsTo(Produto_Estoque::class, "PRODUTO_ID");
         }
 }

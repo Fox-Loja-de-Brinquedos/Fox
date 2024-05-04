@@ -36,11 +36,13 @@
       <!-- Linha do Logo, Barra de Pesquisa e Botões -->
       <div class="row mt-3 mb-3 d-flex justify-content-between" style="position: relative;">
         <div class="col-1" style="position: absolute; top: -45px">
-          <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
+          <a href="{{ route('produto.index') }}">
+            <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
+          </a>
         </div>
         <div class="col-6" style="margin-left: 120px;">
-          <form class="form-inline">
-            <input class="form-control mr-2 searchbar" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;">
+          <form class="form-inline" action="{{ route('produto.search') }}" method="GET">
+            <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;">
             <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
           </form>
         </div>
@@ -451,7 +453,9 @@
     <hr>
 
     <div id="copyright-footer" class="container-fluid d-flex mb-3 mt-3 justify-content-between align-items-center">
-      <img src="{{ asset('images/fox.png') }}" alt="Logo Fox" class="object-fit-contain ms-3" width="65px">
+      <a href="#">
+        <img src="{{ asset('images/fox.png') }}" alt="Logo Fox" class="object-fit-contain ms-3" width="65px">
+      </a>
 
       <i>
         <p>Fox Store © 2024 - Todos os direitos reservados</p>

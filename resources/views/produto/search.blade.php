@@ -175,9 +175,7 @@
         <!--Container Resultado da Pesquisa-->
         <div class="container m-0">
 
-            @if($quantidadeProdutos)
             <h1 class="fs-4 text-center my-0">Resultado da Pesquisa: {{ $quantidadeProdutos }} produtos encontrados</h1>
-            @endif
 
             <div class="d-flex justify-content-end mb-4">
                 <div class="dropdown me-5">
@@ -198,6 +196,27 @@
                 <div class="d-flex justify-content-left w-100 row flex-wrap gap-4 ps-4">
                     <!--Card-->
                     @foreach ($produtos as $produto)
+
+                    <!--Calculo para quantidade de parcelas e seus valores-->
+                    @php
+                    $qtd_parcelas = 1;
+                    $produto_preco = $produto->PRODUTO_PRECO;
+                    if ($produto_preco > 1000) {
+                    $qtd_parcelas = 12;
+                    } elseif ($produto_preco > 800) {
+                    $qtd_parcelas = 10;
+                    } elseif ($produto_preco > 600) {
+                    $qtd_parcelas = 8;
+                    } elseif ($produto_preco > 400) {
+                    $qtd_parcelas = 6;
+                    } elseif ($produto_preco > 200) {
+                    $qtd_parcelas = 4;
+                    } elseif ($produto_preco > 100) {
+                    $qtd_parcelas = 2;
+                    }
+                    $valor_parcela = $produto_preco / $qtd_parcelas;
+                    @endphp
+
                     <div class="card product-card" style="width: 18rem;">
                         <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
                             @if ($produto->imagens->isNotEmpty())
@@ -211,7 +230,7 @@
                             <b>
                                 <p class="card-text">R$ {{ $produto->PRODUTO_PRECO }}</p>
                             </b>
-                            <p>6x de R$ 81,50 sem juros</p>
+                            <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
                             <a href="#" class="text-decoration-none">
                                 <div class="py-2 add-to-cart-box">
                                     Adicionar ao Carrinho
@@ -220,14 +239,16 @@
                         </div>
                     </div>
                     @endforeach
+
                 </div>
 
             </div>
-            <!--Icones de navegação de págs-->
+
+            <!-- Icones de navegação de págs -->
             <div class="container d-flex justify-content-center mt-5 mb-5">
                 <div class="w-25 d-flex justify-content-around align-items-center">
                     <div class="col-auto">
-                        <a href="#">
+                        <a href="{{ $produtos->previousPageUrl() }}">
                             <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
                                 <path d="M241,451.75l-18.11,18.1L9.07,256,222.92,42.15,241,60.25,45.28,256Z"></path>
                             </svg>
@@ -235,14 +256,14 @@
                     </div>
 
                     <div>
-                        <span>3</span>
+                        <span>{{ $produtos->currentPage() }}</span>
                         <span>/</span>
-                        <span>3</span>
+                        <span>{{ $produtos->lastPage() }}</span>
 
                     </div>
 
                     <div>
-                        <a href="#">
+                        <a href="{{ $produtos->nextPageUrl() }}">
                             <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
                                 <path d="M210.72,256,15,60.25l18.11-18.1L246.93,256,33.08,469.85,15,451.75Z"></path>
                             </svg>
@@ -250,6 +271,11 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
         </div>
     </div>
 

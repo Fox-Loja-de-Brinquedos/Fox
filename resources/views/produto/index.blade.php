@@ -138,7 +138,7 @@
             </div>
             <div class="feature-info">
               <p class="feature-title">Pague em até 12x<br>sem juros</p>
-              <p class="feature-text">Parcela mínima R$ 25</p>
+              <p class="feature-text">Parcela mínima R$ 50</p>
             </div>
           </div>
         </div>
@@ -181,9 +181,30 @@
     <!--Container Cards de Produtos-->
     <div class="container mb-5 mt-5">
       <h2 class="text-center mb-4">LANÇAMENTOS</h2>
-      <div class="row d-flex justify-content-around">
+      <div class="row d-flex justify-content-around row-gap-3">
 
         @foreach ($produtos as $produto)
+
+        <!--Calculo para quantidade de parcelas e seus valores-->
+        @php
+        $qtd_parcelas = 1;
+        $produto_preco = $produto->PRODUTO_PRECO;
+        if ($produto_preco > 1000) {
+        $qtd_parcelas = 12;
+        } elseif ($produto_preco > 800) {
+        $qtd_parcelas = 10;
+        } elseif ($produto_preco > 600) {
+        $qtd_parcelas = 8;
+        } elseif ($produto_preco > 400) {
+        $qtd_parcelas = 6;
+        } elseif ($produto_preco > 200) {
+        $qtd_parcelas = 4;
+        } elseif ($produto_preco > 100) {
+        $qtd_parcelas = 2;
+        }
+        $valor_parcela = $produto_preco / $qtd_parcelas;
+        @endphp
+
         <div class="card product-card" style="width: 18rem;">
           <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
             @if ($produto->imagens->isNotEmpty())
@@ -197,7 +218,7 @@
             <b>
               <p class="card-text">R$ {{ $produto->PRODUTO_PRECO }}</p>
             </b>
-            <p>6x de R$ 81,50 sem juros</p>
+            <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
             <a href="#" class="text-decoration-none">
               <div class="py-2 add-to-cart-box">
                 Adicionar ao Carrinho
@@ -206,6 +227,7 @@
           </div>
         </div>
         @endforeach
+
 
       </div>
     </div>

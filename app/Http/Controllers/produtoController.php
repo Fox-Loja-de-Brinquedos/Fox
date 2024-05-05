@@ -10,29 +10,28 @@ class produtoController extends Controller
     public function index()
     {
         $produtos = Produto::all();
+
         return view('produto.index', ['produtos' => $produtos]);
     }
 
     public function search()
     {
         $search = request('search');
-        $quantidadeProdutos = 0;
 
         if ($search) {
             $produtos = Produto::where('PRODUTO_NOME', 'like', '%' . $search . '%')
-                ->orWhere('PRODUTO_DESC', 'like', '%' . $search . '%')
-                ->get();
+                ->orWhere('PRODUTO_DESC', 'like', '%' . $search . '%');
 
             $quantidadeProdutos = $produtos->count();
+
+            $produtos = $produtos->paginate(12)->withQueryString();
         } else {
-            $produtos = Produto::all();
+            return redirect()->route('produto.index');
         }
 
         return view('produto.search', [
-            'produtos' => $produtos, 
+            'produtos' => $produtos,
             'quantidadeProdutos' => $quantidadeProdutos
         ]);
     }
-
-
 }

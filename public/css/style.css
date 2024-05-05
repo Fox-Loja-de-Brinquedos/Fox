@@ -127,6 +127,15 @@ body {
   min-height: 396px;
 }
 
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3.6em
+}
+
 
 .add-to-cart-box {
   border: 3px solid #F9A80C;

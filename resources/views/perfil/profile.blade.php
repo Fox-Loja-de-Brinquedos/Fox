@@ -25,7 +25,7 @@
         <span class="welcome-star"><img src="images/star.svg" alt=""></span>
       </div>        
         <h2 class="welcome-msg">Bem-vinde</h2>
-        <h1 class="profile-name">LINEU</h1>
+        <h1 class="profile-name">{{ Auth::user()->USUARIO_NOME }}</h1>
     </div>
 
     <div class="orders-section">
@@ -40,7 +40,7 @@
     <div class="order-button">
     <button class="btn-order">Detalhes pessoais <span> > </span> </button>
     <button class="btn-order">Endereços <span> > </span> </button>
-    <a href="" class="logout">Sair</a>
+    <a href="{{ route('logout') }}" class="logout">Sair</a>
     </div>
     </div>
 </main>

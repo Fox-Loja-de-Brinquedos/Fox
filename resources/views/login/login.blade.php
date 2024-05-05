@@ -12,7 +12,7 @@
     
 <header>
     <ul class="nav justify-content-between align-items-center">
-      <li class="nav-item"><img src="images/de-volta.png" alt="" width="23px" height="20px"> Voltar à loja</li>
+      <li class="nav-item"><a href="/"><img src="images/de-volta.png" alt="" width="23px" height="20px"> Voltar à loja</a></li>
       <li class="nav-item"><img src="images/fox1.svg" alt="" width="116px" height="122px"></li>
       <li class="nav-item"><img src="images/seguro.png" alt="" width="23px" height="20px">Ambiente 100% seguro</li>
     </ul>
@@ -34,16 +34,19 @@
             </div>
 
             <div class="formLogin">
-                <form action="/" method="POST">
-                    <input type="email" placeholder="E-mail">
-                    <input type="password" placeholder="Senha">
+            <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <input type="email" name="USUARIO_EMAIL" placeholder="E-mail">
+                    <input type="password" name="USUARIO_SENHA" placeholder="Senha">
+                    
                     <label>
-                        <input class="checkBox" type="checkbox"> manter conectado
+                        <input class="checkBox" type="checkbox" > manter conectado
                     </label>
                     <button class="send sendMar">ENVIAR</button>
                 </form>
             </div>
         </section>
+
 
       
         <section class="cadastrar" id="cadastrarSection" style="display: none;">
@@ -52,14 +55,17 @@
             </div>
 
             <div class="formLogin">
-                <form class="" action="/" method="POST">
-                    <input type="email" placeholder="E-mail">
-                    <input type="password" placeholder="Senha">
-                    <input type="text" placeholder="Nome">
-                    <input type="text" placeholder="CPF">
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+                <input type="email" name="USUARIO_EMAIL" placeholder="E-mail">
+                <input type="password" name="USUARIO_SENHA" placeholder="Senha">
+                <input type="text" name="USUARIO_NOME" placeholder="Nome">
+                <input type="text" name="USUARIO_CPF" placeholder="CPF">
+
+                
 
                     <label>
-                        <input type="checkbox"> Aceito as <a href="/">Politicas de Privacidade</a> <b>FOX</b>
+                        <input type="checkbox" required> Aceito as <a href="/">Politicas de Privacidade</a> <b>FOX</b>
                     </label>
                     <button class="send sendMar">CRIAR CONTA</button>
                 </form>

@@ -205,21 +205,27 @@
         $valor_parcela = $produto_preco / $qtd_parcelas;
         @endphp
 
+        <!--Card do Produto-->
         <div class="card product-card" style="width: 18rem;">
           <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
-            @if ($produto->imagens->isNotEmpty())
-            <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
-            @else
-            <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
-            @endif
+            <a href="#">
+              @if ($produto->imagens->isNotEmpty())
+              <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
+              @else
+              <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
+              @endif
+            </a>
           </div>
           <div class="card-body text-center">
-            <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
-            <b>
-              <p class="card-text">R$ {{ $produto->PRODUTO_PRECO }}</p>
-            </b>
+            <a href="#">
+              <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
+              <b>
+                <p class="card-text">R$ {{ $produto->PRODUTO_PRECO }}</p>
+              </b>
+            </a>
+
             <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-            <a href="#" class="text-decoration-none">
+            <a href="#">
               <div class="py-2 add-to-cart-box">
                 Adicionar ao Carrinho
               </div>

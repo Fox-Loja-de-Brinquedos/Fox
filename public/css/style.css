@@ -6,6 +6,10 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+
 .header-top {
   background-color: #43ADDA;
   padding: 10px 0;
@@ -127,6 +131,12 @@ body {
   min-height: 396px;
 }
 
+.card-body a{
+ text-decoration: none;
+ color: #000;
+}
+
+
 .card-title {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -142,9 +152,15 @@ body {
   color: #F9A80C;
 }
 
+.add-to-cart-box:hover {
+  background-color: #F9A80C;
+  color: #ffffff;
+  transition: 0.2s;
+}
+
 .card-img-resize {
   object-fit: contain;
-  max-height: 130px !important;
+  max-height: 144px !important;
 }
 
 /*Footer*/
@@ -152,6 +168,7 @@ body {
 #news-and-promotions-banner {
   height: 280px;
   background: #43ADDA;
+  margin-top: 5rem;
 }
 
 .text-us-input {

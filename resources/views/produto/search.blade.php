@@ -282,7 +282,7 @@
 
     <footer>
         <!--Receba promoções banner-->
-        <div id="news-and-promotions-banner" class="container-fluid mt-5">
+        <div id="news-and-promotions-banner" class="container-fluid">
             <div class="row h-100 d-flex align-items-center justify-content-center">
                 <div class="col col-4 fs-3 text-light fw-semibold">RECEBA PROMOÇÕES E NOVIDADES!</div>
 

@@ -201,17 +201,17 @@
                     @php
                     $qtd_parcelas = 1;
                     $produto_preco = $produto->PRODUTO_PRECO;
-                    if ($produto_preco > 1000) {
+                    if ($produto_preco >= 999) {
                     $qtd_parcelas = 12;
-                    } elseif ($produto_preco > 800) {
+                    } elseif ($produto_preco >= 799) {
                     $qtd_parcelas = 10;
-                    } elseif ($produto_preco > 600) {
+                    } elseif ($produto_preco >= 599) {
                     $qtd_parcelas = 8;
-                    } elseif ($produto_preco > 400) {
+                    } elseif ($produto_preco >= 399) {
                     $qtd_parcelas = 6;
-                    } elseif ($produto_preco > 200) {
+                    } elseif ($produto_preco >= 199) {
                     $qtd_parcelas = 4;
-                    } elseif ($produto_preco > 100) {
+                    } elseif ($produto_preco >= 99) {
                     $qtd_parcelas = 2;
                     }
                     $valor_parcela = $produto_preco / $qtd_parcelas;

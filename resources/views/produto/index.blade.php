@@ -126,7 +126,6 @@
     </button>
   </div>
 
-
   <!-- Linha com 4 colunas de features ---------------------------------------------------------------------------------------->
   <div class="container-fluid pt-4 pb-4" style="background-color: #FAFBFB;">
     <div class="container container-features pt-4">
@@ -231,6 +230,19 @@
               </div>
             </a>
           </div>
+
+          <!--Icone de desconto do Produto-->
+          @if($produto->PRODUTO_DESCONTO > 0)
+          @php
+          $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100   
+          @endphp
+
+          <div id="discount-container">
+            <img src="{{ asset('images/discount.png') }}" alt="Icone de Desconto">
+            <p id="discount-icon-text">{{ number_format($porcentagem, 0) }}%</p>
+          </div>
+        @endif
+
         </div>
         @endforeach
 

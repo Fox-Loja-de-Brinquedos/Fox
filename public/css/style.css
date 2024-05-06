@@ -163,6 +163,25 @@ a {
   max-height: 144px !important;
 }
 
+#discount-container {
+  position: absolute;
+  top: -5%;
+  right: -8%;
+}
+
+#discount-container > img {
+  width: 64px;
+}
+
+#discount-icon-text{
+  position: absolute;
+  top: 25%;
+  right: 29%;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
 /*Footer*/
 
 #news-and-promotions-banner {

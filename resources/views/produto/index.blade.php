@@ -219,10 +219,9 @@
             <a href="#">
               <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
               <b>
-                <p class="card-text">R$ {{ $produto->PRODUTO_PRECO }}</p>
+                <p class="card-text">R$ {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
               </b>
             </a>
-
             <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
             <a href="#">
               <div class="py-2 add-to-cart-box">
@@ -234,14 +233,14 @@
           <!--Icone de desconto do Produto-->
           @if($produto->PRODUTO_DESCONTO > 0)
           @php
-          $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100   
+          $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100
           @endphp
 
           <div id="discount-container">
             <img src="{{ asset('images/discount.png') }}" alt="Icone de Desconto">
             <p id="discount-icon-text">{{ number_format($porcentagem, 0) }}%</p>
           </div>
-        @endif
+          @endif
 
         </div>
         @endforeach

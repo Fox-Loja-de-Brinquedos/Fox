@@ -217,6 +217,7 @@
                     $valor_parcela = $produto_preco / $qtd_parcelas;
                     @endphp
 
+                    <!--Card do Produto-->
                     <div class="card product-card" style="width: 18rem;">
                         <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
                             <a href="#">
@@ -231,10 +232,9 @@
                             <a href="#">
                                 <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
                                 <b>
-                                    <p class="card-text">R$ {{ $produto->PRODUTO_PRECO }}</p>
+                                    <p class="card-text">R$ {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
                                 </b>
                             </a>
-
                             <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
                             <a href="#">
                                 <div class="py-2 add-to-cart-box">

@@ -25,23 +25,24 @@ class AuthenticatedSessionController extends Controller
         $user = User::where('USUARIO_EMAIL', $credentials['USUARIO_EMAIL'])->first();
 
         if (!$user) {
-            return redirect()->route('login')->with('error', 'Credenciais inválidas. Por favor, tente novamente.');
+            return redirect()->route('login')->with('error', 'Email ou Senha incorretos. Por favor, tente novamente.');
         }
 
         // Verificar se a senha fornecida corresponde à senha do usuário
         if (password_verify($credentials['USUARIO_SENHA'], $user->USUARIO_SENHA)) {
             // Autenticar o usuário manualmente
+            $remember = $request->filled('remember'); // Verificar se a checkbox "manter conectado" está marcada
             Auth::login($user);
 
-            // Redirecionar para a página de perfil
-            return redirect()->intended(route('profile'));
+            // Redirecionar para a página de perfil caso seja autenticado
+            return redirect()->route('profile');
         }
 
         // Senha incorreta
-        return redirect()->route('login')->with('error', 'Credenciais inválidas. Por favor, tente novamente.');
+        return redirect()->route('login')->with('error', 'Email ou Senha incorretos. Por favor, tente novamente.');
     }
 
-
+    //FUNÇÃO LOGOUT
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();

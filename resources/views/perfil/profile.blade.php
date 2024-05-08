@@ -12,7 +12,7 @@
 
 <header>
     <ul class="nav justify-content-between align-items-center">
-      <li class="nav-item"><img src="images/de-volta.png" alt="" width="23px" height="20px"> Voltar à loja</li>
+    <li class="nav-item"><a href="/" class="voltar-a-loja"><img src="images/de-volta.png" alt="" width="23px" height="20px"> Voltar à loja</a></li>
       <li class="nav-item"><img src="images/fox1.svg" alt="" width="116px" height="122px"></li>
       <li class="nav-item"><img src="images/seguro.png" alt="" width="23px" height="20px">Ambiente 100% seguro</li>
     </ul>
@@ -38,8 +38,8 @@
     <h2 class="account-title">DETALHES DA CONTA</h2>
 
     <div class="order-button">
-    <button class="btn-order">Detalhes pessoais <span> > </span> </button>
-    <button class="btn-order">Endereços <span> > </span> </button>
+    <a href="{{ route('accountDetails') }}" class="btn-order">Detalhes pessoais <span> > </span> </a>
+    <a href="{{ route('address') }}" class="btn-order">Endereços <span> > </span> </a>
     <a href="{{ route('logout') }}" class="logout">Sair</a>
     </div>
     </div>

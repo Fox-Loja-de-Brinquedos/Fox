@@ -12,7 +12,7 @@
 
 <header>
     <ul class="nav justify-content-between align-items-center">
-      <li class="nav-item"><img src="images/de-volta.png" alt="" width="23px" height="20px"> Minha conta</li>
+      <li class="nav-item"> <a href="/profile" class="voltar-a-loja"> <img src="images/de-volta.png" alt="" width="23px" height="20px"> Minha conta</a></li>
       <li class="nav-item"><img src="images/fox1.svg" alt="" width="116px" height="122px"></li>
       <li class="nav-item"><img src="images/seguro.png" alt="" width="23px" height="20px">Ambiente 100% seguro</li>
     </ul>

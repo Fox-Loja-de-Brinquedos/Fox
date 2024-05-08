@@ -7,10 +7,8 @@ use App\Http\Controllers\orderController;
 use App\Http\Controllers\AuthenticatedSessionController;
 
 
-Route::middleware('guest')->group(function () 
-{
+
 Route::get("/", [produtoController::class,"index"])->name('produto');
-});
 
 
 Route::middleware('auth')->group(function () {

@@ -41,8 +41,8 @@
                     </a>
                 </div>
                 <div class="col-6" style="margin-left: 120px;">
-                    <form class="form-inline" action="{{ route('produto.search') }}" method="GET">
-                        <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;">
+                    <form id="filter-form" action="{{ route('produto.search', ['search' => $search]) }}" method="GET">
+                        <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;" value="{{ $search }}">
                         <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
@@ -109,42 +109,22 @@
             <div>
                 <h2 class="fs-5 fw-semibold">Selecione os filtros</h2>
 
-                <div>
-                    <!--Filtrar por Categoria-->
-                    <p class="fs-5 ms-3 fw-semibold">Categoria</p>
-                    <div class="ms-2 overflow-y-scroll" id="category-list">
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex align-items-center">
-                                <input class="form-check-input my-0" type="checkbox">
-                                <p class="ms-2 my-0">Bonecas</p>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <input class="form-check-input my-0" type="checkbox">
-                                <p class="ms-2 my-0">Rifles de Assalto</p>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <input class="form-check-input my-0" type="checkbox">
-                                <p class="ms-2 my-0">Eróticos</p>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <input class="form-check-input my-0" type="checkbox">
-                                <p class="ms-2 my-0">Homossexual</p>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <input class="form-check-input my-0" type="checkbox">
-                                <p class="ms-2 my-0">Venenoso</p>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <input class="form-check-input my-0" type="checkbox">
-                                <p class="ms-2 my-0">Morte</p>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <input class="form-check-input my-0" type="checkbox">
-                                <p class="ms-2 my-0">Perigo</p>
-                            </li>
-                        </ul>
+                <form id="filter-form" action="{{ route('produto.search') }}" method="GET">
+                    <div>
+                        <!--Filtrar por Categoria-->
+                        <p class="fs-5 ms-3 fw-semibold">Categoria</p>
+                        <div class="ms-2 overflow-y-scroll" id="category-list">
+                            <ul class="list-group">
+                                @foreach ($categorias as $categoria)
+                                <li class="list-group-item d-flex align-items-center">
+                                    <input class="form-check-input my-0 categoria-checkbox" type="checkbox" name="categorias[]" value="{{ $categoria->id }}">
+                                    <p class="ms-2 my-0">{{ $categoria->CATEGORIA_NOME }}</p>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                </form>
 
                 <!--Filtrar por Promoção-->
                 <p class="fs-5 ms-3 mt-4 fw-semibold">Promoção</p>
@@ -191,7 +171,9 @@
                 </div>
             </div>
 
-            <div class="container-fluid d-flex justify-content-center">
+            <!--Container dos produtos e mensagem de produto não encontrado-->
+            <div class="container-fluid d-flex justify-content-center" style="min-height: 70%;">
+                @if($quantidadeProdutos > 0)
                 <!--Cards Container-->
                 <div class="d-flex justify-content-left w-100 row flex-wrap gap-4 ps-4">
                     <!--Card-->
@@ -201,6 +183,8 @@
                     @php
                     $qtd_parcelas = 1;
                     $produto_preco = $produto->PRODUTO_PRECO;
+                    $produto_desconto = $produto->PRODUTO_DESCONTO;
+
                     if ($produto_preco >= 999) {
                     $qtd_parcelas = 12;
                     } elseif ($produto_preco >= 799) {
@@ -214,7 +198,7 @@
                     } elseif ($produto_preco >= 99) {
                     $qtd_parcelas = 2;
                     }
-                    $valor_parcela = $produto_preco / $qtd_parcelas;
+                    $valor_parcela = ($produto_preco - $produto_desconto) / $qtd_parcelas;
                     @endphp
 
                     <!--Card do Produto-->
@@ -243,7 +227,7 @@
                             </a>
                         </div>
 
-                        <!--Icone de desconto do Produto-->
+                        <!--Exibe desconto caso haja-->
                         @if($produto->PRODUTO_DESCONTO > 0)
                         @php
                         $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100
@@ -257,11 +241,35 @@
 
                     </div>
                     @endforeach
-
                 </div>
+
+                @else
+                <!--Resposta caso não seja encontrado nenhum produto-->
+                <div class="mt-5">
+                    <div>
+                        <h3 class="fs-2" style="color: #43ADDA;">Ops, não achamos a sua busca...</h3>
+                    </div>
+
+                    <div class="fs-5">
+                        <p>
+                            Não se preocupe! Para melhorar os resultados você pode:
+                        </p>
+                        <div>
+                            <ul>
+                                <li>Verificar os termos digitados.</li>
+                                <li>Tentar utilizar uma única palavra.</li>
+                                <li>Utilizar termos genéricos na busca.</li>
+                                <li>Procurar utilizar sinônimos ao termo desejado.</li>
+                                <li>Revisar os filtros.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @endif
 
             </div>
 
+            @if($quantidadeProdutos !== 0)
             <!-- Icones de navegação de págs -->
             <div class="container d-flex justify-content-center mt-5 mb-5">
                 <div class="w-25 d-flex justify-content-around align-items-center">
@@ -289,8 +297,7 @@
                     </div>
                 </div>
             </div>
-
-
+            @endif
 
 
 

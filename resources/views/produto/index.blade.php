@@ -188,6 +188,8 @@
         @php
         $qtd_parcelas = 1;
         $produto_preco = $produto->PRODUTO_PRECO;
+        $produto_desconto = $produto->PRODUTO_DESCONTO;
+
         if ($produto_preco >= 999) {
         $qtd_parcelas = 12;
         } elseif ($produto_preco >= 799) {
@@ -201,7 +203,7 @@
         } elseif ($produto_preco >= 99) {
         $qtd_parcelas = 2;
         }
-        $valor_parcela = $produto_preco / $qtd_parcelas;
+        $valor_parcela = ($produto_preco - $produto_desconto) / $qtd_parcelas;
         @endphp
 
         <!--Card do Produto-->

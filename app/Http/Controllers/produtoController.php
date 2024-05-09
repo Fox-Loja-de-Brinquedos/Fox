@@ -20,43 +20,50 @@ class produtoController extends Controller
 
     public function search(Request $request)
     {
-        // Receba a entrada do usuário na barra de pesquisa
+        // Recebe o que foi digitado pelo usuário
         $search = $request->input('search');
+        //Recebe o ID da categoria
+        $categoria_id = $request->get('categoria_id');
 
-        // Verifique se o usuário digitou algo e traga do banco
+        // Verifica se a checkbox de promoção foi checkada
+        $isPromotionChecked = $request->has('promotion_checkbox');
+
+        // Verifica se foi passado algum valor na pesquisa
         if ($search) {
-            // Consulta base de produtos
-            $query = Produto::where('PRODUTO_NOME', 'like', '%' . $search . '%')
-                ->orWhere('PRODUTO_DESC', 'like', '%' . $search . '%')
-                ->where('PRODUTO_ATIVO', '=', 1);
 
-            // Verifique se há categorias selecionadas
-            $categoriasSelecionadas = $request->input('categorias');
-
-            // Se houver categorias selecionadas, os filtros serão aplicados
-            if (!empty($categoriasSelecionadas)) {
-                $query->whereHas('categorias', function ($query) use ($categoriasSelecionadas) {
-                    $query->whereIn('CATEGORIA_ID', $categoriasSelecionadas);
+            // Consulta base
+            $query = Produto::where('PRODUTO_ATIVO', 1)
+                ->where(function ($q) use ($search) {
+                    $q->where('PRODUTO_NOME', 'like', '%' . $search . '%')
+                        ->orWhere('PRODUTO_DESC', 'like', '%' . $search . '%');
                 });
+
+            if ($categoria_id) {
+                $query->where('CATEGORIA_ID', $categoria_id);
             }
 
-            // Execute a consulta
+            if ($isPromotionChecked === true) {
+                $query->where('PRODUTO_DESCONTO', '>', 0);
+            } 
+            
+            //Exibe apenas 12 produtos por página    
             $produtos = $query->paginate(12)->withQueryString();
 
-            // Obtenha todas as categorias ativas
-            $categorias = Categoria::where('CATEGORIA_ATIVO', '=', 1)->get();
+            // Busca todas as categorias ativas
+            $categorias = Categoria::where('CATEGORIA_ATIVO', 1)->get();
 
-            // Conte quantos produtos foram encontrados
-            $quantidadeProdutos = $produtos->total();
+            // Conta quantos produtos foram achados na busca
+            $qtdProdutos = $produtos->total();
+
+            return view('produto.search', [
+                'search' => $search,
+                'categorias' => $categorias,
+                'qtdProdutos' => $qtdProdutos,
+                'produtos' => $produtos
+            ]);
         } else {
-            return redirect()->route('produto.index');
+            // Exibe uma mensagem de erro
+            return redirect()->back()->with('error', 'Nenhum termo de pesquisa foi inserido.');
         }
-
-        return view('produto.search', [
-            'produtos' => $produtos,
-            'quantidadeProdutos' => $quantidadeProdutos,
-            'categorias' => $categorias,
-            'search' => $search
-        ]);
     }
 }

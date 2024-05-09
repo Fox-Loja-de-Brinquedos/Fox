@@ -108,34 +108,46 @@
         <aside id="filter-container">
             <div>
                 <h2 class="fs-5 fw-semibold">Selecione os filtros</h2>
-
-                <form id="filter-form" action="{{ route('produto.search') }}" method="GET">
-                    <div>
-                        <!--Filtrar por Categoria-->
-                        <p class="fs-5 ms-3 fw-semibold">Categoria</p>
-                        <div class="ms-2 overflow-y-scroll" id="category-list">
-                            <ul class="list-group">
-                                @foreach ($categorias as $categoria)
-                                <li class="list-group-item d-flex align-items-center">
-                                    <input class="form-check-input my-0 categoria-checkbox" type="checkbox" name="categorias[]" value="{{ $categoria->id }}">
-                                    <p class="ms-2 my-0">{{ $categoria->CATEGORIA_NOME }}</p>
-                                </li>
-                                @endforeach
-                            </ul>
+                <!--Filtrar por Categoria-->
+                <div>
+                    <p class="fs-5 ms-3 fw-semibold">Categoria</p>
+                    <div class="ms-2 overflow-y-scroll" id="category-list">
+                        <div class="list-group">
+                            @foreach ($categorias as $categoria)
+                            <?php
+                            //Verifica o ID passado na URL e muda a classe do link correspondente
+                            $activeClass = '';
+                            if (isset($_GET['categoria_id']) && $_GET['categoria_id'] == $categoria->CATEGORIA_ID) {
+                                $activeClass = 'active';
+                            }
+                            // Adiciona o parâmetro 'promotion_checkbox' na URL se a caixa de seleção estiver marcada
+                            $queryParams = ['categoria_id' => $categoria->CATEGORIA_ID, 'search' => $search];
+                            if (isset($_GET['promotion_checkbox']) && $_GET['promotion_checkbox'] == 'true') {
+                                $queryParams['promotion_checkbox'] = 'true';
+                            }
+                            ?>
+                            <a href="{{ route('produto.search', $queryParams) }}" class="list-group-item list-group-item-action {{ $activeClass }}">
+                                {{ $categoria->CATEGORIA_NOME }}
+                            </a>
+                            @endforeach
                         </div>
                     </div>
-                </form>
+                </div>
+
 
                 <!--Filtrar por Promoção-->
                 <p class="fs-5 ms-3 mt-4 fw-semibold">Promoção</p>
                 <div class="ms-2">
-                    <ul class="list-group">
+                    <ul class="list-group" id="promotion-checkbox-container">
                         <li class="list-group-item d-flex align-items-center">
-                            <input class="form-check-input my-0" type="checkbox">
-                            <p class="ms-2 my-0">Produtos em Promoção</p>
+                            <form id="promotion-form" action="{{ route('produto.search' , ['categoria_id' => $categoria->CATEGORIA_ID, 'search' => $search]) }}" method="GET">
+                                <input id="promotion-checkbox" name="promotion_checkbox" class="form-check-input my-0" type="checkbox">
+                                <label for="promotion-checkbox" class="ms-2 my-0 user-select-none">Produtos em Promoção</label>
+                            </form>
                         </li>
                     </ul>
                 </div>
+
 
                 <!--Filtrar por Preço-->
                 <p class="fs-5 ms-3 mt-4 fw-semibold">Faixa de Preço</p>
@@ -146,7 +158,7 @@
                 <!--Limpar Filtros-->
                 <p class="fs-5 ms-3 mt-4 fw-semibold">Limpar Filtros</p>
                 <div class="d-grid gap-2">
-                    <button class="btn btn-primary" onclick="resetFilters()" type="button">Limpar</button>
+                    <button class="btn btn-primary" type="button">Limpar</button>
                 </div>
 
             </div>
@@ -155,7 +167,7 @@
         <!--Container Resultado da Pesquisa-->
         <div class="container m-0">
 
-            <h1 class="fs-4 text-center my-0">Resultado da Pesquisa: {{ $quantidadeProdutos }} produtos encontrados</h1>
+            <h1 class="fs-4 text-center my-0">Resultado da Pesquisa: {{ $qtdProdutos }} produtos encontrados</h1>
 
             <div class="d-flex justify-content-end mb-4">
                 <div class="dropdown me-5">
@@ -172,8 +184,8 @@
             </div>
 
             <!--Container dos produtos e mensagem de produto não encontrado-->
-            <div class="container-fluid d-flex justify-content-center" style="min-height: 70%;">
-                @if($quantidadeProdutos > 0)
+            <div class="container-fluid d-flex justify-content-center">
+                @if($qtdProdutos > 0)
                 <!--Cards Container-->
                 <div class="d-flex justify-content-left w-100 row flex-wrap gap-4 ps-4">
                     <!--Card-->
@@ -269,7 +281,7 @@
 
             </div>
 
-            @if($quantidadeProdutos !== 0)
+            @if($qtdProdutos !== 0)
             <!-- Icones de navegação de págs -->
             <div class="container d-flex justify-content-center mt-5 mb-5">
                 <div class="w-25 d-flex justify-content-around align-items-center">

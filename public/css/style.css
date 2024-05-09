@@ -301,6 +301,6 @@ body {
   margin-top: 80px;
 }
 
-#filter-container input:hover {
+#promotion-checkbox-container input , label{
   cursor: pointer;
 }

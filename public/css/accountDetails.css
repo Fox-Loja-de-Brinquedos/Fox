@@ -35,8 +35,7 @@ main{
     margin-top: 10px;
     margin-left: 5px;
     font-size: 10px;
-    position: absolute;
-    
+    position: absolute;    
 }
 
 
@@ -47,12 +46,17 @@ main{
     outline: none;
     font-weight: bold;
     font-size: 12px;
+
+    
 }
 
 
 
 .formProfile input:focus{
     border-bottom: 2px solid black;
+
+    color: #0000009e;
+
 }
 
 .btn-detail{

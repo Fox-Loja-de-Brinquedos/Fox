@@ -41,7 +41,12 @@
 
         <div class="address-button">
         <li><button class="address-action" onclick="showUpdateSection()">Modificar <span> > </span></button></li>
-        <li><button class="address-action">Remover <span> > </span></button></li>
+
+        <li>
+        <form action="{{ route('address.remove') }}" method="POST">
+          @csrf
+          <button type="submit" class="address-action">Remover ></button></form>
+        </li>
         </div>
 
         @else

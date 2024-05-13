@@ -10,7 +10,15 @@ class addressController extends Controller
 {
     public function showAddress(){
 
-    $endereco = Auth::user()->endereco;
+    // $endereco = Auth::user()->endereco;
+
+    // return view('perfil.address', compact('endereco'));
+
+    $userId = auth()->id();
+    
+    $endereco = Endereco::where('USUARIO_ID', $userId)
+                        ->where('ENDERECO_APAGADO', 0)
+                        ->first();
 
     return view('perfil.address', compact('endereco'));
 
@@ -74,6 +82,20 @@ class addressController extends Controller
     
         return redirect()->route('address')->with('success', 'Endereço atualizado com sucesso!');
     }
+
+    public function removeAddress(Request $request)
+{
+    $userId = auth()->id();
+    $endereco = Endereco::where('USUARIO_ID', $userId)
+                        ->where('ENDERECO_APAGADO', 0)
+                        ->first();
+    
+    if ($endereco) {
+        $endereco->update(['ENDERECO_APAGADO' => 1]);
+    }
+
+    return redirect()->route('address')->with('success', 'Endereço removido com sucesso!');
+}
 
 
 }

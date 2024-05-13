@@ -22,6 +22,7 @@ class Endereco extends Model
         'ENDERECO_CIDADE',
         'ENDERECO_ESTADO',
         'USUARIO_ID',
+        'ENDERECO_APAGADO',
     ];
 
     public function usuario(): BelongsTo

@@ -50,7 +50,9 @@ main{
 }
 
 .address-button{
-    margin-left: 20px;
+    display: flex;
+    gap: 2rem;
+    margin-top: 10px;
 }
 
 .address-action{
@@ -130,6 +132,11 @@ main{
     grid-row-start: 3;
 }
 
+.formComplement{
+    grid-column:  3/4;
+    grid-row-start: 3;
+}
+
 .save-button{
     grid-column:  1/4;
     grid-row-start: 4;
@@ -154,4 +161,9 @@ main{
     border: none;
     text-decoration: underline;
     width: 50px;
+}
+
+.marginBotao{
+    margin-right: 52px;
+    margin-top: 10px;
 }

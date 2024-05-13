@@ -66,12 +66,6 @@ class profileController extends Controller
         return redirect()->back()->with('successPassword', 'Senha atualizada com sucesso!');
     }
 
-
-
-    public function showAddress(){
-        return view("perfil.address");
-    }
-
     public function showAccountDetails(){
         return view("perfil.accountDetails");
     }

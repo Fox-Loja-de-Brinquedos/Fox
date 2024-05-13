@@ -6,10 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    //RELACAO COM A TABELA ENDERECO
+    public function endereco(): HasOne
+    {
+        return $this->hasOne(Endereco::class, 'USUARIO_ID', 'USUARIO_ID');
+    }
 
     /**
      * The primary key associated with the table.
@@ -58,4 +65,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+   
 }

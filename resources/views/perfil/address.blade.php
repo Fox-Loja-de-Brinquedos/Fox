@@ -21,52 +21,64 @@
 
 <main>
 <div class="welcome-section">
-<h1>LISTA DE ENDEREÇOS</h1>
+<h1>ENDEREÇO</h1>
 </div>
 
 <section> 
 <div class="address-save">
-<h2 class="address-save-title">ENDEREÇOS CADASTRADOS</h2>
+<h2 class="address-save-title">ENDEREÇO CADASTRADO</h2>
 <div class="progress-bar"></div>
 
 <ul class="adress-list"> 
-  <li class="adreess-item address-send-title">ENDEREÇO DE ENTREGA</li>
-  <li class="adreess-item">casa do matue</li>
-  <li class="adreess-item">quando a onda bater, 666</li>
-  <li class="adreess-item">Calilandia</li>
-  <li class="adreess-item">Bahia</li>
-  <li class="adreess-item">04830-020</li>
-  <li class="adreess-item">Nordeste</li>
+    @isset($endereco)
+        <li class="adreess-item address-send-title">ENDEREÇO DE ENTREGA</li>
+        <li class="adreess-item">{{ $endereco->ENDERECO_NOME }}</li>
+        <li class="adreess-item">{{ $endereco->ENDERECO_LOGRADOURO }}, {{ $endereco->ENDERECO_NUMERO }}</li>
+        <li class="adreess-item">{{ $endereco->ENDERECO_CIDADE }}</li>
+        <li class="adreess-item">{{ $endereco->ENDERECO_ESTADO }}</li>
+        <li class="adreess-item">{{ $endereco->ENDERECO_CEP }}</li>
+        <li class="adreess-item">{{ $endereco->ENDERECO_COMPLEMENTO }}</li>
+
+        <div class="address-button">
+        <li><button class="address-action">Modificar <span> > </span></button></li>
+        <li><button class="address-action">Remover <span> > </span></button></li>
+        </div>
+
+        @else
+        <li class="adreess-item">Endereço não cadastrado</li>
+        <button id="showAddressForm" class="save-button marginBotao"  >ADICIONAR ENDEREÇO</button>
+        @endisset
 </ul>
-
-<div class="address-button">
-<button class="address-action">Modificar <span> > </span></button>
-<button class="address-action">Remover <span> > </span></button>
-</div>
-
 </div>
 </section>
 
 <section>
-  <div class="new-address">
+  <div class="new-address" style="display: none;">
 
   <h2 class="address-add-title">ADICIONAR UM ENDEREÇO</h2>
   <div class="progress-bar"></div>
 
-  <form class="address-form" action="">
-    <input class="address-form-item formName" type="text" placeholder="Nome"> 
-    <input class="address-form-item formLog" type="text" placeholder="Logradouro"> 
-    <input class="address-form-item formNumber" type="text" placeholder="Número"> 
-    <input class="address-form-item formCity" type="text" placeholder="Cidade"> 
-    <input class="address-form-item formEstate" type="text" placeholder="Estado"> 
-    <input class="address-form-item formZipCode" type="text" placeholder="CEP"> 
-    <button class="save-button">ADICIONAR ENDEREÇO</button>
+  <form class="address-form" action="{{ route('address.store') }}" method="POST">
+    @csrf
+    <input class="address-form-item formName" type="text" placeholder="Nome" name="ENDERECO_NOME" required> 
+    <input class="address-form-item formLog" type="text" placeholder="Logradouro" name="ENDERECO_LOGRADOURO" required> 
+    <input class="address-form-item formNumber" type="number" placeholder="Número" name="ENDERECO_NUMERO" required> 
+    <input class="address-form-item formCity" type="text" placeholder="Cidade" name="ENDERECO_CIDADE" required> 
+    <input class="address-form-item formEstate" type="text" placeholder="Estado-UF" name="ENDERECO_ESTADO" maxlength="2" required> 
+    <input class="address-form-item formZipCode" type="text" placeholder="CEP" name="ENDERECO_CEP" maxlength="9" required > 
+    <input class="address-form-item formComplement" type="text" placeholder="Complemento" name="ENDERECO_COMPLEMENTO"> 
+    <button class="save-button">SALVAR ENDEREÇO</button>
     <button class="cancel-button">Cancelar</button>
   </form>
   </div>
 </section>
+
 </main>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
+<script src="/js/address.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

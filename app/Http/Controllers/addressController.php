@@ -30,6 +30,7 @@ class addressController extends Controller
 
         $userId = auth()->id();
 
+        //retirei mascara do cep
         function cleanCEP($cep) {
             $cep = str_replace([' ', '-'], '', $cep);
             return $cep;
@@ -50,6 +51,28 @@ class addressController extends Controller
         $endereco->save();
 
         return redirect()->route('address')->with('success', 'Endereço adicionado com sucesso!');
+    }
+
+    public function update(Request $request, Endereco $endereco)
+    {
+        //retirei mascara do cep
+        $request->merge([
+            'ENDERECO_CEP' => str_replace('-', '', $request->ENDERECO_CEP),
+        ]);
+
+        $request->validate([
+            'ENDERECO_NOME' => 'required|string|max:255',
+            'ENDERECO_LOGRADOURO' => 'required|string|max:255',
+            'ENDERECO_NUMERO' => 'required|string|max:10',
+            'ENDERECO_CIDADE' => 'required|string|max:255',
+            'ENDERECO_ESTADO' => 'required|string|max:255',
+            'ENDERECO_CEP' => 'required|string|max:8', 
+            'ENDERECO_COMPLEMENTO' => 'nullable|string|max:255',
+        ]);
+        
+        $endereco->update($request->all());
+    
+        return redirect()->route('address')->with('success', 'Endereço atualizado com sucesso!');
     }
 
 

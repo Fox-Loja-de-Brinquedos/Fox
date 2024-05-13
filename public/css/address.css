@@ -80,6 +80,19 @@ main{
     background-color: #F9A80C;   
 }
 
+.updateAddress{
+    margin: 40px 0px 40px 385px;
+    padding-right: 650px;
+}
+
+.updateAddress .progress-bar{
+    position: absolute;
+
+    width: 800px;
+    height: 5px; 
+    background-color: #F9A80C;   
+}
+
 .address-form{
     margin-top: 40px;
 

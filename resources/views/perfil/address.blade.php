@@ -36,11 +36,11 @@
         <li class="adreess-item">{{ $endereco->ENDERECO_LOGRADOURO }}, {{ $endereco->ENDERECO_NUMERO }}</li>
         <li class="adreess-item">{{ $endereco->ENDERECO_CIDADE }}</li>
         <li class="adreess-item">{{ $endereco->ENDERECO_ESTADO }}</li>
-        <li class="adreess-item">{{ $endereco->ENDERECO_CEP }}</li>
+        <li class="adreess-item">{{ substr_replace($endereco->ENDERECO_CEP, '-', 5, 0) }}</li>
         <li class="adreess-item">{{ $endereco->ENDERECO_COMPLEMENTO }}</li>
 
         <div class="address-button">
-        <li><button class="address-action">Modificar <span> > </span></button></li>
+        <li><button class="address-action" onclick="showUpdateSection()">Modificar <span> > </span></button></li>
         <li><button class="address-action">Remover <span> > </span></button></li>
         </div>
 
@@ -73,6 +73,44 @@
   </div>
 </section>
 
+<section id="updateSection" style="display: none;">
+  <div class="updateAddress">
+
+  <h2 class="address-add-title">ATUALIZAR ENDEREÇO</h2>
+  <div class="progress-bar"></div>
+
+  <form class="address-form" action="{{ isset($endereco) ? route('address.update', $endereco->ENDERECO_ID) : '#' }}" method="POST">
+    @csrf
+    @isset($endereco)
+        @method('PUT')
+    @endisset    
+    <input class="address-form-item formName" type="text" placeholder="Nome" name="ENDERECO_NOME"
+    required value="{{ isset($endereco) ? $endereco->ENDERECO_NOME : '' }}">
+
+<input class="address-form-item formLog" type="text" placeholder="Logradouro" name="ENDERECO_LOGRADOURO"
+    required value="{{ isset($endereco) ? $endereco->ENDERECO_LOGRADOURO : '' }}">
+
+<input class="address-form-item formNumber" type="number" placeholder="Número" name="ENDERECO_NUMERO"
+    required value="{{ isset($endereco) ? $endereco->ENDERECO_NUMERO : '' }}">
+
+<input class="address-form-item formCity" type="text" placeholder="Cidade" name="ENDERECO_CIDADE"
+    required value="{{ isset($endereco) ? $endereco->ENDERECO_CIDADE : '' }}">
+
+<input class="address-form-item formEstate" type="text" placeholder="Estado-UF" name="ENDERECO_ESTADO" maxlength="2"
+    required value="{{ isset($endereco) ? $endereco->ENDERECO_ESTADO : '' }}">  
+
+    <input class="address-form-item formZipCode" id="cepUpdate" type="text" placeholder="CEP" name="ENDERECO_CEP" maxlength="9" 
+    required value="{{ isset($endereco) ? $endereco->ENDERECO_CEP : '' }}" >
+
+    <input class="address-form-item formComplement" type="text" placeholder="Complemento" name="ENDERECO_COMPLEMENTO" 
+    value="{{ isset($endereco) ? $endereco->ENDERECO_COMPLEMENTO : '' }}"> 
+
+    <button class="save-button">SALVAR ALTERAÇÕES</button>
+    <button type="button" class="cancel-button" id="cancelUpdate">Cancelar</button>
+  </form>
+  </div>
+
+</section>
 </main>
 
 

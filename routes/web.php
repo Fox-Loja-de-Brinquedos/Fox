@@ -25,6 +25,7 @@ Route::post('/updateProfilePassword', [profileController::class, 'updateProfileP
 //Rotas de gerenciar endereços
 Route::get('/address', [addressController::class, 'showAddress'])->name('address');
 Route::post('/address/store', [AddressController::class, 'store'])->name('address.store');
+Route::put('/address/{endereco}', [AddressController::class, 'update'])->name('address.update');
 
 
 //Rotas de gerenciar pedidos

@@ -113,19 +113,25 @@
                     <p class="fs-5 ms-3 fw-semibold">Categoria</p>
                     <div class="ms-2 overflow-y-scroll" id="category-list">
                         <div class="list-group">
+                            <!-- Define a última categoria selecionada fora do Loop para não dar conflito com o dropdown filter -->
+                            @php
+                            $selectedCategoryId = request('categoria_id');
+                            $dropdownFilter = request('dropdownFilter');
+                            @endphp
+                            <!--Limpar filtro de categoria-->
+                            <a href="{{ route('produto.search', ['categoria_id' => null, 'dropdownFilter' => $dropdownFilter, 'search' => $search]) }}" class="list-group-item list-group-item-action {{ is_null($selectedCategoryId) ? 'active' : '' }}">
+                                - Sem Filtro -
+                            </a>
                             @foreach ($categorias as $categoria)
-                            <?php
-                            //Verifica o ID passado na URL e muda a classe do link correspondente
-                            $activeClass = '';
-                            if (isset($_GET['categoria_id']) && $_GET['categoria_id'] == $categoria->CATEGORIA_ID) {
-                                $activeClass = 'active';
-                            }
+                            @php
+                            // Verifica o ID passado na URL e muda a classe do link correspondente
+                            $activeClass = ($selectedCategoryId == $categoria->CATEGORIA_ID) ? 'active' : '';
                             // Adiciona o parâmetro 'promotion_checkbox' na URL se a caixa de seleção estiver marcada
-                            $queryParams = ['categoria_id' => $categoria->CATEGORIA_ID, 'search' => $search];
-                            if (isset($_GET['promotion_checkbox']) && $_GET['promotion_checkbox'] == 'true') {
-                                $queryParams['promotion_checkbox'] = 'true';
+                            $queryParams = ['categoria_id' => $categoria->CATEGORIA_ID, 'dropdownFilter' => $dropdownFilter, 'search' => $search];
+                            if (request()->has('promotion_checkbox')) {
+                            $queryParams['promotion_checkbox'] = 'true';
                             }
-                            ?>
+                            @endphp
                             <a href="{{ route('produto.search', $queryParams) }}" class="list-group-item list-group-item-action {{ $activeClass }}">
                                 {{ $categoria->CATEGORIA_NOME }}
                             </a>
@@ -133,6 +139,7 @@
                         </div>
                     </div>
                 </div>
+
 
 
                 <!--Filtrar por Promoção-->
@@ -152,7 +159,26 @@
                 <!--Filtrar por Preço-->
                 <p class="fs-5 ms-3 mt-4 fw-semibold">Faixa de Preço</p>
                 <div class="container">
-                    <input type="range" class="form-range" id="valueRange">
+
+                    <div class="price-input">
+                        <div class="field">
+                            <span>Min</span>
+                            <input type="number" value="300" class="min-input m-0 ms-2" />
+                        </div>
+                        <div class="field">
+                            <span>Max</span>
+                            <input type="number" value="3500" class="max-input m-0 ms-2" />
+                        </div>
+                    </div>
+                    
+                    <div class="slider">
+                        <div class="progress"></div>
+                    </div>
+                    <div class="range-input">
+                        <input type="range" min="0" max="10000" value="300" class="min-range" />
+                        <input type="range" min="0" max="10000" value="3500" class="max-range" />
+                    </div>
+
                 </div>
 
                 <!--Limpar Filtros-->
@@ -175,13 +201,25 @@
                         Ordenar
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Mais vendidos</a></li>
-                        <li><a class="dropdown-item" href="#">Descontos</a></li>
-                        <li><a class="dropdown-item" href="#">Maior preço</a></li>
-                        <li><a class="dropdown-item" href="#">Menor preço</a></li>
+                        <li>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === null ? 'active' : '' }}" href="{{ route('produto.search', ['categoria_id' => $selectedCategoryId, 'search' => $search]) }}">- Sem Filtro -</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'maisVendidos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'maisVendidos', 'categoria_id' => $selectedCategoryId, 'search' => $search]) }}">Mais vendidos</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'descontos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'descontos', 'categoria_id' => $selectedCategoryId, 'search' => $search]) }}">Descontos</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'maiorPreco' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'maiorPreco', 'categoria_id' => $selectedCategoryId, 'search' => $search]) }}">Maior preço</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'menorPreco' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'menorPreco', 'categoria_id' => $selectedCategoryId, 'search' => $search]) }}">Menor preço</a>
+                        </li>
                     </ul>
                 </div>
             </div>
+
 
             <!--Container dos produtos e mensagem de produto não encontrado-->
             <div class="container-fluid d-flex justify-content-center">

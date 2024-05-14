@@ -1,6 +1,6 @@
 /*Imports*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 body {
   font-family: "Montserrat", sans-serif;
@@ -131,9 +131,9 @@ a {
   min-height: 396px;
 }
 
-.card-body a{
- text-decoration: none;
- color: #000;
+.card-body a {
+  text-decoration: none;
+  color: #000;
 }
 
 
@@ -169,11 +169,11 @@ a {
   right: -8%;
 }
 
-#discount-container > img {
+#discount-container>img {
   width: 64px;
 }
 
-#discount-icon-text{
+#discount-icon-text {
   position: absolute;
   top: 25%;
   right: 26%;
@@ -301,6 +301,82 @@ body {
   margin-top: 80px;
 }
 
-#promotion-checkbox-container input , label{
+#promotion-checkbox-container input,
+label {
   cursor: pointer;
+}
+
+.dropdown-menu {
+  cursor: pointer;
+}
+
+/*Price slider*/
+
+
+.price-input {
+  display: flex;
+  width: 100%;
+  margin: 30px 0 35px;
+  padding: 8px;
+}
+
+.price-input .field {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.price-input input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: 1px solid #999;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.price-input input::-webkit-outer-spin-button,
+.price-input input::-webkit-inner-spin-button {
+  display: none;
+}
+
+.slider {
+  height: 5px;
+  position: relative;
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
+.progress {
+  position: absolute;
+  height: 100%;
+  left: 5%;
+  right: 65%;
+  background-color: #4070f4;
+  border-radius: 5px;
+}
+
+.range-input {
+  position: relative;
+}
+
+.range-input input {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: -5px;
+  pointer-events: none;
+  background: none;
+  appearance: none;
+  accent-color: #4070f4;
+}
+
+.range-input input::-webkit-slider-thumb {
+  height: 15px;
+  width: 15px;
+  background-color: #4070f4;
+  border-radius: 50%;
+  pointer-events: auto;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }

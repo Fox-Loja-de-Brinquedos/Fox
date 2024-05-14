@@ -22,11 +22,15 @@ class produtoController extends Controller
     {
         // Recebe o que foi digitado pelo usuário
         $search = $request->input('search');
+
         //Recebe o ID da categoria
         $categoria_id = $request->get('categoria_id');
 
         // Verifica se a checkbox de promoção foi checkada
         $isPromotionChecked = $request->has('promotion_checkbox');
+
+        //Recebe um dos filtros do dropdown
+        $dropdownFilter = $request->get('dropdownFilter');
 
         // Verifica se foi passado algum valor na pesquisa
         if ($search) {
@@ -38,14 +42,30 @@ class produtoController extends Controller
                         ->orWhere('PRODUTO_DESC', 'like', '%' . $search . '%');
                 });
 
+            // Filtra por categoria se definido
             if ($categoria_id) {
                 $query->where('CATEGORIA_ID', $categoria_id);
             }
 
-            if ($isPromotionChecked === true) {
+            // Filtra por produtos em promocao se definido
+            if ($isPromotionChecked  || $dropdownFilter == 'descontos') {
                 $query->where('PRODUTO_DESCONTO', '>', 0);
-            } 
-            
+            }
+
+            if ($dropdownFilter) {
+                switch ($dropdownFilter) {
+                    case 'maisVendidos':
+                        break;
+                    case 'maiorPreco':
+                        $query->orderByRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) DESC');
+                        break;
+                    case 'menorPreco':
+                        $query->orderByRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) ASC');
+                        break;
+                }
+            }
+
+
             //Exibe apenas 12 produtos por página    
             $produtos = $query->paginate(12)->withQueryString();
 

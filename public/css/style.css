@@ -131,6 +131,12 @@ a {
   min-height: 396px;
 }
 
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
 .card-body a {
   text-decoration: none;
   color: #000;
@@ -143,19 +149,21 @@ a {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-height: 3.6em
+  max-height: 3.6em;
 }
 
 
 .add-to-cart-box {
-  border: 3px solid #F9A80C;
-  color: #F9A80C;
+  background-color: #F9A80C;
+  color: white;
+  border: 2px solid #F9A80C;
 }
 
 .add-to-cart-box:hover {
-  background-color: #F9A80C;
-  color: #ffffff;
-  transition: 0.2s;
+  background-color: #ffffff;
+  border: 2px solid #F9A80C;
+  color: #F9A80C;
+  transition: 0.1s;
 }
 
 .card-img-resize {
@@ -311,8 +319,6 @@ label {
 }
 
 /*Price slider*/
-
-
 .price-input {
   display: flex;
   width: 100%;
@@ -353,7 +359,7 @@ label {
   height: 100%;
   left: 5%;
   right: 65%;
-  background-color: #4070f4;
+  background-color: #43ADDA;
   border-radius: 5px;
 }
 
@@ -369,13 +375,13 @@ label {
   pointer-events: none;
   background: none;
   appearance: none;
-  accent-color: #4070f4;
+  accent-color: #43ADDA;
 }
 
 .range-input input::-webkit-slider-thumb {
   height: 15px;
   width: 15px;
-  background-color: #4070f4;
+  background-color: #43ADDA;
   border-radius: 50%;
   pointer-events: auto;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);

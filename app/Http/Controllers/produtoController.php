@@ -20,17 +20,21 @@ class produtoController extends Controller
 
     public function search(Request $request)
     {
-        // Recebe o que foi digitado pelo usuário
+        //Recebe o que foi digitado pelo usuário
         $search = $request->input('search');
 
         //Recebe o ID da categoria
         $categoria_id = $request->get('categoria_id');
 
-        // Verifica se a checkbox de promoção foi checkada
+        //Verifica se a checkbox de promoção foi checkada
         $isPromotionChecked = $request->has('promotion_checkbox');
 
         //Recebe um dos filtros do dropdown
         $dropdownFilter = $request->get('dropdownFilter');
+
+        //Recebe o input de maior e menor valor
+        $minValueInput = $request->get('minValue');
+        $maxValueInput = $request->get('maxValue');
 
         // Verifica se foi passado algum valor na pesquisa
         if ($search) {
@@ -65,12 +69,20 @@ class produtoController extends Controller
                 }
             }
 
+            if($minValueInput || $maxValueInput){
+                $query->where('PRODUTO_PRECO' , '>=' , $minValueInput)
+                ->where('PRODUTO_PRECO' , '<=' , $maxValueInput);
+            }
+
 
             //Exibe apenas 12 produtos por página    
             $produtos = $query->paginate(12)->withQueryString();
 
-            // Busca todas as categorias ativas
+            //Busca todas as categorias ativas
             $categorias = Categoria::where('CATEGORIA_ATIVO', 1)->get();
+
+            //Busca o maior valor dos produtos
+            $maxValue = Produto::max('PRODUTO_PRECO');
 
             // Conta quantos produtos foram achados na busca
             $qtdProdutos = $produtos->total();
@@ -79,7 +91,8 @@ class produtoController extends Controller
                 'search' => $search,
                 'categorias' => $categorias,
                 'qtdProdutos' => $qtdProdutos,
-                'produtos' => $produtos
+                'produtos' => $produtos,
+                'maxValue' => $maxValue
             ]);
         } else {
             // Exibe uma mensagem de erro

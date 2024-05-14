@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
 //Envia o formulário de promoção automaticamente ao clicar na checkbox
 document.addEventListener('DOMContentLoaded', function () {
     // Encontra a caixa de seleção, o formulário e o estado da caixa de seleção
@@ -61,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
             form.submit();
         }
     }
+
 
     // Adiciona um ouvinte de evento de clique na caixa de seleção
     checkbox.addEventListener('change', function () {
@@ -83,47 +85,94 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
-
+// Price Slider
 const priceInputs = document.querySelectorAll(".price-input input");
 const rangeInputs = document.querySelectorAll(".range-input input");
 const range = document.querySelector(".slider .progress");
 
 let priceGap = 1000;
 
-priceInputs.forEach((input) => {
-  input.addEventListener("input", (e) => {
-    let minPrice = parseInt(priceInputs[0].value);
-    let maxPrice = parseInt(priceInputs[1].value);
-
-    if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInputs[1].max) {
-      if (e.target.className === "min-input") {
-        rangeInputs[0].value = minPrice;
-        range.style.left = (minPrice / rangeInputs[0].max) * 100 + "%";
-      } else {
-        rangeInputs[1].value = maxPrice;
-        range.style.right = 100 - (maxPrice / rangeInputs[1].max) * 100 + "%";
-      }
-    }
-  });
-});
-
-rangeInputs.forEach((input) => {
-  input.addEventListener("input", (e) => {
+// Função para atualizar os inputs de preço quando o slider é movido
+function updatePriceInputs() {
     let minVal = parseInt(rangeInputs[0].value);
     let maxVal = parseInt(rangeInputs[1].value);
 
-    if (maxVal - minVal < priceGap) {
-      if (e.target.className === "min-range") {
-        rangeInputs[0].value = maxVal - priceGap;
-      } else {
-        rangeInputs[1].value = minVal + priceGap;
-      }
-    } else {
-      priceInputs[0].value = minVal;
-      priceInputs[1].value = maxVal;
-      range.style.left = (minVal / rangeInputs[0].max) * 100 + "%";
-      range.style.right = 100 - (maxVal / rangeInputs[1].max) * 100 + "%";
+    priceInputs[0].value = minVal;
+    priceInputs[1].value = maxVal;
+}
+
+// Função para garantir que o valor máximo não seja menor que o valor mínimo
+function adjustMaxPrice() {
+    let minPrice = parseInt(priceInputs[0].value);
+    let maxPrice = parseInt(priceInputs[1].value);
+
+    if (maxPrice < minPrice) {
+        maxPrice = minPrice + 1;
+        priceInputs[1].value = maxPrice;
     }
-  });
+}
+
+// Função para atualizar o slider quando os inputs de preço são alterados
+function updateSlider() {
+    let minPrice = parseInt(priceInputs[0].value);
+    let maxPrice = parseInt(priceInputs[1].value);
+
+    adjustMaxPrice(); // Chamando a função para garantir que o valor máximo seja válido
+
+    rangeInputs[0].value = minPrice;
+    rangeInputs[1].value = maxPrice;
+
+    range.style.left = (minPrice / rangeInputs[0].max) * 100 + "%";
+    range.style.width = ((maxPrice - minPrice) / rangeInputs[1].max) * 100 + "%"; // Corrigindo a definição da largura da barra de progresso
+}
+
+// Função para submeter o formulário após 1 segundo
+function submitFormAfterDelay() {
+    setTimeout(() => {
+        document.getElementById("price-filter-form").submit();
+    }, 700);
+}
+
+// Função para salvar os valores dos inputs localmente
+function saveInputsLocally() {
+    localStorage.setItem("minPrice", priceInputs[0].value);
+    localStorage.setItem("maxPrice", priceInputs[1].value);
+}
+
+// Função para carregar os valores dos inputs armazenados localmente
+function loadInputsFromLocalStorage() {
+    let minPrice = localStorage.getItem("minPrice");
+    let maxPrice = localStorage.getItem("maxPrice");
+
+    if (minPrice !== null && maxPrice !== null) {
+        priceInputs[0].value = minPrice;
+        priceInputs[1].value = maxPrice;
+        updateSlider();
+    }
+}
+
+// Event listeners para os inputs de preço
+priceInputs.forEach((input) => {
+    input.addEventListener("input", () => {
+        updateSlider();
+        saveInputsLocally(); // Salvando os valores localmente ao alterar
+    });
 });
+
+// Event listeners para os inputs de slider
+rangeInputs.forEach((input) => {
+    input.addEventListener("input", () => {
+        updatePriceInputs();
+        adjustMaxPrice(); // Chamando a função para garantir que o valor máximo seja válido
+        updateSlider();
+        saveInputsLocally(); // Salvando os valores localmente ao alterar
+    });
+
+    input.addEventListener("mouseup", () => {
+        submitFormAfterDelay();
+    });
+});
+
+// Chamada inicial para configurar o slider
+loadInputsFromLocalStorage();
+updateSlider();

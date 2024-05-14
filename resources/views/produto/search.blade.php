@@ -102,7 +102,7 @@
 
 
     <!--Container Filtros e Listagem de Produtos-->
-    <div class="container-fluid d-flex justify-content-around mt-5">
+    <div class="container-fluid d-flex justify-content-around mt-5 user-select-none">
 
         <!--Container Filtros-->
         <aside id="filter-container">
@@ -113,7 +113,7 @@
                     <p class="fs-5 ms-3 fw-semibold">Categoria</p>
                     <div class="ms-2 overflow-y-scroll" id="category-list">
                         <div class="list-group">
-                            <!-- Define a última categoria selecionada fora do Loop para não dar conflito com o dropdown filter -->
+                            <!-- Define a última categoria selecionada -->
                             @php
                             $selectedCategoryId = request('categoria_id');
                             $dropdownFilter = request('dropdownFilter');
@@ -147,7 +147,7 @@
                 <div class="ms-2">
                     <ul class="list-group" id="promotion-checkbox-container">
                         <li class="list-group-item d-flex align-items-center">
-                            <form id="promotion-form" action="{{ route('produto.search' , ['categoria_id' => $categoria->CATEGORIA_ID, 'search' => $search]) }}" method="GET">
+                            <form id="promotion-form" action="{{ route('produto.search') }}" method="GET">
                                 <input id="promotion-checkbox" name="promotion_checkbox" class="form-check-input my-0" type="checkbox">
                                 <label for="promotion-checkbox" class="ms-2 my-0 user-select-none">Produtos em Promoção</label>
                             </form>
@@ -160,24 +160,27 @@
                 <p class="fs-5 ms-3 mt-4 fw-semibold">Faixa de Preço</p>
                 <div class="container">
 
-                    <div class="price-input">
-                        <div class="field">
-                            <span>Min</span>
-                            <input type="number" value="300" class="min-input m-0 ms-2" />
+                    <form id="price-filter-form" action="{{ route('produto.search') }}" method="GET">
+                        <div class="price-input">
+                            <div class="field">
+                                <label for="min-price">Min</label>
+                                <input type="number" id="min-price" name="minValue" value="0" class="min-input m-0 ms-2" />
+                            </div>
+                            <div class="field">
+                                <label for="max-price">Max</label>
+                                <input type="number" id="max-price" name="maxValue" value="{{ $maxValue }}" class="max-input m-0 ms-2" />
+                            </div>
                         </div>
-                        <div class="field">
-                            <span>Max</span>
-                            <input type="number" value="3500" class="max-input m-0 ms-2" />
+
+                        <div class="slider">
+                            <div class="progress"></div>
                         </div>
-                    </div>
-                    
-                    <div class="slider">
-                        <div class="progress"></div>
-                    </div>
-                    <div class="range-input">
-                        <input type="range" min="0" max="10000" value="300" class="min-range" />
-                        <input type="range" min="0" max="10000" value="3500" class="max-range" />
-                    </div>
+
+                        <div class="range-input">
+                            <input type="range" min="0" max="999" value="0" class="min-range" />
+                            <input type="range" min="1" max="{{ $maxValue + 1 }}" value="{{ $maxValue }}" class="max-range"/>
+                        </div>
+                    </form>
 
                 </div>
 
@@ -280,6 +283,7 @@
                         <!--Exibe desconto caso haja-->
                         @if($produto->PRODUTO_DESCONTO > 0)
                         @php
+                        //Regra de 3 para tirar porcentagem
                         $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100
                         @endphp
 

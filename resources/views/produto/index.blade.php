@@ -47,8 +47,8 @@
           </form>
         </div>
         <div class="col-2">
-          <button class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt=""> Entrar /
-            Cadastrar</button>
+        <a href="/profile"><button class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt=""> Entrar /
+            Cadastrar</button></a>
         </div>
         <div class="col-2">
           <button class="btn text-uppercase fw-bold btn-cart"><img src="{{ asset('images/icon-cart.png') }}" alt=""> Meu

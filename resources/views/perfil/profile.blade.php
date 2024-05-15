@@ -31,7 +31,7 @@
     <div class="orders-section">
     <h2 class="order-title">OS SEUS PRODUTOS</h2>
     <span class="order-icon"><img src="images/sacola.svg" alt=""> Pedidos</span>
-    <p class="orders">Ainda não foram realizadas encomendas.</p>
+    <a href="{{ route('orderList') }}" class="orders">Ainda não foram realizadas encomendas.</a>
     </div>
 
     <div class="account-section">

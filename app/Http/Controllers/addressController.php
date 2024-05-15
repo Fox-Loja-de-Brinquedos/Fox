@@ -10,10 +10,6 @@ class addressController extends Controller
 {
     public function showAddress(){
 
-    // $endereco = Auth::user()->endereco;
-
-    // return view('perfil.address', compact('endereco'));
-
     $userId = auth()->id();
     
     $endereco = Endereco::where('USUARIO_ID', $userId)

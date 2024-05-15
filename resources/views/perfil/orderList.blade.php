@@ -26,17 +26,38 @@
     </div>
 
     <div class="orders-section">
+    @if ($pedidos->isEmpty())
+        <p>Você ainda não realizou nenhum pedido ::>_<::</p>
+    @else
+    @foreach ($pedidos as $pedido)
         <div class="order">
-            <p class="status-order">EM ANDAMENTO</p>
-            <p class="item-order">#00001</p>
-            <img class="img-order" src="images/toy.png" alt="miniImg">
-            <p class="date-order">Data do pedido: 01/02/2024</p>
-            <p class="order-unit">Unidade: 1</p>
-            <p class="order-price">R$ 1010,15</p>
+            <p class="status-order">{{ $pedido->status->STATUS_DESC }}</p>
+            <p class="item-order">#{{ $pedido->PEDIDO_ID }}</p>
+
+        <!-- Definido para exibir apenas a primeira imagem de produto encontrado no pedido  -->
+            @if ($pedido->itens->isNotEmpty())
+                @php $primeiroItem = $pedido->itens->first(); @endphp
+                @if ($primeiroItem->produto && $primeiroItem->produto->imagens->isNotEmpty())
+                    <img class="img-order" src="{{ $primeiroItem->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto">
+                @endif
+            @endif
+
+            <!-- tipo de dado data do banco não compativel com função para formatar a data, entao importei o Carbon -->
+            <p class="date-order">{{ \Carbon\Carbon::parse($pedido->PEDIDO_DATA)->format('d/m/Y') }}</p>
+
+        <!-- iterando para mostrar a quantidade e preço de cada pedido separadamente -->
+            @foreach ($pedido->itens as $item)
+                    <p class="order-unit">Unidade: {{ $item->ITEM_QTD }}</p>
+                    <p class="order-price">R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}</p>
+            @endforeach
+
             <div class="progress-bar open"> </div>
         </div>
+    @endforeach
+    @endif
+</div>
 
-        <div class="order">
+        <!-- <div class="order">
             <p class="status-order">FINALIZADO</p>
             <p class="item-order">#00666</p>
             <img class="img-order" src="images/toy.png" alt="miniImg">
@@ -44,7 +65,7 @@
             <p class="order-unit">Unidade: 2</p>
             <p class="order-price">R$ 110,15</p>
             <div class="progress-bar close"> </div>
-        </div>
+        </div> -->
 
         </div>
     </main>

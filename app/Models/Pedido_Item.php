@@ -14,11 +14,11 @@ class Pedido_Item extends Model
 
     public function produto()
     {
-        return $this->belongsTo('App\Produto', 'produto_id');
+        return $this->belongsTo('App\Models\Produto', 'PRODUTO_ID');
     }
 
     public function pedido()
     {
-        return $this->belongsTo('App\Pedido', 'pedido_id');
+        return $this->belongsTo('App\Models\Pedido', 'PEDIDO_ID');
     }
 }

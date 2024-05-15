@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Produto;
 use App\Models\Categoria;
-
 
 class produtoController extends Controller
 {
@@ -59,6 +59,10 @@ class produtoController extends Controller
             if ($dropdownFilter) {
                 switch ($dropdownFilter) {
                     case 'maisVendidos':
+                        $produtos = Produto::select('PRODUTO.*', DB::raw('COUNT(PEDIDO_ITEM.PRODUTO_ID) AS total_vendas'))
+                            ->leftJoin('PEDIDO_ITEM', 'PRODUTO.PRODUTO_ID', '=', 'PEDIDO_ITEM.PRODUTO_ID')
+                            ->groupBy('PRODUTO.PRODUTO_ID')
+                            ->orderByDesc('total_vendas');
                         break;
                     case 'maiorPreco':
                         $query->orderByRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) DESC');

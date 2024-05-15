@@ -21,7 +21,7 @@ const entrarButton = document.getElementById('entrarButton');
 
     });
 
-
+    //MASCARA PARA CPF
     $(document).ready(function(){
         $('#USUARIO_CPF').mask('000.000.000-00');
     });

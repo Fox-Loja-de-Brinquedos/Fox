@@ -157,13 +157,14 @@ a {
   background-color: #F9A80C;
   color: white;
   border: 2px solid #F9A80C;
+  transition: 0.2s;
 }
 
 .add-to-cart-box:hover {
   background-color: #ffffff;
   border: 2px solid #F9A80C;
   color: #F9A80C;
-  transition: 0.1s;
+  transition: 0.2s;
 }
 
 .card-img-resize {
@@ -384,5 +385,6 @@ label {
   background-color: #43ADDA;
   border-radius: 50%;
   pointer-events: auto;
+  cursor: pointer;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }

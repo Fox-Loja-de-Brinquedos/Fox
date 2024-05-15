@@ -119,7 +119,7 @@
                             $dropdownFilter = request('dropdownFilter');
                             @endphp
                             <!--Limpar filtro de categoria-->
-                            <a href="{{ route('produto.search', ['categoria_id' => null, 'dropdownFilter' => $dropdownFilter, 'search' => $search]) }}" class="list-group-item list-group-item-action {{ is_null($selectedCategoryId) ? 'active' : '' }}">
+                            <a href="{{ route('produto.search', ['categoria_id' => null, 'dropdownFilter' => $dropdownFilter, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}" class="list-group-item list-group-item-action {{ is_null($selectedCategoryId) ? 'active' : '' }}">
                                 - Sem Filtro -
                             </a>
                             @foreach ($categorias as $categoria)
@@ -127,7 +127,7 @@
                             // Verifica o ID passado na URL e muda a classe do link correspondente
                             $activeClass = ($selectedCategoryId == $categoria->CATEGORIA_ID) ? 'active' : '';
                             // Adiciona o parâmetro 'promotion_checkbox' na URL se a caixa de seleção estiver marcada
-                            $queryParams = ['categoria_id' => $categoria->CATEGORIA_ID, 'dropdownFilter' => $dropdownFilter, 'search' => $search];
+                            $queryParams = ['categoria_id' => $categoria->CATEGORIA_ID, 'dropdownFilter' => $dropdownFilter, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')];
                             if (request()->has('promotion_checkbox')) {
                             $queryParams['promotion_checkbox'] = 'true';
                             }
@@ -147,7 +147,7 @@
                 <div class="ms-2">
                     <ul class="list-group" id="promotion-checkbox-container">
                         <li class="list-group-item d-flex align-items-center">
-                        <form id="promotion-form" action="{{ route('produto.search' , ['categoria_id' => $categoria->CATEGORIA_ID, 'search' => $search]) }}" method="GET">
+                            <form id="promotion-form" action="{{ route('produto.search' , ['categoria_id' => $categoria->CATEGORIA_ID, 'search' => $search, 'dropdownFilter' => $dropdownFilter]) }}" method="GET">
                                 <input id="promotion-checkbox" name="promotion_checkbox" class="form-check-input my-0" type="checkbox">
                                 <label for="promotion-checkbox" class="ms-2 my-0 user-select-none">Produtos em Promoção</label>
                             </form>
@@ -178,7 +178,7 @@
 
                         <div class="range-input">
                             <input type="range" min="0" max="999" value="0" class="min-range" />
-                            <input type="range" min="1" max="{{ $maxValue + 1 }}" value="{{ $maxValue }}" class="max-range"/>
+                            <input type="range" min="1" max="{{ $maxValue + 1 }}" value="{{ $maxValue }}" class="max-range" />
                         </div>
                     </form>
 
@@ -187,7 +187,7 @@
                 <!--Limpar Filtros-->
                 <p class="fs-5 ms-3 mt-4 fw-semibold">Limpar Filtros</p>
                 <div class="d-grid gap-2">
-                    <button class="btn btn-primary" type="button">Limpar</button>
+                    <a id="limpar-filtros-btn" class="btn btn-primary" href="{{ route('produto.search', ['search' => $search]) }}">Limpar</a>
                 </div>
 
             </div>
@@ -205,21 +205,22 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item {{ request()->input('dropdownFilter') === null ? 'active' : '' }}" href="{{ route('produto.search', ['categoria_id' => $selectedCategoryId, 'search' => $search]) }}">- Sem Filtro -</a>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === null ? 'active' : '' }}" href="{{ route('produto.search', ['categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}">- Sem Filtro -</a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'maisVendidos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'maisVendidos', 'categoria_id' => $selectedCategoryId, 'search' => $search]) }}">Mais vendidos</a>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'maisVendidos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'maisVendidos', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}">Mais vendidos</a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'descontos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'descontos', 'categoria_id' => $selectedCategoryId, 'search' => $search]) }}">Descontos</a>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'descontos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'descontos', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}">Descontos</a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'maiorPreco' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'maiorPreco', 'categoria_id' => $selectedCategoryId, 'search' => $search]) }}">Maior preço</a>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'maiorPreco' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'maiorPreco', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}">Maior preço</a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'menorPreco' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'menorPreco', 'categoria_id' => $selectedCategoryId, 'search' => $search]) }}">Menor preço</a>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'menorPreco' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'menorPreco', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}">Menor preço</a>
                         </li>
                     </ul>
+
                 </div>
             </div>
 

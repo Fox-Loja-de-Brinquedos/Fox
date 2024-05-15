@@ -69,9 +69,9 @@ class produtoController extends Controller
                 }
             }
 
-            if($minValueInput || $maxValueInput){
-                $query->where('PRODUTO_PRECO' , '>=' , $minValueInput)
-                ->where('PRODUTO_PRECO' , '<=' , $maxValueInput);
+            if ($minValueInput || $maxValueInput) {
+                $query->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) >= ?', [$minValueInput])
+                    ->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) <= ?', [$maxValueInput]);
             }
 
 

@@ -164,11 +164,11 @@
                         <div class="price-input">
                             <div class="field">
                                 <label for="min-price">Min</label>
-                                <input type="number" id="min-price" name="minValue" value="0" class="min-input m-0 ms-2" />
+                                <input type="number" id="min-price" name="minValue" value="0" disabled class="min-input m-0 ms-2" />
                             </div>
                             <div class="field">
                                 <label for="max-price">Max</label>
-                                <input type="number" id="max-price" name="maxValue" value="{{ $maxValue }}" class="max-input m-0 ms-2" />
+                                <input type="number" id="max-price" name="maxValue" value="{{ round($maxValue) }}" disabled class="max-input m-0 ms-2" />
                             </div>
                         </div>
 
@@ -178,7 +178,7 @@
 
                         <div class="range-input">
                             <input type="range" min="0" max="999" value="0" class="min-range" />
-                            <input type="range" min="1" max="{{ $maxValue + 1 }}" value="{{ $maxValue }}" class="max-range" />
+                            <input type="range" min="1" max="{{ round($maxValue) }}" value="{{ round($maxValue) }}" class="max-range" />
                         </div>
                     </form>
 

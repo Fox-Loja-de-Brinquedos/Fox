@@ -1,0 +1,388 @@
+/*Imports*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.header-top {
+  background-color: #43ADDA;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #fff;
+}
+
+.searchbar {
+  border: 1px solid orange;
+  border-radius: 8px 0 0 8px;
+}
+
+.btn-search {
+  background-color: orange;
+  color: #000;
+  border: 1px solid orange;
+  margin-left: -5px;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+  top: -1px;
+}
+
+.nav-link-uppercase {
+  text-transform: uppercase;
+}
+
+.custom-nav-item {
+  font-size: 12px;
+  color: #000;
+  font-weight: 800;
+}
+
+.custom-nav-item .lancamentos {
+  background-color: transparent;
+  border: 1px solid #43ADDA;
+  border-radius: 8px;
+  color: #43ADDA;
+  font-weight: 600;
+}
+
+.custom-nav-item .ofertas {
+  background-color: orange;
+  border: 1px solid orange;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.custom-background {
+  background-color: #43ADDA;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+}
+
+.feature-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+  border-radius: 50%;
+  color: white;
+  font-size: 24px;
+  margin-right: 20px;
+}
+
+.feature-title {
+  color: #43ADDA;
+  font-size: 16px;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.feature-text {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.categories-menu .nav-link {
+  margin: 0 5px;
+}
+
+.btn-login,
+.btn-cart {
+  font-size: 12px;
+}
+
+.btn-login img,
+.btn-cart img {
+  width: 18px;
+  margin-right: 5px;
+}
+
+.feature-info {
+  width: 225px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  width: 3vw;
+  height: 3vw;
+}
+
+
+/* RICARDO */
+
+/*Cards de Produto*/
+.product-card {
+  border: 2px solid #43ADDA;
+  border-radius: 16px;
+  max-height: 25rem;
+  min-height: 396px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.card-body a {
+  text-decoration: none;
+  color: #000;
+}
+
+
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3.6em;
+}
+
+
+.add-to-cart-box {
+  background-color: #F9A80C;
+  color: white;
+  border: 2px solid #F9A80C;
+}
+
+.add-to-cart-box:hover {
+  background-color: #ffffff;
+  border: 2px solid #F9A80C;
+  color: #F9A80C;
+  transition: 0.1s;
+}
+
+.card-img-resize {
+  object-fit: contain;
+  max-height: 144px !important;
+}
+
+#discount-container {
+  position: absolute;
+  top: -5%;
+  right: -8%;
+}
+
+#discount-container>img {
+  width: 64px;
+}
+
+#discount-icon-text {
+  position: absolute;
+  top: 25%;
+  right: 26%;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/*Footer*/
+
+#news-and-promotions-banner {
+  height: 280px;
+  background: #43ADDA;
+  margin-top: 5rem;
+}
+
+.text-us-input {
+  width: 40%;
+}
+
+#social-midia-footer {
+  height: 330px;
+  margin-top: 5rem;
+}
+
+.footer-column>h3 {
+  margin-bottom: 1em;
+}
+
+.footer-icon-resize {
+  object-fit: contain;
+  width: 24px;
+}
+
+#copyright-footer {
+  height: fit-content;
+}
+
+.copyright-footer-icons-resize {
+  object-fit: contain;
+  width: 60px;
+}
+
+/* TAFINHA */
+
+body {
+  background-color: white;
+}
+
+.container.single-product {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  background-color: white;
+  margin: auto;
+
+}
+
+.card-1 {
+  background-color: white;
+  grid-column: 1/ span 4;
+  grid-row: 1 / span 3;
+}
+
+.card-2 {
+  grid-column: 3/ span 4;
+  grid-row: 2/ span 3;
+}
+
+
+.container img {
+  max-height: 550px;
+  margin-top: 5%;
+}
+
+.view-information {
+
+  background-color: white;
+  grid-column: 7/11;
+  grid-row: 2 / span 2;
+
+}
+
+.product-images {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+
+.thumbnail-carousel {
+  display: flex;
+}
+
+#main-image {
+  max-width: 403px;
+}
+
+.thumbnail {
+  width: 100px;
+  height: auto;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+/* Pesquisa de produto */
+.filter-button {
+  border: none;
+  border-radius: 1rem;
+  padding: 4px 16px;
+  background-color: #F9A80C;
+  color: white;
+}
+
+.shaft-icon {
+  width: 15px;
+}
+
+#category-list {
+  max-height: 400px;
+}
+
+#filter-container {
+  width: 372px;
+  margin-top: 80px;
+}
+
+#promotion-checkbox-container input,
+label {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  cursor: pointer;
+}
+
+/*Price slider*/
+.price-input {
+  display: flex;
+  width: 100%;
+  margin: 30px 0 35px;
+  padding: 8px;
+}
+
+.price-input .field {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.price-input input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: 1px solid #999;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.price-input input::-webkit-outer-spin-button,
+.price-input input::-webkit-inner-spin-button {
+  display: none;
+}
+
+.slider {
+  height: 5px;
+  position: relative;
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
+.progress {
+  position: absolute;
+  height: 100%;
+  left: 5%;
+  right: 65%;
+  background-color: #43ADDA;
+  border-radius: 5px;
+}
+
+.range-input {
+  position: relative;
+}
+
+.range-input input {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: -5px;
+  pointer-events: none;
+  background: none;
+  appearance: none;
+  accent-color: #43ADDA;
+}
+
+.range-input input::-webkit-slider-thumb {
+  height: 15px;
+  width: 15px;
+  background-color: #43ADDA;
+  border-radius: 50%;
+  pointer-events: auto;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}

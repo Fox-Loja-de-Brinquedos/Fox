@@ -50,7 +50,7 @@
         </div>
 
         @else
-        <li class="adreess-item">Endereço não cadastrado</li>
+        <li class="adreess-item">Nenhum endereço cadastrado</li>
         <button id="showAddressForm" class="save-button marginBotao"  >ADICIONAR ENDEREÇO</button>
         @endisset
 </ul>

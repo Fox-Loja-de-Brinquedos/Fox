@@ -28,10 +28,12 @@ Route::post('/address/store', [AddressController::class, 'store'])->name('addres
 Route::put('/address/{endereco}', [AddressController::class, 'update'])->name('address.update');
 Route::post('address/remove', [AddressController::class, 'removeAddress'])->name('address.remove');
 
-
 //Rotas de gerenciar pedidos
 Route::get('/orderList', [orderController::class, 'index'])->name('orderList');
 
 });
+
+Route::get("/", [produtoController::class,"index"])->name('produto.index'); 
+Route::get("/search", [produtoController::class, "search"])->name('produto.search');
 
 require __DIR__.'/auth.php';

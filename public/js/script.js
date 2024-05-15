@@ -166,6 +166,7 @@ rangeInputs.forEach((input) => {
         adjustMaxPrice(); // Chamando a função para garantir que o valor máximo seja válido
         updateSlider();
         saveInputsLocally(); // Salvando os valores localmente ao alterar
+        updateURL(); // Atualiza a URL ao alterar o slider
     });
 
     input.addEventListener("mouseup", () => {
@@ -176,3 +177,75 @@ rangeInputs.forEach((input) => {
 // Chamada inicial para configurar o slider
 loadInputsFromLocalStorage();
 updateSlider();
+
+// Função para atualizar a URL com os parâmetros da faixa de preço
+function updateURL() {
+    const url = new URL(window.location.href);
+    const minPrice = priceInputs[0].value;
+    const maxPrice = priceInputs[1].value;
+    url.searchParams.set('minValue', minPrice);
+    url.searchParams.set('maxValue', maxPrice);
+    history.pushState(null, null, url.toString());
+}
+
+// Função para enviar o formulário
+function submitForm() {
+    const form = document.getElementById("price-filter-form");
+    // Verifica se o formulário é válido
+    if (form.checkValidity()) {
+        updateURL(); // Atualiza a URL antes de enviar o formulário
+        form.submit();
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const limparFiltrosBtn = document.getElementById('limpar-filtros-btn');
+    const checkboxPromocao = document.getElementById('promotion-checkbox');
+    const minRangeInput = document.querySelector('.min-range');
+    const maxRangeInput = document.querySelector('.max-range');
+
+    // Verifica se há um estado armazenado para a checkbox de promoção
+    const isChecked = localStorage.getItem('promotionCheckboxChecked');
+    // Se o estado armazenado for 'true', marca a checkbox; caso contrário, mantenha desmarcada
+    checkboxPromocao.checked = isChecked === 'true';
+
+    limparFiltrosBtn.addEventListener('click', function (event) {
+        // Limpa os valores do localStorage relacionados ao slider
+        localStorage.removeItem('minPrice');
+        localStorage.removeItem('maxPrice');
+
+        // Limpa os valores do slider
+        minRangeInput.value = 0;
+        maxRangeInput.value = maxRangeInput.getAttribute('max');
+
+        // Desmarca a checkbox de promoção e atualiza o estado no Local Storage
+        checkboxPromocao.checked = false;
+        localStorage.setItem('promotionCheckboxChecked', 'false');
+
+        // Remove o parâmetro de promoção da URL
+        var url = new URL(window.location.href);
+        url.searchParams.delete('promotion_checkbox');
+        history.pushState(null, null, url.toString());
+
+        // Envia o formulário de promoção para limpar os filtros
+        submitPromotionForm();
+
+        // Não interrompe o comportamento padrão do clique no link
+
+        // Aguarda um curto intervalo de tempo antes de redirecionar
+        setTimeout(function () {
+            window.location.href = limparFiltrosBtn.href;
+        }, 100);
+    });
+
+    // Função para enviar o formulário de promoção
+    function submitPromotionForm() {
+        const promotionForm = document.getElementById('promotion-form');
+        // Verifica se o formulário é válido antes de enviar
+        if (promotionForm.checkValidity()) {
+            promotionForm.submit();
+        }
+    }
+});
+

@@ -22,10 +22,16 @@
     <div class="welcome-section">
       <div class="star-section">
         <span class="welcome-star"><img src="images/star.svg" alt=""></span>
-        <span class="welcome-star"><img src="images/star.svg" alt=""></span>
-      </div>        
-        <h2 class="welcome-msg">Bem-vinde</h2>
+      </div>    
+      
+      <div class="profile-data">
+      <h2 class="welcome-msg">Bem-vindo(a)</h2>
         <h1 class="profile-name">{{ Auth::user()->USUARIO_NOME }}</h1>
+      </div>
+
+      <div class="star-section">
+        <span class="welcome-star"><img src="images/star.svg" alt=""></span>
+      </div>   
     </div>
 
     <div class="orders-section">
@@ -38,8 +44,8 @@
     <h2 class="account-title">DETALHES DA CONTA</h2>
 
     <div class="order-button">
-    <a href="{{ route('accountDetails') }}" class="btn-order">Detalhes pessoais <span> > </span> </a>
-    <a href="{{ route('address') }}" class="btn-order">Endereços <span> > </span> </a>
+    <a href="{{ route('accountDetails') }}" class="btn-order">Detalhes pessoais <span> <img src="images/seta-direita.png" alt=""> </span></a>
+    <a href="{{ route('address') }}" class="btn-order">Endereços <span> <img src="images/seta-direita.png" alt=""> </span> </a>
     <a href="{{ route('logout') }}" class="logout">Sair</a>
     </div>
     </div>

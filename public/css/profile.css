@@ -38,11 +38,11 @@
 }
 
 .profile-name{
-    font-size: 1.5rem;
 
     display: flex;
     justify-content: center;
 
+    font-size: 1.5rem;
     font-weight: bolder;
     text-transform: uppercase;
     margin: 0;

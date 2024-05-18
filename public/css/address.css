@@ -12,6 +12,13 @@ main{
     margin-right: 20%;    
 }
 
+.welcome-section h1{
+    font-size: 1.5rem;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+
 .address-save{
     padding-right: 650px;
 }
@@ -179,4 +186,8 @@ main{
 .marginBotao{
     margin-right: 52px;
     margin-top: 10px;
+}
+
+footer{
+  margin-top: 31%;
 }

@@ -32,7 +32,6 @@
 <hr>
 
 <main>
-        <h1>CONTA</h1>
         <div class="loginOption">
               <button class="log" id="entrarButton">ENTRAR</button>
               <button class="" id="cadastrarButton">CADASTRAR</button>
@@ -47,7 +46,7 @@
 
            
             <div class="formLogin">
-            <form method="POST" action="{{ route('login') }}">
+            <form id="loginForm" method="POST" action="{{ route('login') }}">
                     @csrf
                     @if (session('error'))
                     <div class="alert alert-danger">
@@ -71,7 +70,7 @@
     </div>
 
     <div class="formLogin">
-        <form method="POST" action="{{ route('register') }}">
+        <form id="registerForm" method="POST" action="{{ route('register') }}">
             @csrf
 
             <!-- Campo USUARIO_EMAIL -->
@@ -93,7 +92,7 @@
             @enderror
 
             <!-- Campo USUARIO_CPF -->
-            <input type="text" name="USUARIO_CPF" id="USUARIO_CPF" placeholder="CPF" value="{{ old('USUARIO_CPF') }}" required>
+            <input type="text" name="USUARIO_CPF" id="USUARIO_CPF" placeholder="CPF" value="{{ old('USUARIO_CPF') }}" required minlength="9">
             @error('USUARIO_CPF')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -114,7 +113,7 @@
 </section>
     </main>   
     
-    <footer>
+  <footer>
     <!--Receba promoções banner-->
     <div id="news-and-promotions-banner" class="container-fluid">
       <div class="row h-100 d-flex align-items-center justify-content-center">
@@ -173,9 +172,7 @@
     </div>
   </footer>
 
-  <script src="{{ asset('js/script.js') }}"></script>
-   
-    
+<script src="{{ asset('js/script.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

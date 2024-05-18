@@ -32,6 +32,11 @@ class RegisterController extends Controller
             'USUARIO_SENHA.min' => 'A senha deve ter pelo menos 8 caracteres.'
         ]);
 
+        $cpf = preg_replace('/[^\d]/', '', $validatedData['USUARIO_CPF']);
+        if (strlen($cpf) !== 11) {
+            return redirect()->back()->withInput()->withErrors(['USUARIO_CPF' => 'O CPF não foi preenchido por completo.']);
+        }
+
         try {
             $user = User::create([
                 'USUARIO_NOME' => $validatedData['USUARIO_NOME'],

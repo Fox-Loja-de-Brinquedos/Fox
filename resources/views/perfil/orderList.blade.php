@@ -44,7 +44,7 @@
     @foreach ($pedidos as $pedido)
         <div class="order">
             <p class="status-order">{{ $pedido->status->STATUS_DESC }}</p>
-            <p class="item-order">#{{ $pedido->PEDIDO_ID }}</p>
+            <a href="/orderList" class="item-order" >#{{ $pedido->PEDIDO_ID }}</a>
 
         <!-- Definido para exibir apenas a primeira imagem de produto encontrado no pedido  -->
             @if ($pedido->itens->isNotEmpty())
@@ -59,8 +59,8 @@
 
         <!-- iterando para mostrar a quantidade e preço de cada pedido separadamente -->
             @foreach ($pedido->itens as $item)
-                    <p class="order-unit">Unidade: {{ $item->ITEM_QTD }}</p>
-                    <p class="order-price">R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}</p>
+                    <p class="order-unit">Produtos: {{ $pedido->totalUnidades }}</p>
+                    <p class="order-price">R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</p>
             @endforeach
 
             <div class="progress-bar open"> </div>

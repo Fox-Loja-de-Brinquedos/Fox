@@ -14,6 +14,16 @@ class orderController extends Controller
         
         $pedidos = Pedido::where('USUARIO_ID', $userId)->get();
 
+        // Calcula a soma das unidades para cada pedido
+        foreach ($pedidos as $pedido) {
+            $pedido->totalUnidades = $pedido->itens->sum('ITEM_QTD');
+        }
+
+        // Calcula a soma dos preços para cada pedido
+        foreach ($pedidos as $pedido) {
+            $pedido->totalPreco = $pedido->itens->sum('ITEM_PRECO');
+        }
+
         return view("perfil.orderList", compact('pedidos'));
     }
 }

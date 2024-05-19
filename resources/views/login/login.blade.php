@@ -99,7 +99,7 @@
 
             <!-- Aceitar Política de Privacidade -->
             <label>
-                <input type="checkbox" required> Aceito as <a href="/">Políticas de Privacidade</a> <b>FOX</b>
+                <input type="checkbox" required> Aceito as <a href="/" target="blank">Políticas de Privacidade</a> <b>FOX</b>
             </label>
 
             <!-- Exibição de erro geral -->

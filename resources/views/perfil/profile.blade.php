@@ -51,7 +51,11 @@
     <div class="orders-section">
       <h2 class="order-title">OS SEUS PRODUTOS</h2>
       <span class="order-icon"><img src="images/sacola.svg" alt=""> Pedidos</span>
-      <a href="{{ route('orderList') }}" class="orders">Ainda não foram realizadas encomendas.</a>
+      @if($pedidos->isEmpty())
+            <p class="noOrders">Ainda não foram realizadas encomendas.</p>
+        @else
+            <a class="viewOrders" href="/orderList">Aperte aqui para ver suas encomendas!</a>
+        @endif
     </div>
 
     <div class="account-section">

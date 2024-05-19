@@ -91,7 +91,7 @@
 
 <section class="profile-password">
 <h2 class="title-detail">SENHA</h2>
-<p class="passWarning">Todos os campos são obrigatórios</p>
+<p class="passWarning">A nova senha deve ter ao menos 8 caracteres</p>
 @if ($errors->has('current_password') || $errors->has('new_password') || session('currentPassError'))
         <div class="alert alert-danger">
             @if ($errors->has('current_password') || $errors->has('new_password'))

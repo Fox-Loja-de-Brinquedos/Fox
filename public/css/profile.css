@@ -21,6 +21,7 @@
 
 .star-section{
     flex: 0 0 auto;
+    padding-bottom: 40px;
 }
 
 
@@ -75,6 +76,20 @@
     padding-bottom: 4px;
     color: black;
     text-decoration: none;
+}
+
+.viewOrders{
+    padding-left: 20px;
+    color: black;
+    text-decoration: none;
+}
+
+.noOrders{
+    padding-left: 20px;
+}
+
+.viewOrders:hover{
+    text-decoration: underline 2px;
 }
 
 .account-section{

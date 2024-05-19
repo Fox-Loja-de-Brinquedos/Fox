@@ -26,4 +26,20 @@ class orderController extends Controller
 
         return view("perfil.orderList", compact('pedidos'));
     }
+
+    public function show($id){
+        $pedido = Pedido::with(['itens.produto.imagens', 'status'])->find($id);
+
+        if (!$pedido) {
+            return redirect()->back()->with('error', 'Pedido não encontrado.');
+        }
+
+        $pedido->totalPreco = $pedido->itens->sum('ITEM_PRECO');
+
+        $user = Auth::user();
+        $endereco = $user->endereco;
+
+
+        return view('perfil.orderDetail', compact('pedido', 'endereco', 'user'));
+    }
 }

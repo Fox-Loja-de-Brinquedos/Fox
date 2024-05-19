@@ -30,7 +30,7 @@ Route::post('address/remove', [AddressController::class, 'removeAddress'])->name
 
 //Rotas de gerenciar pedidos
 Route::get('/orderList', [orderController::class, 'index'])->name('orderList');
-
+Route::get('/order/{id}', [OrderController::class, 'show'])->name('orderDetail');
 
 });
 

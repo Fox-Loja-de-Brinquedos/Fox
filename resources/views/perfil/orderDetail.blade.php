@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-    <title>Fox Store - Loja de brinquedos</title>
+<title>Fox Store - Loja de brinquedos</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -15,61 +15,57 @@
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="../css/orderList.css">
     <link rel="stylesheet" href="../css/header.css">
-    
+    <link rel="stylesheet" href="../css/footer.css">
 </head>
 <body>
 
 <header>
     <ul class="nav justify-content-between align-items-center">
-      <li class="nav-item"> <a href="/profile" class="voltar-a-loja"> <img src="images/de-volta.png" alt="" width="23px" height="20px"> Minha conta</a></li>
-      <li class="nav-item"><img src="images/fox1.svg" alt="" width="116px" height="122px"></li>
-      <li class="nav-item"><img src="images/seguro.png" alt="" width="23px" height="20px">Ambiente 100% seguro</li>
+      <li class="nav-item"> <a href="/orderList" class="voltar-a-loja"> <img src="\images\de-volta.png" alt="" width="23px" height="20px"> Minha conta</a></li>
+      <li class="nav-item"><img src="\images\fox1.svg" alt="" width="116px" height="122px"></li>
+      <li class="nav-item"><img src="\images\seguro.png" alt="" width="23px" height="20px">Ambiente 100% seguro</li>
     </ul>
 <hr>
-  </header>
+</header>
 
-    <main>
-        
-    <div class="title-section">
-        <h1>LISTA DE PEDIDOS</h1>
-    </div>
+<h1>Detalhes do Pedido #{{ $pedido->PEDIDO_ID }}</h1>
+<h2>Informações do Usuário</h2>
+    <p>Nome: {{ $user->USUARIO_NOME }}</p>
 
-    <div class="orders-section">
-    @if ($pedidos->isEmpty())
-        <p>Você ainda não realizou nenhum pedido ::>_<::</p>
+    <p>Status: {{ $pedido->status->STATUS_DESC }}</p>
+    <p>Data do Pedido: {{ \Carbon\Carbon::parse($pedido->PEDIDO_DATA)->format('d/m/Y') }}</p>
+
+    <h2>Endereço de Envio</h2>
+    @if($endereco)
+        <p>{{ $endereco->ENDERECO_LOGRADOURO }}, {{ $endereco->ENDERECO_NUMERO }}</p>
+        <p>{{ $endereco->ENDERECO_COMPLEMENTO }}</p>
+        <p>{{ $endereco->ENDERECO_CIDADE }}, {{ $endereco->ENDERECO_ESTADO }}</p>
+        <p>CEP: {{ $endereco->ENDERECO_CEP }}</p>
     @else
-    @foreach ($pedidos as $pedido)
-        <div class="order">
-            <p class="status-order">{{ $pedido->status->STATUS_DESC }}</p>
-            <a href="{{ route('orderDetail', ['id' => $pedido->PEDIDO_ID]) }}" class="item-order" >#{{ $pedido->PEDIDO_ID }}</a>
-
-        <!-- Definido para exibir apenas a primeira imagem de produto encontrado no pedido  -->
-            @if ($pedido->itens->isNotEmpty())
-                @php $primeiroItem = $pedido->itens->first(); @endphp
-                @if ($primeiroItem->produto && $primeiroItem->produto->imagens->isNotEmpty())
-                    <img class="img-order" src="{{ $primeiroItem->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto">
-                @endif
-            @endif
-
-            <!-- tipo de dado data do banco não compativel com função para formatar a data, entao importei o Carbon -->
-            <p class="date-order">{{ \Carbon\Carbon::parse($pedido->PEDIDO_DATA)->format('d/m/Y') }}</p>
-
-        <!-- iterando para mostrar a quantidade e preço de cada pedido separadamente -->
-            @foreach ($pedido->itens as $item)
-                    <p class="order-unit">Produtos: {{ $pedido->totalUnidades }}</p>
-                    <p class="order-price">R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</p>
-            @endforeach
-
-            <div class="progress-bar open"> </div>
-        </div>
-    @endforeach
+        <p>Endereço não encontrado.</p>
     @endif
-</div>
 
-    </div>
-</main>
+    <h2>Itens do Pedido</h2>
+    <ul>
+        @foreach ($pedido->itens as $item)
+            <li>
+                Produto: {{ $item->produto->NOME_PRODUTO }}
+                <br>
+                Quantidade: {{ $item->ITEM_QTD }}
+                <br>
+                Preço por Unidade: R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}
+                <br>
+                @if ($item->produto->imagens->isNotEmpty())
+                    <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto" style="max-width: 100px;">
+                @endif
+            </li>
+        @endforeach
+    </ul>
+
+    <h2>Resumo do Pedido</h2>
+    <p>Preço Total: R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</p>
+
 
 <footer>
     <!--Receba promoções banner-->
@@ -131,12 +127,11 @@
       <a href="#"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
       </a>
     </div>
-
   </footer>
 
 
-  <script src="{{ asset('js/script.js') }}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

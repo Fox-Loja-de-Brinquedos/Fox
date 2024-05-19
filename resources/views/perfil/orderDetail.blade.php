@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/orderDetail.css">
 </head>
 <body>
 
@@ -30,52 +31,68 @@
 </header>
 
 <main>
-    <h1>Pedido #{{ $pedido->PEDIDO_ID }}</h1>
-    <h2>Detalhes do Pedido</h2>
 
-    <div class="orderData">
-    <p>Data do Pedido: {{ \Carbon\Carbon::parse($pedido->PEDIDO_DATA)->format('d/m/Y') }}</p>
-    <p>Status: {{ $pedido->status->STATUS_DESC }}</p>
-    <p>Pagamento: <span>Aguardando</span></p>
+    <div class="details">
+        <h1 class="orderId">Pedido #{{ $pedido->PEDIDO_ID }}</h1>
+        <h2 class="detailsTitle">Detalhes do Pedido</h2>
+
+        <div class="orderData">
+        <p><span>Data:</span> {{ \Carbon\Carbon::parse($pedido->PEDIDO_DATA)->format('d/m/Y') }}</p>
+        <p><span>Status:</span> {{ $pedido->status->STATUS_DESC }}</p>
+        <p><span>Pagamento:</span> Aguardando</p>
+        </div>
+
+        <div class="orderAddress">
+        <p class="titleAddress">Endereço de Envio:</p>
+        <p>{{ $user->USUARIO_NOME }}</p>
+        <p>{{ $pedido->endereco->ENDERECO_LOGRADOURO }}, {{ $pedido->endereco->ENDERECO_NUMERO }}</p>
+        <p>{{ $pedido->endereco->ENDERECO_COMPLEMENTO }}, {{ $pedido->endereco->ENDERECO_CEP }}</p>
+        <p>{{ $pedido->endereco->ENDERECO_CIDADE }}, {{ $pedido->endereco->ENDERECO_ESTADO }}</p>
+        </div>
     </div>
 
-    <div class="orderAddress">
-    <p>Endereço de Envio</p>
-    <p>Nome: {{ $user->USUARIO_NOME }}</p>
-    <p>{{ $pedido->endereco->ENDERECO_LOGRADOURO }}, {{ $pedido->endereco->ENDERECO_NUMERO }}</p>
-    <p>{{ $pedido->endereco->ENDERECO_COMPLEMENTO }}, {{ $pedido->endereco->ENDERECO_CEP }}</p>
-    <p>{{ $pedido->endereco->ENDERECO_CIDADE }}, {{ $pedido->endereco->ENDERECO_ESTADO }}</p>
+    <div class="orderItem">
+
+            <table>
+                <div class="tableOrder">
+                    <tr class="tableHead">
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Total</th>
+                    </tr>
+
+                    <tr class="tableItem">
+                        <td> <img src="\images\fox1.svg" alt=""> <span>produtoNome</span></td> 
+                        <td>R$60.00</td>
+                        <td class="qtd">1</td>
+                        <td>R$50.00</td>
+                    </tr>
+                    
+
+                    @foreach ($pedido->itens as $item)
+                    <tr>
+                        <td> 
+                            @if ($item->produto->imagens->isNotEmpty())
+                            <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto">
+                            @endif
+                            {{ $item->produto->NOME_PRODUTO }}
+                        </td>
+                        <td>R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}</td>
+                        <td>{{ $item->ITEM_QTD }}</td>
+                        <td>R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</td>
+                    </tr>
+                    @endforeach
+                </div>
+            </table>
+
+        <div class="orderPrice">
+            <p><span>DESCONTO:</span> -R${{ number_format($pedido->totalDesconto, 2, ',', '.') }}</p>
+            <p><span>SUBTOTAL:</span> R$ {{ number_format($pedido->totalPrecoBruto, 2, ',', '.') }}</p>
+            <p class="orderTotal">TOTAL: R$ {{ number_format($pedido->totalPrecoComDesconto, 2, ',', '.') }}</p>
+        </div>
     </div>
 
-    <div class="tableOrder">
-        <table>
-            <tr>
-                <th>Produto</th>
-                <th>Preço</th>
-                <th>Quantidade</th>
-                <th>Total</th>
-            </tr>
-
-            @foreach ($pedido->itens as $item)
-            <tr>
-                <td> 
-                    @if ($item->produto->imagens->isNotEmpty())
-                    <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto" style="max-width: 100px;">
-                    @endif - {{ $item->produto->NOME_PRODUTO }}
-                 </td>
-                <td>R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}</td>
-                <td>{{ $item->ITEM_QTD }}</td>
-                <td>R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-
-    <div class="orderPrice">
-        <p>DESCONTO: -R${{ number_format($pedido->totalDesconto, 2, ',', '.') }}</p>
-        <p>SUBTOTAL: R$ {{ number_format($pedido->totalPrecoBruto, 2, ',', '.') }}</p>
-        <p>TOTAL: R$ {{ number_format($pedido->totalPrecoComDesconto, 2, ',', '.') }}</p>
-    </div>
 </main>
 
 <footer>

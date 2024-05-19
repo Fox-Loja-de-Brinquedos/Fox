@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+*{
+    font-family: 'Inter';
+}
+
+main{
+    display: flex;
+    justify-content: space-between;
+    margin: 7% 5% 10% 5%;
+}
+
+.details{
+    width: 30%;
+}
+
+.orderId{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.detailsTitle{
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: solid 2px #c6c6c686;
+}
+
+.orderData{
+    margin-bottom: 40px;
+}
+
+.orderData p{
+    font-size: 12px;
+    margin: 2px;
+    padding: 0%;
+}
+
+.orderData span{
+    font-weight: bold;
+}
+
+.orderAddress p{
+    font-size: 12px;
+    margin: 2px;
+    padding: 0%;
+}
+
+.titleAddress{
+    font-weight: bold;
+}
+
+.orderItem{
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+
+    justify-content: space-between;
+    padding-bottom: 36px;
+    padding-top: 21px;
+}
+
+.tableHead{
+    border-bottom: solid 2px #c6c6c686;
+}
+
+.tableItem{
+    border-bottom: solid 2px #c6c6c686;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.tableItem .qtd{
+    padding-left: 50px;
+}
+
+.tableItem img{
+    width: 111px;
+    height: 147px;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.tableItem span{
+    padding-left: 50px;
+}
+
+.orderPrice{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-size: 14px;
+}
+
+.orderPrice span{
+    font-weight: bold;
+}
+
+.orderTotal{
+    font-weight: bold;
+}

@@ -128,7 +128,11 @@
       <i>
         <p>Fox Store © 2024 - Todos os direitos reservados</p>
       </i>
+      
+      <a href="#"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
+      </a>
     </div>
+
   </footer>
 
 

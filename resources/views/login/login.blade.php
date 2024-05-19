@@ -40,7 +40,7 @@
 
         <section class="entrar" id="entrarSection" style="display: block;">
             <div class="salutation">
-                <h2>Bem vinde de volta</h2>
+                <h2>Bem-vindo(a) de volta</h2>
                 <p>iniciar sessão com seu email e senha</p>
             </div>
 
@@ -169,7 +169,11 @@
       <i>
         <p>Fox Store © 2024 - Todos os direitos reservados</p>
       </i>
+      
+      <a href="#"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
+      </a>
     </div>
+
   </footer>
 
 <script src="{{ asset('js/script.js') }}"></script>

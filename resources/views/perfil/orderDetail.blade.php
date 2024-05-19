@@ -56,6 +56,8 @@
                 <br>
                 Preço por Unidade: R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}
                 <br>
+                Desconto: -R$ {{ number_format($item->descontoEmReais, 2, ',', '.') }}
+                <br>
                 @if ($item->produto->imagens->isNotEmpty())
                     <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto" style="max-width: 100px;">
                 @endif
@@ -64,8 +66,9 @@
     </ul>
 
     <h2>Resumo do Pedido</h2>
-    <p>Preço Total: R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</p>
-
+    <p>Preço Total Bruto: R$ {{ number_format($pedido->totalPrecoBruto, 2, ',', '.') }}</p>
+    <p>Desconto Total: R$ {{ number_format($pedido->totalDesconto, 2, ',', '.') }}</p>
+    <p>Preço Total com Desconto: R$ {{ number_format($pedido->totalPrecoComDesconto, 2, ',', '.') }}</p>
 
 <footer>
     <!--Receba promoções banner-->

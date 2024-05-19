@@ -12,6 +12,11 @@ class Produto extends Model
     protected $primaryKey = "PRODUTO_ID";
     public $timestamps = false;
 
+    protected $fillable = [
+        'PRODUTO_NOME',
+        'PRODUTO_DESCONTO', 
+    ];
+
     public function imagens(){
         return $this->hasMany(Produto_Imagem::class , "PRODUTO_ID");
         }

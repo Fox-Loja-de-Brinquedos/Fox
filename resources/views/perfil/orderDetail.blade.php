@@ -29,46 +29,54 @@
 <hr>
 </header>
 
-<h1>Detalhes do Pedido #{{ $pedido->PEDIDO_ID }}</h1>
-<h2>Informações do Usuário</h2>
-    <p>Nome: {{ $user->USUARIO_NOME }}</p>
+<main>
+    <h1>Pedido #{{ $pedido->PEDIDO_ID }}</h1>
+    <h2>Detalhes do Pedido</h2>
 
-    <p>Status: {{ $pedido->status->STATUS_DESC }}</p>
+    <div class="orderData">
     <p>Data do Pedido: {{ \Carbon\Carbon::parse($pedido->PEDIDO_DATA)->format('d/m/Y') }}</p>
+    <p>Status: {{ $pedido->status->STATUS_DESC }}</p>
+    <p>Pagamento: <span>Aguardando</span></p>
+    </div>
 
-    <h2>Endereço de Envio</h2>
-    @if($endereco)
-        <p>{{ $endereco->ENDERECO_LOGRADOURO }}, {{ $endereco->ENDERECO_NUMERO }}</p>
-        <p>{{ $endereco->ENDERECO_COMPLEMENTO }}</p>
-        <p>{{ $endereco->ENDERECO_CIDADE }}, {{ $endereco->ENDERECO_ESTADO }}</p>
-        <p>CEP: {{ $endereco->ENDERECO_CEP }}</p>
-    @else
-        <p>Endereço não encontrado.</p>
-    @endif
+    <div class="orderAddress">
+    <p>Endereço de Envio</p>
+    <p>Nome: {{ $user->USUARIO_NOME }}</p>
+    <p>{{ $pedido->endereco->ENDERECO_LOGRADOURO }}, {{ $pedido->endereco->ENDERECO_NUMERO }}</p>
+    <p>{{ $pedido->endereco->ENDERECO_COMPLEMENTO }}, {{ $pedido->endereco->ENDERECO_CEP }}</p>
+    <p>{{ $pedido->endereco->ENDERECO_CIDADE }}, {{ $pedido->endereco->ENDERECO_ESTADO }}</p>
+    </div>
 
-    <h2>Itens do Pedido</h2>
-    <ul>
-        @foreach ($pedido->itens as $item)
-            <li>
-                Produto: {{ $item->produto->NOME_PRODUTO }}
-                <br>
-                Quantidade: {{ $item->ITEM_QTD }}
-                <br>
-                Preço por Unidade: R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}
-                <br>
-                Desconto: -R$ {{ number_format($item->descontoEmReais, 2, ',', '.') }}
-                <br>
-                @if ($item->produto->imagens->isNotEmpty())
+    <div class="tableOrder">
+        <table>
+            <tr>
+                <th>Produto</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Total</th>
+            </tr>
+
+            @foreach ($pedido->itens as $item)
+            <tr>
+                <td> 
+                    @if ($item->produto->imagens->isNotEmpty())
                     <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto" style="max-width: 100px;">
-                @endif
-            </li>
-        @endforeach
-    </ul>
+                    @endif - {{ $item->produto->NOME_PRODUTO }}
+                 </td>
+                <td>R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}</td>
+                <td>{{ $item->ITEM_QTD }}</td>
+                <td>R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
 
-    <h2>Resumo do Pedido</h2>
-    <p>Preço Total Bruto: R$ {{ number_format($pedido->totalPrecoBruto, 2, ',', '.') }}</p>
-    <p>Desconto Total: R$ {{ number_format($pedido->totalDesconto, 2, ',', '.') }}</p>
-    <p>Preço Total com Desconto: R$ {{ number_format($pedido->totalPrecoComDesconto, 2, ',', '.') }}</p>
+    <div class="orderPrice">
+        <p>DESCONTO: -R${{ number_format($pedido->totalDesconto, 2, ',', '.') }}</p>
+        <p>SUBTOTAL: R$ {{ number_format($pedido->totalPrecoBruto, 2, ',', '.') }}</p>
+        <p>TOTAL: R$ {{ number_format($pedido->totalPrecoComDesconto, 2, ',', '.') }}</p>
+    </div>
+</main>
 
 <footer>
     <!--Receba promoções banner-->

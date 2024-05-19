@@ -9,8 +9,7 @@ use App\Http\Controllers\addressController;
 
 
 
-Route::get("/", [produtoController::class,"index"])->name('produto');
-
+Route::get("/", [produtoController::class,"index"])->name('produto.index');
 
 Route::middleware('auth')->group(function () {
 Route::get('/profile', [profileController::class, 'create'])->name('profile');

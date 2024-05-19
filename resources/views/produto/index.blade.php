@@ -47,8 +47,10 @@
           </form>
         </div>
         <div class="col-2">
-        <a href="/profile"><button class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt=""> Entrar /
-            Cadastrar</button></a>
+          <a href="/profile" class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt="">
+            Entrar /
+            Cadastrar
+          </a>
         </div>
         <div class="col-2">
           <button class="btn text-uppercase fw-bold btn-cart"><img src="{{ asset('images/icon-cart.png') }}" alt=""> Meu
@@ -65,31 +67,31 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="categories-menu navbar-nav mx-auto">
                 <li class="nav-item custom-nav-item">
-                  <a class="nav-link nav-link-uppercase" href="#">Bonecas</a>
+                  <button class="nav-link nav-link-uppercase searchOption">Bonecas</button>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a class="nav-link nav-link-uppercase" href="#">Veículos</a>
+                  <button class="nav-link nav-link-uppercase searchOption">Veículos</button>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a class="nav-link nav-link-uppercase" href="#">Pelúcias</a>
+                  <button class="nav-link nav-link-uppercase searchOption">Pelúcias</button>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a class="nav-link nav-link-uppercase" href="#">Jogos de cartas</a>
+                  <button class="nav-link nav-link-uppercase searchOption">Jogos de cartas</button>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a class="nav-link nav-link-uppercase" href="#">Tabuleiros</a>
+                  <button class="nav-link nav-link-uppercase searchOption">Tabuleiros</button>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a class="nav-link nav-link-uppercase" href="#">Eletrônicos</a>
+                  <button class="nav-link nav-link-uppercase searchOption">Eletrônicos</button>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a class="nav-link nav-link-uppercase" href="#">Outros brinquedos</a>
+                  <button class="nav-link nav-link-uppercase searchOption">Outros brinquedos</button>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a class="nav-link nav-link-uppercase lancamentos" href="#">Lançamentos</a>
+                  <button class="nav-link nav-link-uppercase lancamentos" onclick="location.href='#lancamentos'">Lançamentos</button>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a class="nav-link nav-link-uppercase ofertas" href="#">Ofertas</a>
+                  <button class="nav-link nav-link-uppercase ofertas" onclick="location.href='#ofertas'">Ofertas</button>
                 </li>
               </ul>
             </div>
@@ -179,7 +181,7 @@
 
     <!--Container Cards de Produtos-->
     <div class="container mb-5 mt-5">
-      <h2 class="text-center mb-4">LANÇAMENTOS</h2>
+      <h2 class="text-center mb-4" id="lancamentos">LANÇAMENTOS</h2>
       <div class="row d-flex justify-content-around row-gap-3">
 
         @foreach ($produtos as $produto)
@@ -359,7 +361,7 @@
 
     <!--Container Cards de Produtos-->
     <div class="container mb-5 mt-5">
-      <h2 class="text-center mb-4">OFERTAS IMPERDÍVEIS</h2>
+      <h2 class="text-center mb-4" id="ofertas">OFERTAS IMPERDÍVEIS</h2>
       <div class="row d-flex justify-content-around">
 
         <!--Card produto 1-->
@@ -502,7 +504,7 @@
         <p>Fox Store © 2024 - Todos os direitos reservados</p>
       </i>
 
-      <a href="#"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
+      <a href="https://wa.me/+5511944880786" target="_blank"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
       </a>
     </div>
 

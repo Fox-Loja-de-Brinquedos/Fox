@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
 
 // Atalho de pesquisa NAVBAR
 const searchOptions = document.querySelectorAll('.searchOption');
@@ -45,14 +49,4 @@ searchOptions.forEach(option => {
     });
 });
 
-
-
-
-
-
-
 });
-
-
-
-

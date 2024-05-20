@@ -45,6 +45,29 @@ searchOptions.forEach(option => {
 });
 
 
+// Seleciona todos os banners
+const banners = document.querySelectorAll('.banner-slide');
+
+// Adiciona um evento de clique a cada banner
+banners.forEach(banner => {
+    banner.addEventListener('click', function(event) {
+        // Previne o comportamento padrão do link
+        event.preventDefault();
+
+        // Seleciona o input de busca e o formulário
+        const searchInput = document.querySelector('.searchbar');
+        const searchForm = searchInput.closest('form');
+
+        // Define o valor do input de busca com base no atributo data-search do banner
+        const searchValue = banner.getAttribute('data-search');
+        searchInput.value = searchValue;
+
+        // Submete o formulário
+        searchForm.submit();
+    });
+});
+
+
 //Carroussel de produto
 var swiper = new Swiper(".mySwiper", {
     slidesPerView: 4,
@@ -61,7 +84,5 @@ var swiper = new Swiper(".mySwiper", {
       prevEl: ".swiper-button-prev",
     },
   });
-
-
 });
 

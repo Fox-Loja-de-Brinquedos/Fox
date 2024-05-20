@@ -256,7 +256,7 @@
                     <!--Card do Produto-->
                     <div class="card product-card" style="width: 18rem;">
                         <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
-                            <a href="#">
+                            <a href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
                                 @if ($produto->imagens->isNotEmpty())
                                 <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
                                 @else
@@ -265,7 +265,7 @@
                             </a>
                         </div>
                         <div class="card-body text-center">
-                            <a href="#">
+                            <a href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
                                 <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
                                 <b>
                                     <p class="card-text">R$ {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>

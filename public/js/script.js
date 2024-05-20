@@ -15,11 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-
 // Atalho de pesquisa NAVBAR
 const searchOptions = document.querySelectorAll('.searchOption');
 const searchbar = document.querySelector('.searchbar');
@@ -49,4 +44,24 @@ searchOptions.forEach(option => {
     });
 });
 
+
+//Carroussel de produto
+var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 4,
+    spaceBetween: 37,
+    slidesPerGroup: 1,
+    loop: true,
+    loopFillGroupWithBlank: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+
+
 });
+

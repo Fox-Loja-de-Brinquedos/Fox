@@ -11,14 +11,26 @@ class produtoController extends Controller
 {
     public function index()
     {
-        //Recebe do banco apenas os produtos ativos
-        $produtos = Produto::where('PRODUTO_ATIVO', '=', 1);
-        $produtos = $produtos->paginate(4);
-
-        return view('produto.index', ['produtos' => $produtos]);
+        // Consulta base
+        $queryBase = Produto::where('PRODUTO_ATIVO', '=', 1);
+    
+        // Últimos produtos cadastrados
+        $produtoLancamentos = (clone $queryBase)->orderBy('PRODUTO_ID', 'desc')
+                                                ->take(12)
+                                                ->get();
+    
+        // Produtos em oferta
+        $produtoOfertas = (clone $queryBase)->where('PRODUTO_DESCONTO', '>', 0)
+                                            ->orderBy('PRODUTO_DESCONTO' , 'desc')
+                                            ->take(12)
+                                            ->get();
+    
+        return view('produto.index', [
+            'produtoLancamentos' => $produtoLancamentos,
+            'produtoOfertas' => $produtoOfertas,
+        ]);
     }
-
-
+    
     public function search(Request $request)
     {
         //Recebe o que foi digitado pelo usuário
@@ -105,4 +117,9 @@ class produtoController extends Controller
         }
     }
 
+    //metedo exibir
+    public function show(Produto $produto)
+    {
+        return view('produto.show', ['produto' => $produto]);
+    }
 }

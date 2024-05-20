@@ -88,10 +88,10 @@
                   <button class="nav-link nav-link-uppercase searchOption">Outros brinquedos</button>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <button class="nav-link nav-link-uppercase lancamentos" onclick="location.href='#lancamentos'">Lançamentos</button>
+                  <a class="nav-link nav-link-uppercase lancamentos" href='#lancamentos'>Lançamentos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <button class="nav-link nav-link-uppercase ofertas" onclick="location.href='#ofertas'">Ofertas</button>
+                  <a class="nav-link nav-link-uppercase ofertas" href='#ofertas'>Ofertas</a>
                 </li>
               </ul>
             </div>
@@ -257,13 +257,13 @@
     <div class="container mt-5 mb-5">
       <div class="row justify-content-center">
         <div class="col-3">
-          <a href="#"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
+          <a href="#ofertas"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
         </div>
         <div class="col-3">
           <a href="#"><img src="{{ asset('images/banner-sessao-geek.png') }}" alt=""></a>
         </div>
         <div class="col-3">
-          <a href="#"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
+          <a href="#ofertas"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
         </div>
       </div>
     </div>

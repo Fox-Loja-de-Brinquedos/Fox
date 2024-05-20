@@ -12,7 +12,9 @@ class produtoController extends Controller
     public function index()
     {
         //Recebe do banco apenas os produtos ativos
-        $produtos = Produto::where('PRODUTO_ATIVO', '=', 1)->get();
+        $query = Produto::where('PRODUTO_ATIVO', '=', 1);
+
+         $produtos = $query ->paginate(4);
 
         return view('produto.index', ['produtos' => $produtos]);
     }
@@ -103,4 +105,11 @@ class produtoController extends Controller
             return redirect()->back()->with('error', 'Nenhum termo de pesquisa foi inserido.');
         }
     }
+
+        //metedo exibir
+        public function show(Produto $produto)
+    {
+        return view('produto.show', ['produto' => $produto]);
+    }
+
 }

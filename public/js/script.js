@@ -221,5 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
             promotionForm.submit();
         }
     }
+
 });
+
 

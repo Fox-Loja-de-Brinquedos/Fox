@@ -47,8 +47,8 @@
           </form>
         </div>
         <div class="col-2">
-        <a href="/profile"><button class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt=""> Entrar /
-            Cadastrar</button></a>
+          <a href="/profile"><button class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt=""> Entrar /
+              Cadastrar</button></a>
         </div>
         <div class="col-2">
           <button class="btn text-uppercase fw-bold btn-cart"><img src="{{ asset('images/icon-cart.png') }}" alt=""> Meu
@@ -209,7 +209,7 @@
         <!--Card do Produto-->
         <div class="card product-card" style="width: 18rem;">
           <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
-            <a href="#">
+            <a href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
               @if ($produto->imagens->isNotEmpty())
               <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
               @else
@@ -439,8 +439,65 @@
         </div>
       </div>
     </div>
-
   </div>
+
+
+<!-- pop-up cookies -->
+<div id="cookie-popup" class="cookie-popup alert alert-dismissible alert-info fade show fixed-bottom" role="alert">
+  <div>
+    <p>Utilizamos cookies para melhorar a experiência do usuário e analisar o tráfego do site. Por esses
+      motivos, podemos compartilhar os dados de uso do seu site com nossos parceiros de análise.</p>
+    <p>Você concorda em armazenar em seu dispositivo todas as tecnologias descritas em nossa <a href="#" id="policy-link">Política de cookies.</a></p>
+  </div>
+  <div class="text-center mt-3">
+    <button type="button" class="btn btn-warning btn-lg me-2 accept-cookies-btn">Aceitar Cookies</button>
+    <button type="button" class="btn btn-secondary btn-lg reject-cookies-btn" data-bs-dismiss="alert">Rejeitar cookies</button>
+  </div>
+</div>
+
+<!-- modal cookies -->
+<div id="container-modal">
+  <div class="modal" tabindex="-1" id="policy-modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Política de Cookies</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 20px;">
+            Fox Loja de Brinquedos, estamos comprometidos em proporcionar a melhor experiência de compra online
+            possível para nossos clientes. Nossa política de cookies explica como usamos cookies e tecnologias
+            semelhantes em nosso site.
+          </p>
+          <p style="font-size: 20px;">
+            Utilizamos cookies por vários motivos, incluindo:
+            <ul>
+              <li>Cookies essenciais: Essenciais para fornecer funcionalidades básicas do site, como adicionar produtos ao carrinho de compras e processar pagamentos.</li>
+              <li>Cookies de desempenho: Nos ajudam a entender como os visitantes interagem com o site, fornecendo informações sobre páginas visitadas, tempo gasto no site e problemas encontrados, o que nos permite melhorar continuamente a experiência do usuário.</li>
+              <li>Cookies de funcionalidade: Permitem que o site se lembre de suas preferências e configurações, como idioma preferido e histórico de compras, para tornar sua experiência de compra mais personalizada e eficiente.</li>
+              <li>Cookies de publicidade: Podem ser usados para exibir anúncios relevantes para você em nosso site e em sites de terceiros, com base em seus interesses e atividades de navegação.</li>
+            </ul>
+          </p>
+          <p style="font-size: 20px;">
+            Atualizações desta política
+            Esta política pode ser atualizada periodicamente para refletir mudanças em nossas práticas de cookies.
+            Recomendamos que você reveja esta página regularmente para estar ciente de quaisquer alterações.
+          </p>
+          <p style="font-size: 20px;">
+            Entre em contato conosco
+            Se você tiver alguma dúvida sobre nossa política de cookies, entre em contato conosco através dos
+            dados fornecidos em nossa página de contato.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- fim do pop-up cookies -->
 
   <footer>
 
@@ -461,10 +518,9 @@
       <div class="row d-flex justify-content-center">
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Institucional</h3>
-          <p>Sobre a marca</p>
-          <p>Trocas e devoluções</p>
-          <p>Políticas de privacidade</p>
-          <p>Dúvidas frequentes</p>
+          <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Sobre a marca</a>
+          <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Trocas e Devoluções</a>
+          <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Políticas de privacidade</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
@@ -509,7 +565,7 @@
   </footer>
 
 
-  <script src="{{ asset('js/script.js') }}"></script>
+  <script src="{{ asset('js/cookies.js') }}"></script>
 
 </body>
 

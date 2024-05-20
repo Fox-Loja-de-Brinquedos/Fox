@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Pedido;
+use Illuminate\Support\Facades\Auth;
 
 
 class profileController extends Controller
 {
     public function create(){
-        return view("perfil.profile");
-    }
+        $userId = Auth::id();
+        $pedidos = Pedido::where('USUARIO_ID', $userId)->get();
+        return view('perfil.profile', ['user' => $userId, 'pedidos' => $pedidos]);
+}
 
     public function updateProfileName(Request $request){
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
 <title>Fox Store - Loja de brinquedos</title>
   <meta charset="UTF-8">
@@ -15,105 +15,87 @@
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
 
-
-    <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/header.css">
-    
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/orderDetail.css">
 </head>
 <body>
-    
+
 <header>
     <ul class="nav justify-content-between align-items-center">
-      <li class="nav-item"><a href="/" class="voltar-a-loja"><img src="images/de-volta.png" alt="" width="23px" height="20px"> Voltar à loja</a></li>
-      <li class="nav-item"><img src="images/fox1.svg" alt="" width="116px" height="122px"></li>
-      <li class="nav-item"><img src="images/seguro.png" alt="" width="23px" height="20px">Ambiente 100% seguro</li>
+      <li class="nav-item"> <a href="/orderList" class="voltar-a-loja"> <img src="\images\de-volta.png" alt="" width="23px" height="20px"> Minha conta</a></li>
+      <li class="nav-item"><img src="\images\fox1.svg" alt="" width="116px" height="122px"></li>
+      <li class="nav-item"><img src="\images\seguro.png" alt="" width="23px" height="20px">Ambiente 100% seguro</li>
     </ul>
-  </header>
 <hr>
+</header>
 
 <main>
-        <div class="loginOption">
-              <button class="log" id="entrarButton">ENTRAR</button>
-              <button class="" id="cadastrarButton">CADASTRAR</button>
-            </div>
 
+    <div class="details">
+        <h1 class="orderId">Pedido #{{ $pedido->PEDIDO_ID }}</h1>
+        <h2 class="detailsTitle">Detalhes do Pedido</h2>
 
-        <section class="entrar" id="entrarSection" style="display: block;">
-            <div class="salutation">
-                <h2>Bem-vindo(a) de volta</h2>
-                <p>iniciar sessão com seu email e senha</p>
-            </div>
+        <div class="orderData">
+        <p><span>Data:</span> {{ \Carbon\Carbon::parse($pedido->PEDIDO_DATA)->format('d/m/Y') }}</p>
+        <p><span>Status:</span> {{ $pedido->status->STATUS_DESC }}</p>
+        <p><span>Pagamento:</span> Aguardando</p>
+        </div>
 
-           
-            <div class="formLogin">
-            <form id="loginForm" method="POST" action="{{ route('login') }}">
-                    @csrf
-                    @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                    @endif
-                    <input type="email" name="USUARIO_EMAIL" placeholder="E-mail" required>
-                    <input type="password" name="USUARIO_SENHA" placeholder="Senha" required>
+        <div class="orderAddress">
+        <p class="titleAddress">Endereço de Envio:</p>
+        <p>{{ $user->USUARIO_NOME }}</p>
+        <p>{{ $pedido->endereco->ENDERECO_LOGRADOURO }}, {{ $pedido->endereco->ENDERECO_NUMERO }}</p>
+        <p>{{ $pedido->endereco->ENDERECO_COMPLEMENTO }}, {{ $pedido->endereco->ENDERECO_CEP }}</p>
+        <p>{{ $pedido->endereco->ENDERECO_CIDADE }}, {{ $pedido->endereco->ENDERECO_ESTADO }}</p>
+        </div>
+    </div>
+
+    <div class="orderItem">
+
+            <table>
+                <div class="tableOrder">
+                    <tr class="tableHead">
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Total</th>
+                    </tr>
+
+                    <tr class="tableItem">
+                        <td> <img src="\images\fox1.svg" alt=""> <span>produtoNome</span></td> 
+                        <td>R$60.00</td>
+                        <td class="qtd">1</td>
+                        <td>R$50.00</td>
+                    </tr>
                     
-                    <label>
-                        <input class="checkBox" type="checkbox" name="remember"> manter conectado
-                    </label>
-                    <button class="send sendMar">ENVIAR</button>
-                </form>
-            </div>
-        </section>
-      
-        <section class="cadastrar" id="cadastrarSection" style="display: none;">
-    <div class="salutation">
-        <p>Crie uma conta e tenha uma experiência personalizada FOX</p>
+
+                    @foreach ($pedido->itens as $item)
+                    <tr>
+                        <td> 
+                            @if ($item->produto->imagens->isNotEmpty())
+                            <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto">
+                            @endif
+                            {{ $item->produto->NOME_PRODUTO }}
+                        </td>
+                        <td>R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}</td>
+                        <td>{{ $item->ITEM_QTD }}</td>
+                        <td>R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</td>
+                    </tr>
+                    @endforeach
+                </div>
+            </table>
+
+        <div class="orderPrice">
+            <p><span>DESCONTO:</span> -R${{ number_format($pedido->totalDesconto, 2, ',', '.') }}</p>
+            <p><span>SUBTOTAL:</span> R$ {{ number_format($pedido->totalPrecoBruto, 2, ',', '.') }}</p>
+            <p class="orderTotal">TOTAL: R$ {{ number_format($pedido->totalPrecoComDesconto, 2, ',', '.') }}</p>
+        </div>
     </div>
 
-    <div class="formLogin">
-        <form id="registerForm" method="POST" action="{{ route('register') }}">
-            @csrf
+</main>
 
-            <!-- Campo USUARIO_EMAIL -->
-            <input type="email" name="USUARIO_EMAIL" placeholder="E-mail" value="{{ old('USUARIO_EMAIL') }}" required>
-            @error('USUARIO_EMAIL')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-
-            <!-- Campo USUARIO_SENHA -->
-            <input type="password" name="USUARIO_SENHA" placeholder="Senha" required>
-            @error('USUARIO_SENHA')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-
-            <!-- Campo USUARIO_NOME -->
-            <input type="text" name="USUARIO_NOME" placeholder="Nome" value="{{ old('USUARIO_NOME') }}" required>
-            @error('USUARIO_NOME')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-
-            <!-- Campo USUARIO_CPF -->
-            <input type="text" name="USUARIO_CPF" id="USUARIO_CPF" placeholder="CPF" value="{{ old('USUARIO_CPF') }}" required minlength="9">
-            @error('USUARIO_CPF')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-
-            <!-- Aceitar Política de Privacidade -->
-            <label>
-                <input type="checkbox" required> Aceito as <a href="/" target="blank">Políticas de Privacidade</a> <b>FOX</b>
-            </label>
-
-            <!-- Exibição de erro geral -->
-            @if ($errors->has('error'))
-                <div class="alert alert-danger">{{ $errors->first('error') }}</div>
-            @endif
-
-            <button class="send sendMar">CRIAR CONTA</button>
-        </form>
-    </div>
-</section>
-    </main>   
-    
-  <footer>
+<footer>
     <!--Receba promoções banner-->
     <div id="news-and-promotions-banner" class="container-fluid">
       <div class="row h-100 d-flex align-items-center justify-content-center">
@@ -173,13 +155,11 @@
       <a href="#"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
       </a>
     </div>
-
   </footer>
 
-<script src="{{ asset('js/script.js') }}"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="js/login.js"></script>
 </body>
 </html>

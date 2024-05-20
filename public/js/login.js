@@ -1,25 +1,33 @@
-const entrarButton = document.getElementById('entrarButton');
+document.addEventListener('DOMContentLoaded', function () {
+    const entrarButton = document.getElementById('entrarButton');
     const cadastrarButton = document.getElementById('cadastrarButton');
     const entrarSection = document.getElementById('entrarSection');
     const cadastrarSection = document.getElementById('cadastrarSection');
-    const loginOption = document.querySelector('.loginOption');
 
+    // Função para alternar entre as seções
+    function showSection(sectionToShow, sectionToHide, buttonToActivate, buttonToDeactivate) {
+        sectionToShow.style.display = 'block';
+        sectionToHide.style.display = 'none';
+        buttonToActivate.classList.add('log');
+        buttonToDeactivate.classList.remove('log');
+    }
+
+    // Eventos de clique para alternar entre as seções
     entrarButton.addEventListener('click', function() {
-        entrarSection.style.display = 'block';
-        cadastrarSection.style.display = 'none';
-
-        entrarButton.classList.add('log'); 
-        cadastrarButton.classList.remove('log'); 
+        showSection(entrarSection, cadastrarSection, entrarButton, cadastrarButton);
     });
 
     cadastrarButton.addEventListener('click', function() {
-        entrarSection.style.display = 'none';
-        cadastrarSection.style.display = 'block';
-
-        entrarButton.classList.remove('log');
-        cadastrarButton.classList.add('log'); 
-
+        showSection(cadastrarSection, entrarSection, cadastrarButton, entrarButton);
     });
+
+    // Verifica se há erros no formulário de cadastro e exibe a seção correspondente
+    if (document.querySelectorAll('#registerForm .alert').length > 0) {
+        showSection(cadastrarSection, entrarSection, cadastrarButton, entrarButton);
+    }
+    
+});
+
 
     //MASCARA PARA CPF
     $(document).ready(function(){

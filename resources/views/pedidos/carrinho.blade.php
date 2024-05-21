@@ -17,7 +17,7 @@
             .checkout-container-body {
                 
             }
-            .cart-table td {
+            .cart-table td { 
                 vertical-align: middle;
             }
         </style>

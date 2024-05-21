@@ -1,19 +1,21 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route; 
 use App\Http\Controllers\produtoController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\orderController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\addressController;
+use App\Http\Controllers\pedidoController;
 
 
+//Rotas Produto
 Route::get("/", [produtoController::class, "index"])->name('produto.index'); 
 Route::get("/search", [produtoController::class, "search"])->name('produto.search');
 Route::get("/show/{produto}", [produtoController::class, "show"])->name('produto.show');
-Route::get("/a", function(){
-    return view('produto.teste');
-}); 
+
+//Rotas Carrinho
+Route::get("/carrinho" , [pedidoController::class, "index"])->name('pedidos.carrinho');
 
 //rotas politicas
 Route::get('/politicas/trocas-devolucoes', function () {
@@ -49,8 +51,5 @@ Route::get('/orderList', [orderController::class, 'index'])->name('orderList');
 Route::get('/order/{id}', [OrderController::class, 'show'])->name('orderDetail');
 
 });
-
-Route::get("/", [produtoController::class,"index"])->name('produto.index'); 
-Route::get("/search", [produtoController::class, "search"])->name('produto.search');
 
 require __DIR__.'/auth.php';

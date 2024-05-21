@@ -48,9 +48,11 @@ Route::get('/orderList', [orderController::class, 'index'])->name('orderList');
 Route::get('/order/{id}', [OrderController::class, 'show'])->name('orderDetail');
 
 //Rotas Carrinho
-Route::get("/carrinho" , [pedidoController::class, "index"])->name('carrinho.index');
-Route::get("/carrinho/{produto}" , [pedidoController::class, "store"])->name('carrinho.store');
-
+Route::get("/carrinho" , [pedidoController::class, "index"])->name('pedidos.index');
+Route::get("/carrinho/{produto}" , [pedidoController::class, "store"])->name('pedidos.store');
+Route::get("/checkout" , [pedidoController::class, "checkout"])->name('pedidos.checkout');
+Route::get("/pedido-realizado" , [pedidoController::class, "finish"])->name('pedidos.finish');
+Route::get("/pedido-realizado" , [pedidoController::class, "storePedidoItem"])->name('pedidos.storePedidoItem');
 
 });
 

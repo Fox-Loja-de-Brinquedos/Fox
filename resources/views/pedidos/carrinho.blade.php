@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/pedidos.css') }}" rel="stylesheet">
   <style>
     body {
       background-color: #F4EFEF;
@@ -59,9 +59,15 @@
                 </tr>
               </thead>
               <tbody>
+                @php
+                $total = 0;
+                @endphp
                 @foreach($carrinhoItens as $item)
+                @php
+                $total += $item->PRODUTO_PRECO - $item->PRODUTO_DESCONTO;
+                @endphp
                 <tr>
-                  <td class="product-thumbnail">
+                  <td class="product-thumbnail d-flex justify-content-center">
                     @if($item->IMAGEM_URL)
                     <img src="{{ $item->IMAGEM_URL }}" alt="{{ $item->PRODUTO_NOME }}" style="min-height: 70px; max-height: 70px; object-fit: contain;">
                     @else
@@ -108,7 +114,9 @@
             <table>
               <tr>
                 <td>Subtotal:</td>
-                <td>R$ 799,98</td>
+                <td>
+                  R$ {{$total}}
+                </td>
               </tr>
               <tr>
                 <td>Frete:</td>
@@ -116,14 +124,14 @@
               </tr>
               <tr>
                 <td>Total:</td>
-                <td>R$ 809,98</td>
+                <td>R${{$total + 10}}</td>
               </tr>
             </table>
-            <button>FINALIZAR A COMPRA</button>
+            <a href="{{ route('pedidos.checkout') }}">FINALIZAR A COMPRA</a>
 
           </div>
 
-          <p><a href="#">Continuar comprando</a></p>
+          <p><a href="/">Continuar comprando</a></p>
 
         </div>
       </div>

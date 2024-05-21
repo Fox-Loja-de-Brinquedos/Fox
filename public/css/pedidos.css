@@ -1,0 +1,99 @@
+body {
+    background-color: #F4EFEF;
+}
+
+.checkout-container-header {
+    background-color: #43ADDA;
+}
+.checkout-container-body {
+    
+}
+.cart-table td {
+    vertical-align: middle;
+}
+
+input {
+    background-color: #F3F3F3;
+    border-radius: 16px;
+    border: none;
+    display: inline-block;
+    padding: 5px 10px;
+}
+label {
+    width: 100%;
+}
+label.opcao-pagamento {
+    width: auto;
+}
+.input-1-1 {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.container-box {
+    border-radius: 12px;
+}
+.resumo-table {
+    border-radius: 12px;
+}
+.container-box h3{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+.container-box p{
+    font-size: 16px;
+    color: #555;
+}
+a.pedido-btn {
+    background-color: #F9A80C;
+    padding: 16px 32px;
+    text-transform: uppercase;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    font-weight: 600;
+    border: 2px solid #F9A80C;
+    transition: 0.2s;
+    text-decoration: none;
+}
+button.pedido-btn:hover {
+    color: #F9A80C;
+    background-color: #fff;
+}
+.btn-back-to-store {
+    color: #999;
+    text-decoration: none;
+}
+.btn-calculate {
+    border-radius: 16px;
+    background-color: #fff;
+    border: 1px solid #F9A80C;
+    color: #F9A80C;
+    font-weight: 400;
+    padding: 4px 12px;
+    transition: 0.2s;
+}
+.btn-calculate:hover{
+    background-color: #F9A80C;
+    color: #fff;
+}
+.container-box-pedido-realizado{
+    background-color: #B4E8BD;
+    padding: 60px 60px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    color: #009549;
+}
+.container-box-pedido-realizado .info-box{
+    background-color: #009549;
+    color: #fff;
+    font-weight: bold;
+    display: inline-block;
+    padding: 20px 40px;
+    border-radius: 16px;
+}
+.container-box-pedido-realizado .info-box img{
+    margin-right: 15px;
+}

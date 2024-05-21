@@ -64,7 +64,7 @@
 
         </div>
         <div class="col-2">
-          <a href="{{ route('carrinho.index') }}" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
+          <a href="{{ route('pedidos.index') }}" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
             <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
              Meu Carrinho
           </a>
@@ -243,7 +243,7 @@
                     </b>
                   </a>
                   <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                  <a href="{{ route('carrinho.store' , [$produto->PRODUTO_ID]) }}">
+                  <a href="{{ route('pedidos.store' , [$produto->PRODUTO_ID]) }}">
                     <div class="py-2 add-to-cart-box">
                       Adicionar ao Carrinho
                     </div>
@@ -432,7 +432,7 @@
                     </b>
                   </a>
                   <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                  <a href="{{ route('carrinho.store' , [$produto->PRODUTO_ID]) }}">
+                  <a href="{{ route('pedidos.store' , [$produto->PRODUTO_ID]) }}">
                     <div class="py-2 add-to-cart-box">
                       Adicionar ao Carrinho
                     </div>

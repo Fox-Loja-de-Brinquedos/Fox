@@ -10,7 +10,12 @@ class Pedido_Item extends Model
     protected $table = 'PEDIDO_ITEM';
     public $timestamps = false;
 
-    protected $fillable = ['ITEM_QTD', 'ITEM_PRECO'];
+    protected $fillable = [
+        'PRODUTO_ID',
+        'PEDIDO_ID',
+        'ITEM_QTD',
+        'ITEM_PRECO'
+    ];
 
     public function produto()
     {

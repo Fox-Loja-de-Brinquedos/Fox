@@ -2,7 +2,7 @@
 <html lang="pt_BR">
 
 <head>
-    <title>Fox Store - {{ $search }}</title>
+    <title>Fox Store {{ $search === '%' ? '' : '- ' . $search }}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -42,7 +42,8 @@
                 </div>
                 <div class="col-6" style="margin-left: 120px;">
                     <form class="form-inline" action="{{ route('produto.search') }}" method="GET">
-                        <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;">
+                        <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text"
+                         placeholder="Qual produto você está buscando?" style="width: 80%;" value="{{ $search === '%' ? '' : $search }}">
                         <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
@@ -62,7 +63,7 @@
 
                 </div>
                 <div class="col-2">
-                    <a href="{{ route('carrinho.index') }}" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
+                    <a href="{{ route('pedidos.index') }}" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
                         <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
                         Meu Carrinho
                     </a>
@@ -284,7 +285,7 @@
                                 </b>
                             </a>
                             <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                            <a href="#">
+                            <a href="{{ route('pedidos.store' , [$produto->PRODUTO_ID]) }}">
                                 <div class="py-2 add-to-cart-box">
                                     Adicionar ao Carrinho
                                 </div>

@@ -26,17 +26,17 @@
         <div class="container-fluid checkout-container-header">
            <header class="container py-4">
                <div class="row">
-                   <div class="col-3">
-                     <a href="index.html">
-                       <img src="img/logo-fox.png" alt="Logo" class="img-fluid">
-                     </a>
-                   </div>
-                   <div class="col-6 d-flex align-content-center flex-wrap">
-                     <img src="img/steps-identificacao.png" alt="Imagem 1" >
-                   </div>
-                   <div class="col-3 text-end">
-                     <img src="img/icone-seguro.png">
-                   </div>
+                    <div class="col-3">
+                      <a href="index.html">
+                        <img src="{{ asset('images/logo-fox-carrinho.png') }}" alt="Logo" class="img-fluid">
+                      </a>
+                    </div>
+                    <div class="col-6 d-flex align-content-center flex-wrap">
+                      <img src="{{ asset('images/steps-identificacao.png') }}" alt="Imagem 1" >
+                    </div>
+                    <div class="col-3 text-end">
+                      <img src="{{ asset('images/icone-seguro.png') }}">
+                    </div>
                </div>
            </header>
         </div>

@@ -22,7 +22,7 @@ const searchbar = document.querySelector('.searchbar');
 // Função para remover a última letra "S" se existir e ajustar "Jogos de cartas"
 function removeLastS(text) {
     if (text === 'Jogos de cartas') {
-        return 'carta';
+        return 'Carta';
     } else if(text === 'Outros brinquedos'){
         return '%';
     } 
@@ -41,6 +41,7 @@ searchOptions.forEach(option => {
         searchbar.value = modifiedText;
         // Se necessário, substitua "form" pelo seletor correto para o seu formulário
         document.querySelector('form').submit();
+
     });
 });
 

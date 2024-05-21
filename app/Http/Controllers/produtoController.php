@@ -13,24 +13,24 @@ class produtoController extends Controller
     {
         // Consulta base
         $queryBase = Produto::where('PRODUTO_ATIVO', '=', 1);
-    
+
         // Últimos produtos cadastrados
         $produtoLancamentos = (clone $queryBase)->orderBy('PRODUTO_ID', 'desc')
-                                                ->take(12)
-                                                ->get();
-    
+            ->take(12)
+            ->get();
+
         // Produtos em oferta
         $produtoOfertas = (clone $queryBase)->where('PRODUTO_DESCONTO', '>', 0)
-                                            ->orderBy('PRODUTO_DESCONTO' , 'desc')
-                                            ->take(12)
-                                            ->get();
-    
+            ->orderBy('PRODUTO_DESCONTO', 'desc')
+            ->take(12)
+            ->get();
+
         return view('produto.index', [
             'produtoLancamentos' => $produtoLancamentos,
             'produtoOfertas' => $produtoOfertas,
         ]);
     }
-    
+
     public function search(Request $request)
     {
         //Recebe o que foi digitado pelo usuário
@@ -95,6 +95,12 @@ class produtoController extends Controller
             //Exibe apenas 12 produtos por página    
             $produtos = $query->paginate(12)->withQueryString();
 
+            // Últimos produtos cadastrados
+            $produtoLancamentos = Produto::where('PRODUTO_ID', 1)
+                ->orderBy('PRODUTO_ID', 'desc')
+                ->take(20)
+                ->get();
+
             //Busca todas as categorias ativas
             $categorias = Categoria::where('CATEGORIA_ATIVO', 1)->get();
 
@@ -109,7 +115,8 @@ class produtoController extends Controller
                 'categorias' => $categorias,
                 'qtdProdutos' => $qtdProdutos,
                 'produtos' => $produtos,
-                'maxValue' => $maxValue
+                'maxValue' => $maxValue,
+                'produtoLancamentos' => $produtoLancamentos
             ]);
         } else {
             // Exibe uma mensagem de erro

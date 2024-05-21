@@ -93,7 +93,7 @@
                   <a class="nav-link nav-link-uppercase lancamentos" href='#lancamentos'>Lançamentos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a class="nav-link nav-link-uppercase ofertas" href='#ofertas'>Ofertas</a>
+                <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
                 </li>
               </ul>
             </div>

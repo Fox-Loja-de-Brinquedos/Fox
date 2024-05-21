@@ -34,26 +34,38 @@
         <div class="container">
 
             <!-- Linha do Logo, Barra de Pesquisa e Botões -->
-            <div class="row mt-3 mb-3 d-flex justify-content-between" style="position: relative;">
+            <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center" style="position: relative;">
                 <div class="col-1" style="position: absolute; top: -45px">
                     <a href="{{ route('produto.index') }}">
                         <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
                     </a>
                 </div>
                 <div class="col-6" style="margin-left: 120px;">
-                    <form class="form-inline" action="{{ route('produto.search', ['search' => $search]) }}" method="GET">
-                        <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px; width: 80%;" type="text" placeholder="Qual produto você está buscando?" value="{{ $search !== '%' ? $search : '' }}">
+                    <form class="form-inline" action="{{ route('produto.search') }}" method="GET">
+                        <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;">
                         <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
                 <div class="col-2">
-                    <a href="/profile" class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt=""> Entrar /
+                    @if( Auth::user())
+                    <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+                        <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+                        Olá, {{ Auth::user()->USUARIO_NOME }}
+                    </a>
+                    @else
+                    <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+                        <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+                        Entrar /
                         Cadastrar
                     </a>
+                    @endif
+
                 </div>
                 <div class="col-2">
-                    <button class="btn text-uppercase fw-bold btn-cart"><img src="{{ asset('images/icon-cart.png') }}" alt=""> Meu
-                        Carrinho</button>
+                    <a href="{{ route('carrinho.index') }}" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
+                        <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+                        Meu Carrinho
+                    </a>
                 </div>
             </div>
         </div>

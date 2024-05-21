@@ -48,7 +48,9 @@ Route::get('/orderList', [orderController::class, 'index'])->name('orderList');
 Route::get('/order/{id}', [OrderController::class, 'show'])->name('orderDetail');
 
 //Rotas Carrinho
-Route::get("/carrinho/{produto}" , [pedidoController::class, "index"])->name('pedidos.carrinho');
+Route::get("/carrinho" , [pedidoController::class, "index"])->name('carrinho.index');
+Route::get("/carrinho/{produto}" , [pedidoController::class, "store"])->name('carrinho.store');
+
 
 });
 

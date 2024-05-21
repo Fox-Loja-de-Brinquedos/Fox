@@ -63,7 +63,7 @@
                 <tr>
                   <td class="product-thumbnail">
                     @if($item->IMAGEM_URL)
-                    <img src="{{ $item->IMAGEM_URL }}" alt="{{ $item->PRODUTO_NOME }}">
+                    <img src="{{ $item->IMAGEM_URL }}" alt="{{ $item->PRODUTO_NOME }}" style="min-height: 70px; max-height: 70px; object-fit: contain;">
                     @else
                     <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" alt="Produto sem imagem">
                     @endif
@@ -73,14 +73,15 @@
                   <td class="product-quantity">
                     <div class="quantity d-flex align-items-center my-2">
                       <button class="minus-btn btn btn btn-sm mr-1" style="background-color: #43ADDA; color:white">-</button>
-                      <input type="text" name="item_qtd" class="form-control text-center mx-1" value="1" readonly>
+                      <input type="text" name="item_qtd" class="form-control text-center mx-1" value="{{ $item->ITEM_QTD }}" readonly>
                       <button class="plus-btn btn btn btn-sm ml-1" style="background-color: #43ADDA; color:white">+</button>
                     </div>
                   </td>
-                  <td class="product-subtotal">R$ {{ $item->PRODUTO_PRECO - $item->PRODUTO_DESCONTO }}</td>
+                  <td class="product-subtotal">R$ {{ ($item->PRODUTO_PRECO - $item->PRODUTO_DESCONTO) * $item->ITEM_QTD }}</td>
                   <td class="product-remove"><a href="#">X</a></td>
                 </tr>
                 @endforeach
+
               </tbody>
             </table>
           </div>

@@ -48,6 +48,14 @@ a {
   font-weight: 800;
 }
 
+.nav-text {
+  font-size: 14px !important;
+}
+
+.nav-img {
+  width: 20px !important;
+}
+
 .custom-nav-item .lancamentos {
   background-color: transparent;
   border: 1px solid #43ADDA;
@@ -485,4 +493,9 @@ label {
   pointer-events: auto;
   cursor: pointer;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+/*Carrinho Japa*/
+.product-thumbnail img {
+  width: 64px;
 }

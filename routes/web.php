@@ -14,9 +14,6 @@ Route::get("/", [produtoController::class, "index"])->name('produto.index');
 Route::get("/search", [produtoController::class, "search"])->name('produto.search');
 Route::get("/show/{produto}", [produtoController::class, "show"])->name('produto.show');
 
-//Rotas Carrinho
-Route::get("/carrinho" , [pedidoController::class, "index"])->name('pedidos.carrinho');
-
 //rotas politicas
 Route::get('/politicas/trocas-devolucoes', function () {
     return view('politicas.trocas-devolucoes');
@@ -49,6 +46,9 @@ Route::post('address/remove', [AddressController::class, 'removeAddress'])->name
 //Rotas de gerenciar pedidos
 Route::get('/orderList', [orderController::class, 'index'])->name('orderList');
 Route::get('/order/{id}', [OrderController::class, 'show'])->name('orderDetail');
+
+//Rotas Carrinho
+Route::get("/carrinho/{produto}" , [pedidoController::class, "index"])->name('pedidos.carrinho');
 
 });
 

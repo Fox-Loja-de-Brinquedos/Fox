@@ -36,7 +36,7 @@
     <div class="container">
 
       <!-- Linha do Logo, Barra de Pesquisa e Botões -->
-      <div class="row mt-3 mb-3 d-flex justify-content-between" style="position: relative;">
+      <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center" style="position: relative;">
         <div class="col-1" style="position: absolute; top: -45px">
           <a href="{{ route('produto.index') }}">
             <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
@@ -49,14 +49,25 @@
           </form>
         </div>
         <div class="col-2">
-          <a href="/profile" class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt="">
+          @if( Auth::user())
+          <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+           Olá, {{ Auth::user()->USUARIO_NOME }}
+          </a>
+          @else
+          <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
             Entrar /
             Cadastrar
           </a>
+          @endif
+
         </div>
         <div class="col-2">
-          <button class="btn text-uppercase fw-bold btn-cart"><img src="{{ asset('images/icon-cart.png') }}" alt=""> Meu
-            Carrinho</button>
+          <a class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
+            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+             Meu Carrinho
+          </a>
         </div>
       </div>
     </div>
@@ -93,7 +104,7 @@
                   <a class="nav-link nav-link-uppercase lancamentos" href='#lancamentos'>Lançamentos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
+                  <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
                 </li>
               </ul>
             </div>
@@ -104,31 +115,31 @@
   </header>
 
   <div id="carouselExampleIndicators" class="carousel slide">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <a class="banner-slide" data-search="Funko"><img src="{{ asset('images/banner04.png') }}" class="d-block w-100" alt="..."></a>
+      </div>
+      <div class="carousel-item">
+        <a class="banner-slide" data-search="produto2"><img src="{{ asset('images/banner02.png') }}" class="d-block w-100" alt="..."></a>
+      </div>
+      <div class="carousel-item">
+        <a class="banner-slide" data-search="produto3"><img src="{{ asset('images/banner03.png') }}" class="d-block w-100" alt="..."></a>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon carousel-control" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon carousel-control" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <a class="banner-slide" data-search="Funko"><img src="{{ asset('images/banner04.png') }}" class="d-block w-100" alt="..."></a>
-    </div>
-    <div class="carousel-item">
-      <a class="banner-slide" data-search="produto2"><img src="{{ asset('images/banner02.png') }}" class="d-block w-100" alt="..."></a>
-    </div>
-    <div class="carousel-item">
-      <a class="banner-slide" data-search="produto3"><img src="{{ asset('images/banner03.png') }}" class="d-block w-100" alt="..."></a>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon carousel-control" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon carousel-control" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
 
 
   <!-- Linha com 4 colunas de features ---------------------------------------------------------------------------------------->
@@ -232,7 +243,7 @@
                     </b>
                   </a>
                   <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                  <a href="#">
+                  <a href="{{ route('pedidos.carrinho' , [$produto->PRODUTO_ID]) }}">
                     <div class="py-2 add-to-cart-box">
                       Adicionar ao Carrinho
                     </div>
@@ -371,8 +382,8 @@
       </div>
     </div>
 
-     <!--Container Cards de Produtos-->
-     <div class="container-fluid mb-5 mt-5">
+    <!--Container Cards de Produtos-->
+    <div class="container-fluid mb-5 mt-5">
       <h2 class="text-center mb-4" id="lancamentos">OFERTAS IMPERDÍVEIS</h2>
       <div class="swiper-container container-fluid d-flex justify-content-center">
         <div class="swiper-content-and-buttons">
@@ -421,7 +432,7 @@
                     </b>
                   </a>
                   <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                  <a href="#">
+                  <a href="{{ route('pedidos.carrinho' , [$produto->PRODUTO_ID]) }}">
                     <div class="py-2 add-to-cart-box">
                       Adicionar ao Carrinho
                     </div>
@@ -455,7 +466,7 @@
     </div> <!--Container Cards de Produtos-->
 
 
-  <!-- pop-up cookies
+    <!-- pop-up cookies
   <div id="cookie-popup" class="cookie-popup alert alert-dismissible alert-info fade show fixed-bottom" role="alert">
     <div>
       <p>Utilizamos cookies para melhorar a experiência do usuário e analisar o tráfego do site. Por esses
@@ -468,119 +479,119 @@
     </div>
   </div> -->
 
-  <!-- modal cookies -->
-  <div id="container-modal">
-    <div class="modal" tabindex="-1" id="policy-modal">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Política de Cookies</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p style="font-size: 20px;">
-              Fox Loja de Brinquedos, estamos comprometidos em proporcionar a melhor experiência de compra online
-              possível para nossos clientes. Nossa política de cookies explica como usamos cookies e tecnologias
-              semelhantes em nosso site.
-            </p>
-            <p style="font-size: 20px;">
-              Utilizamos cookies por vários motivos, incluindo:
-            <ul>
-              <li>Cookies essenciais: Essenciais para fornecer funcionalidades básicas do site, como adicionar produtos ao carrinho de compras e processar pagamentos.</li>
-              <li>Cookies de desempenho: Nos ajudam a entender como os visitantes interagem com o site, fornecendo informações sobre páginas visitadas, tempo gasto no site e problemas encontrados, o que nos permite melhorar continuamente a experiência do usuário.</li>
-              <li>Cookies de funcionalidade: Permitem que o site se lembre de suas preferências e configurações, como idioma preferido e histórico de compras, para tornar sua experiência de compra mais personalizada e eficiente.</li>
-              <li>Cookies de publicidade: Podem ser usados para exibir anúncios relevantes para você em nosso site e em sites de terceiros, com base em seus interesses e atividades de navegação.</li>
-            </ul>
-            </p>
-            <p style="font-size: 20px;">
-              Atualizações desta política
-              Esta política pode ser atualizada periodicamente para refletir mudanças em nossas práticas de cookies.
-              Recomendamos que você reveja esta página regularmente para estar ciente de quaisquer alterações.
-            </p>
-            <p style="font-size: 20px;">
-              Entre em contato conosco
-              Se você tiver alguma dúvida sobre nossa política de cookies, entre em contato conosco através dos
-              dados fornecidos em nossa página de contato.
-            </p>
+    <!-- modal cookies -->
+    <div id="container-modal">
+      <div class="modal" tabindex="-1" id="policy-modal">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Política de Cookies</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p style="font-size: 20px;">
+                Fox Loja de Brinquedos, estamos comprometidos em proporcionar a melhor experiência de compra online
+                possível para nossos clientes. Nossa política de cookies explica como usamos cookies e tecnologias
+                semelhantes em nosso site.
+              </p>
+              <p style="font-size: 20px;">
+                Utilizamos cookies por vários motivos, incluindo:
+              <ul>
+                <li>Cookies essenciais: Essenciais para fornecer funcionalidades básicas do site, como adicionar produtos ao carrinho de compras e processar pagamentos.</li>
+                <li>Cookies de desempenho: Nos ajudam a entender como os visitantes interagem com o site, fornecendo informações sobre páginas visitadas, tempo gasto no site e problemas encontrados, o que nos permite melhorar continuamente a experiência do usuário.</li>
+                <li>Cookies de funcionalidade: Permitem que o site se lembre de suas preferências e configurações, como idioma preferido e histórico de compras, para tornar sua experiência de compra mais personalizada e eficiente.</li>
+                <li>Cookies de publicidade: Podem ser usados para exibir anúncios relevantes para você em nosso site e em sites de terceiros, com base em seus interesses e atividades de navegação.</li>
+              </ul>
+              </p>
+              <p style="font-size: 20px;">
+                Atualizações desta política
+                Esta política pode ser atualizada periodicamente para refletir mudanças em nossas práticas de cookies.
+                Recomendamos que você reveja esta página regularmente para estar ciente de quaisquer alterações.
+              </p>
+              <p style="font-size: 20px;">
+                Entre em contato conosco
+                Se você tiver alguma dúvida sobre nossa política de cookies, entre em contato conosco através dos
+                dados fornecidos em nossa página de contato.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- fim do pop-up cookies -->
+    <!-- fim do pop-up cookies -->
 
-  <footer>
+    <footer>
 
-    <!--Receba promoções banner-->
-    <div id="news-and-promotions-banner" class="container-fluid">
-      <div class="row h-100 d-flex align-items-center justify-content-center">
-        <div class="col col-4 fs-3 text-light fw-semibold">RECEBA PROMOÇÕES E NOVIDADES!</div>
+      <!--Receba promoções banner-->
+      <div id="news-and-promotions-banner" class="container-fluid">
+        <div class="row h-100 d-flex align-items-center justify-content-center">
+          <div class="col col-4 fs-3 text-light fw-semibold">RECEBA PROMOÇÕES E NOVIDADES!</div>
 
-        <div class="col col-4 d-flex justify-content-evenly">
-          <input type="email" class="form-control text-us-input" placeholder="Seu nome">
-          <input type="email" class="form-control text-us-input" placeholder="E-mail">
-          <button type="button" class="btn btn-dark px-4">Enviar</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="social-midia-footer" class="container-fluid">
-      <div class="row d-flex justify-content-center">
-        <div class="col col-2 d-flex flex-column footer-column">
-          <h3 class="fs-5 text-uppercase">Institucional</h3>
-          <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Sobre a marca</a>
-          <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Trocas e Devoluções</a>
-          <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Políticas de privacidade</a>
-        </div>
-        <div class="col col-2 d-flex flex-column footer-column">
-          <h3 class="fs-5 text-uppercase">Loja</h3>
-          <p>Minha conta</p>
-          <p>Meu carrinho</p>
-          <p>Meus pedidos</p>
-        </div>
-        <div class="col col-2 d-flex flex-column footer-column">
-          <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
-          <div class="d-flex justify-content-start mb-4">
-            <img src="{{ asset('images/facebook.png') }}" class="footer-icon-resize me-2" alt="Icone Facebook">
-            <p class="m-0">@lojafoxbrinquedos</p>
-          </div>
-
-          <div class="d-flex justify-content-start">
-            <img src="{{ asset('images/instagram.png') }}" class="footer-icon-resize me-2" alt="Icone Instagram">
-            <p class="m-0">@lojafoxbrinquedos</p>
+          <div class="col col-4 d-flex justify-content-evenly">
+            <input type="email" class="form-control text-us-input" placeholder="Seu nome">
+            <input type="email" class="form-control text-us-input" placeholder="E-mail">
+            <button type="button" class="btn btn-dark px-4">Enviar</button>
           </div>
         </div>
-        <div class="col col-2 footer-column">
-          <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
-          <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
+      </div>
+
+      <div id="social-midia-footer" class="container-fluid">
+        <div class="row d-flex justify-content-center">
+          <div class="col col-2 d-flex flex-column footer-column">
+            <h3 class="fs-5 text-uppercase">Institucional</h3>
+            <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Sobre a marca</a>
+            <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Trocas e Devoluções</a>
+            <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Políticas de privacidade</a>
+          </div>
+          <div class="col col-2 d-flex flex-column footer-column">
+            <h3 class="fs-5 text-uppercase">Loja</h3>
+            <p>Minha conta</p>
+            <p>Meu carrinho</p>
+            <p>Meus pedidos</p>
+          </div>
+          <div class="col col-2 d-flex flex-column footer-column">
+            <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
+            <div class="d-flex justify-content-start mb-4">
+              <img src="{{ asset('images/facebook.png') }}" class="footer-icon-resize me-2" alt="Icone Facebook">
+              <p class="m-0">@lojafoxbrinquedos</p>
+            </div>
+
+            <div class="d-flex justify-content-start">
+              <img src="{{ asset('images/instagram.png') }}" class="footer-icon-resize me-2" alt="Icone Instagram">
+              <p class="m-0">@lojafoxbrinquedos</p>
+            </div>
+          </div>
+          <div class="col col-2 footer-column">
+            <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
+            <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
+          </div>
         </div>
       </div>
-    </div>
 
-    <hr>
+      <hr>
 
-    <div id="copyright-footer" class="container-fluid d-flex mb-3 mt-3 justify-content-between align-items-center">
-      <a href="#">
-        <img src="{{ asset('images/fox.png') }}" alt="Logo Fox" class="object-fit-contain ms-3" width="65px">
-      </a>
+      <div id="copyright-footer" class="container-fluid d-flex mb-3 mt-3 justify-content-between align-items-center">
+        <a href="#">
+          <img src="{{ asset('images/fox.png') }}" alt="Logo Fox" class="object-fit-contain ms-3" width="65px">
+        </a>
 
-      <i>
-        <p>Fox Store © 2024 - Todos os direitos reservados</p>
-      </i>
+        <i>
+          <p>Fox Store © 2024 - Todos os direitos reservados</p>
+        </i>
 
-      <a href="https://wa.me/+5511944880786" target="_blank"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
-      </a>
-    </div>
+        <a href="https://wa.me/+5511944880786" target="_blank"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
+        </a>
+      </div>
 
-  </footer>
+    </footer>
 
 
-  <!--Swiper JS-->
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!--Swiper JS-->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-  <script src="{{ asset('js/cookies.js') }}"></script>
-  <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/cookies.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 
 </body>
 

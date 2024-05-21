@@ -31,7 +31,7 @@
            <div class="row gx-5">
              <div class="col-7">
                 <form action="">
-
+                    <!--
                     <div class="bg-white p-4 container-box">
                         <h3>Dados pessoais</h3>
                         <p>Solicitamos apenas informações essenciais</p>
@@ -53,8 +53,9 @@
                             </label>
                         </div>
                     </div>
+                    -->
 
-                    <div class="bg-white p-4 mt-5 container-box">
+                    <div class="bg-white p-4 container-box">
                         <h3>Entrega</h3>
                         <p>Solicitamos apenas informações essenciais</p>
                         <div id="entrega">
@@ -83,7 +84,7 @@
                         <h3>Formas de pagamento</h3>
                         <p>Solicitamos apenas informações essenciais</p>
                         <div id="forma-de-pagamento">
-                            <div><input type="radio" name="boleto" id="boleto"><label for="boleto" class="opcao-pagamento">Boleto</label></div>
+                            <div   class="mb-3"><input type="radio" name="boleto" id="boleto"><label for="boleto" class="opcao-pagamento"> Boleto</label></div>
                             <button id="finalizar-pedido" class="pedido-btn">FINALIZAR PEDIDO</button>
                         </div>
                     </div>

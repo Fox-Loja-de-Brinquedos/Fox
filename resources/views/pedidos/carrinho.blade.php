@@ -28,14 +28,14 @@
                 <div class="row">
                     <div class="col-3">
                       <a href="index.html">
-                        <img src="img/logo-fox.png" alt="Logo" class="img-fluid">
+                        <img src="{{ asset('images/logo-fox-carrinho.png') }}" alt="Logo" class="img-fluid">
                       </a>
                     </div>
                     <div class="col-6 d-flex align-content-center flex-wrap">
-                      <img src="img/steps2.png" alt="Imagem 1" >
+                      <img src="{{ asset('images/steps2.png') }}" alt="Imagem 1" >
                     </div>
                     <div class="col-3 text-end">
-                      <img src="img/icone-seguro.png">
+                      <img src="{{ asset('images/icone-seguro.png') }}">
                     </div>
                 </div>
             </header>

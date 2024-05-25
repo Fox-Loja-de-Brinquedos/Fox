@@ -1,16 +1,31 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route; 
 use App\Http\Controllers\produtoController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\orderController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\addressController;
+use App\Http\Controllers\pedidoController;
 
 
+//Rotas Produto
+Route::get("/", [produtoController::class, "index"])->name('produto.index'); 
+Route::get("/search", [produtoController::class, "search"])->name('produto.search');
+Route::get("/show/{produto}", [produtoController::class, "show"])->name('produto.show');
 
-Route::get("/", [produtoController::class,"index"])->name('produto');
+//rotas politicas
+Route::get('/politicas/trocas-devolucoes', function () {
+    return view('politicas.trocas-devolucoes');
+})->name('politicas.trocas-devolucoes');
 
+Route::get('/politicas/politica-de-privacidade', function () {
+    return view('politicas.politica-de-privacidade');
+})->name('politicas.politica-de-privacidade');
+
+Route::get('/politicas/sobre-nos', function () {
+    return view('politicas.sobre-nos');
+})->name('politicas.sobre-nos');
 
 Route::middleware('auth')->group(function () {
 Route::get('/profile', [profileController::class, 'create'])->name('profile');
@@ -32,9 +47,13 @@ Route::post('address/remove', [AddressController::class, 'removeAddress'])->name
 Route::get('/orderList', [orderController::class, 'index'])->name('orderList');
 Route::get('/order/{id}', [OrderController::class, 'show'])->name('orderDetail');
 
-});
+//Rotas Carrinho
+Route::get("/carrinho" , [pedidoController::class, "index"])->name('pedidos.index');
+Route::get("/carrinho/{produto}" , [pedidoController::class, "store"])->name('pedidos.store');
+Route::get("/checkout" , [pedidoController::class, "checkout"])->name('pedidos.checkout');
+Route::get("/pedido-realizado" , [pedidoController::class, "finish"])->name('pedidos.finish');
+Route::get("/pedido-realizado" , [pedidoController::class, "storePedidoItem"])->name('pedidos.storePedidoItem');
 
-Route::get("/", [produtoController::class,"index"])->name('produto.index'); 
-Route::get("/search", [produtoController::class, "search"])->name('produto.search');
+});
 
 require __DIR__.'/auth.php';

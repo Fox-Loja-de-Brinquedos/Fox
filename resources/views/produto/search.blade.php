@@ -2,7 +2,7 @@
 <html lang="pt_BR">
 
 <head>
-    <title>Fox Store - Loja de brinquedos</title>
+    <title>Fox Store {{ $search === '%' ? '' : '- ' . $search }}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -34,25 +34,39 @@
         <div class="container">
 
             <!-- Linha do Logo, Barra de Pesquisa e Botões -->
-            <div class="row mt-3 mb-3 d-flex justify-content-between" style="position: relative;">
+            <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center" style="position: relative;">
                 <div class="col-1" style="position: absolute; top: -45px">
                     <a href="{{ route('produto.index') }}">
                         <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
                     </a>
                 </div>
                 <div class="col-6" style="margin-left: 120px;">
-                    <form id="filter-form" action="{{ route('produto.search', ['search' => $search]) }}" method="GET">
-                        <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;" value="{{ $search }}">
+                    <form class="form-inline" action="{{ route('produto.search') }}" method="GET">
+                        <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text"
+                         placeholder="Qual produto você está buscando?" style="width: 80%;" value="{{ $search === '%' ? '' : $search }}">
                         <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
                 <div class="col-2">
-                    <button class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt=""> Entrar /
-                        Cadastrar</button>
+                    @if( Auth::user())
+                    <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+                        <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+                        Olá, {{ Auth::user()->USUARIO_NOME }}
+                    </a>
+                    @else
+                    <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+                        <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+                        Entrar /
+                        Cadastrar
+                    </a>
+                    @endif
+
                 </div>
                 <div class="col-2">
-                    <button class="btn text-uppercase fw-bold btn-cart"><img src="{{ asset('images/icon-cart.png') }}" alt=""> Meu
-                        Carrinho</button>
+                    <a href="{{ route('pedidos.index') }}" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
+                        <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+                        Meu Carrinho
+                    </a>
                 </div>
             </div>
         </div>
@@ -65,31 +79,31 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="categories-menu navbar-nav mx-auto">
                                 <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Bonecas</a>
+                                    <button class="nav-link nav-link-uppercase searchOption">Bonecas</button>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Veículos</a>
+                                    <button class="nav-link nav-link-uppercase searchOption">Veículos</button>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Pelúcias</a>
+                                    <button class="nav-link nav-link-uppercase searchOption">Pelúcias</button>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Jogos de cartas</a>
+                                    <button class="nav-link nav-link-uppercase searchOption">Jogos de cartas</button>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Tabuleiros</a>
+                                    <button class="nav-link nav-link-uppercase searchOption">Tabuleiros</button>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Eletrônicos</a>
+                                    <button class="nav-link nav-link-uppercase searchOption">Eletrônicos</button>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Outros brinquedos</a>
+                                    <button class="nav-link nav-link-uppercase searchOption">Outros brinquedos</button>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase lancamentos" href="#">Lançamentos</a>
+                                    <a href="{{ route('produto.search' , [ 'search' => '%']) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase ofertas" href="#">Ofertas</a>
+                                    <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
                                 </li>
                             </ul>
                         </div>
@@ -117,9 +131,10 @@
                             @php
                             $selectedCategoryId = request('categoria_id');
                             $dropdownFilter = request('dropdownFilter');
+                            $promotionCheckbox = request('promotion_checkbox') ? 'true' : null;
                             @endphp
                             <!--Limpar filtro de categoria-->
-                            <a href="{{ route('produto.search', ['categoria_id' => null, 'dropdownFilter' => $dropdownFilter, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}" class="list-group-item list-group-item-action {{ is_null($selectedCategoryId) ? 'active' : '' }}">
+                            <a href="{{ route('produto.search', ['categoria_id' => null, 'dropdownFilter' => $dropdownFilter, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}" class="list-group-item list-group-item-action {{ is_null($selectedCategoryId) ? 'active' : '' }}">
                                 - Sem Filtro -
                             </a>
                             @foreach ($categorias as $categoria)
@@ -127,10 +142,7 @@
                             // Verifica o ID passado na URL e muda a classe do link correspondente
                             $activeClass = ($selectedCategoryId == $categoria->CATEGORIA_ID) ? 'active' : '';
                             // Adiciona o parâmetro 'promotion_checkbox' na URL se a caixa de seleção estiver marcada
-                            $queryParams = ['categoria_id' => $categoria->CATEGORIA_ID, 'dropdownFilter' => $dropdownFilter, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')];
-                            if (request()->has('promotion_checkbox')) {
-                            $queryParams['promotion_checkbox'] = 'true';
-                            }
+                            $queryParams = ['categoria_id' => $categoria->CATEGORIA_ID, 'dropdownFilter' => $dropdownFilter, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox];
                             @endphp
                             <a href="{{ route('produto.search', $queryParams) }}" class="list-group-item list-group-item-action {{ $activeClass }}">
                                 {{ $categoria->CATEGORIA_NOME }}
@@ -164,11 +176,11 @@
                         <div class="price-input">
                             <div class="field">
                                 <label for="min-price">Min</label>
-                                <input type="number" id="min-price" name="minValue" value="0" class="min-input m-0 ms-2" />
+                                <input type="number" id="min-price" name="minValue" value="0" disabled class="min-input m-0 ms-2" />
                             </div>
                             <div class="field">
                                 <label for="max-price">Max</label>
-                                <input type="number" id="max-price" name="maxValue" value="{{ $maxValue }}" class="max-input m-0 ms-2" />
+                                <input type="number" id="max-price" name="maxValue" value="{{ round($maxValue) }}" disabled class="max-input m-0 ms-2" />
                             </div>
                         </div>
 
@@ -178,7 +190,7 @@
 
                         <div class="range-input">
                             <input type="range" min="0" max="999" value="0" class="min-range" />
-                            <input type="range" min="1" max="{{ $maxValue + 1 }}" value="{{ $maxValue }}" class="max-range" />
+                            <input type="range" min="1" max="{{ round($maxValue) }}" value="{{ round($maxValue) }}" class="max-range" />
                         </div>
                     </form>
 
@@ -205,22 +217,21 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item {{ request()->input('dropdownFilter') === null ? 'active' : '' }}" href="{{ route('produto.search', ['categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}">- Sem Filtro -</a>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === null ? 'active' : '' }}" href="{{ route('produto.search', ['categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}">- Sem Filtro -</a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'maisVendidos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'maisVendidos', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}">Mais vendidos</a>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'maisVendidos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'maisVendidos', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}">Mais vendidos</a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'descontos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'descontos', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}">Descontos</a>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'descontos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'descontos', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}">Descontos</a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'maiorPreco' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'maiorPreco', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}">Maior preço</a>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'maiorPreco' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'maiorPreco', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}">Maior preço</a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'menorPreco' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'menorPreco', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue')]) }}">Menor preço</a>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'menorPreco' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'menorPreco', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}">Menor preço</a>
                         </li>
                     </ul>
-
                 </div>
             </div>
 
@@ -258,7 +269,7 @@
                     <!--Card do Produto-->
                     <div class="card product-card" style="width: 18rem;">
                         <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
-                            <a href="#">
+                            <a href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
                                 @if ($produto->imagens->isNotEmpty())
                                 <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
                                 @else
@@ -267,14 +278,14 @@
                             </a>
                         </div>
                         <div class="card-body text-center">
-                            <a href="#">
+                            <a href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
                                 <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
                                 <b>
                                     <p class="card-text">R$ {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
                                 </b>
                             </a>
                             <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                            <a href="#">
+                            <a href="{{ route('pedidos.store' , [$produto->PRODUTO_ID]) }}">
                                 <div class="py-2 add-to-cart-box">
                                     Adicionar ao Carrinho
                                 </div>
@@ -418,12 +429,14 @@
                 <p>Fox Store © 2024 - Todos os direitos reservados</p>
             </i>
 
-            <a href="#"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
+            <a href="https://wa.me/+5511944880786" target="_blank"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
             </a>
         </div>
     </footer>
 
     <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/search.js') }}"></script>
+
 </body>
 
 </html>

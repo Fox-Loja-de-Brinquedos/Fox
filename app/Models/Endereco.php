@@ -12,7 +12,7 @@ class Endereco extends Model
     protected $table = 'ENDERECO';
     protected $primaryKey = 'ENDERECO_ID';
     public $timestamps = false;
-
+ 
     protected $fillable = [
         'ENDERECO_NOME',
         'ENDERECO_LOGRADOURO', 

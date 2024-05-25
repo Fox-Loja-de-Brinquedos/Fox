@@ -5,18 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\Categoria;
-
+use Illuminate\Support\Facades\DB;
 
 class produtoController extends Controller
 {
     public function index()
     {
-        //Recebe do banco apenas os produtos ativos
-        $produtos = Produto::where('PRODUTO_ATIVO', '=', 1)->get();
+        // Consulta base
+        $queryBase = Produto::where('PRODUTO_ATIVO', '=', 1);
 
-        return view('produto.index', ['produtos' => $produtos]);
+        // Últimos produtos cadastrados
+        $produtoLancamentos = (clone $queryBase)->orderBy('PRODUTO_ID', 'desc')
+            ->take(12)
+            ->get();
+
+        // Produtos em oferta
+        $produtoOfertas = (clone $queryBase)->where('PRODUTO_DESCONTO', '>', 0)
+            ->orderBy('PRODUTO_DESCONTO', 'desc')
+            ->take(12)
+            ->get();
+
+        return view('produto.index', [
+            'produtoLancamentos' => $produtoLancamentos,
+            'produtoOfertas' => $produtoOfertas,
+        ]);
     }
-
 
     public function search(Request $request)
     {
@@ -59,6 +72,10 @@ class produtoController extends Controller
             if ($dropdownFilter) {
                 switch ($dropdownFilter) {
                     case 'maisVendidos':
+                        $produtos = Produto::select('PRODUTO.*', DB::raw('COUNT(PEDIDO_ITEM.PRODUTO_ID) AS total_vendas'))
+                            ->leftJoin('PEDIDO_ITEM', 'PRODUTO.PRODUTO_ID', '=', 'PEDIDO_ITEM.PRODUTO_ID')
+                            ->groupBy('PRODUTO.PRODUTO_ID')
+                            ->orderByDesc('total_vendas');
                         break;
                     case 'maiorPreco':
                         $query->orderByRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) DESC');
@@ -78,6 +95,12 @@ class produtoController extends Controller
             //Exibe apenas 12 produtos por página    
             $produtos = $query->paginate(12)->withQueryString();
 
+            // Últimos produtos cadastrados
+            $produtoLancamentos = Produto::where('PRODUTO_ID', 1)
+                ->orderBy('PRODUTO_ID', 'desc')
+                ->take(20)
+                ->get();
+
             //Busca todas as categorias ativas
             $categorias = Categoria::where('CATEGORIA_ATIVO', 1)->get();
 
@@ -92,11 +115,18 @@ class produtoController extends Controller
                 'categorias' => $categorias,
                 'qtdProdutos' => $qtdProdutos,
                 'produtos' => $produtos,
-                'maxValue' => $maxValue
+                'maxValue' => $maxValue,
+                'produtoLancamentos' => $produtoLancamentos
             ]);
         } else {
             // Exibe uma mensagem de erro
             return redirect()->back()->with('error', 'Nenhum termo de pesquisa foi inserido.');
         }
+    }
+
+    //metedo exibir
+    public function show(Produto $produto)
+    {
+        return view('produto.show', ['produto' => $produto]);
     }
 }

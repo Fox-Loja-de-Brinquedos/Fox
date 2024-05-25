@@ -31,25 +31,25 @@ class orderController extends Controller
         $pedido = Pedido::with(['itens.produto.imagens', 'status', 'endereco'])->find($id);
 
         //função para somar todos os itens do pedido
-        // $pedido->totalPrecoBruto = $pedido->itens->sum(function ($item) {
-        //     return $item->ITEM_PRECO * $item->ITEM_QTD;
-        // });
+         $pedido->totalPrecoBruto = $pedido->itens->sum(function ($item) {
+             return $item->ITEM_PRECO * $item->ITEM_QTD;
+         });
 
-        // $pedido->totalDesconto = 0;
+         $pedido->totalDesconto = 0;
 
-        // // Calcule o desconto total do pedido somando os descontos dos produtos em reais
-        // foreach ($pedido->itens as $item) {
-        //     if ($item->produto) {
-        //         $descontoEmReais = ($item->ITEM_PRECO * ($item->produto->PRODUTO_DESCONTO / 100)) * $item->ITEM_QTD;
-        //         $item->descontoEmReais = $descontoEmReais;
-        //         $pedido->totalDesconto += $descontoEmReais;
-        //     } else {
-        //         $item->descontoEmReais = 0;
-        //     }
-        // }
+        // Calcula o desconto total do pedido somando os descontos dos produtos em reais
+         foreach ($pedido->itens as $item) {
+             if ($item->produto) {
+                 $descontoEmReais = ($item->ITEM_PRECO * ($item->produto->PRODUTO_DESCONTO / 100)) * $item->ITEM_QTD;
+                 $item->descontoEmReais = $descontoEmReais;
+                 $pedido->totalDesconto += $descontoEmReais;
+             } else {
+                 $item->descontoEmReais = 0;
+             }
+         }
 
-        // Calcule o preço total do pedido após os descontos
-        // $pedido->totalPrecoComDesconto = $pedido->totalPrecoBruto - $pedido->totalDesconto;
+        // Calcula o preço total do pedido após os descontos
+         $pedido->totalPrecoComDesconto = $pedido->totalPrecoBruto - $pedido->totalDesconto;
 
         //trazendo dados do usuario autenticado
         $user = Auth::user();

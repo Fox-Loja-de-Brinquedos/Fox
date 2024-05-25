@@ -74,15 +74,16 @@ main{
 }
 
 .tableItem img{
-    width: 111px;
-    height: 147px;
+    width: 120px;
+    height: 100px;
+    object-fit: contain;
     margin-top: 10px;
-    margin-left: 20px;
+    margin-left: 10px;
     margin-bottom: 10px;
 }
 
 .tableItem span{
-    padding-left: 50px;
+    padding-left: 20px;
 }
 
 .orderPrice{

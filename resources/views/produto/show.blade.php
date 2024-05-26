@@ -2,96 +2,117 @@
 <html>
 
 <head>
-    <title>Fox Store - Loja de brinquedos</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
+  <title>Fox Store - Loja de brinquedos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+  <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
 </head>
 
 <body>
-    <header>
-        <div class="container-fluid">
+  <header>
+    <div class="container-fluid">
 
-            <!-- Linha do Frete Grátis -->
-            <div class="row justify-content-center">
-                <div class="col-12 text-center ps-0 pe-0">
-                    <div class="header-top">
-                        <p style="margin-bottom: 0;"><strong>Frete grátis</strong> acima de R$ 199,99 em compras!</p>
-                    </div>
-                </div>
-            </div>
+      <!-- Linha do Frete Grátis -->
+      <div class="row justify-content-center">
+        <div class="col-12 text-center ps-0 pe-0">
+          <div class="header-top">
+            <p style="margin-bottom: 0;"><strong>Frete grátis</strong> acima de R$ 199,99 em compras!</p>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div class="container">
+    <div class="container">
 
-            <!-- Linha do Logo, Barra de Pesquisa e Botões -->
-            <div class="row mt-3 mb-3 d-flex justify-content-between" style="position: relative;">
-                <div class="col-1" style="position: absolute; top: -45px">
-                    <a href="{{ route('produto.index') }}">
-                        <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
-                    </a>
-                </div>
-                <div class="col-6" style="margin-left: 120px;">
-                    <form class="form-inline" action="{{ route('produto.search') }}" method="GET">
-                        <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;">
-                        <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-                <div class="col-2">
-                    <a href="/profile"><button class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt=""> Entrar /
-                            Cadastrar</button></a>
-                </div>
-                <div class="col-2">
-                    <button class="btn text-uppercase fw-bold btn-cart"><img src="{{ asset('images/icon-cart.png') }}" alt=""> Meu
-                        Carrinho</button>
-                </div>
-            </div>
+      <!-- Linha do Logo, Barra de Pesquisa e Botões -->
+      <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center" style="position: relative;">
+        <div class="col-1" style="position: absolute; top: -45px">
+          <a href="{{ route('produto.index') }}">
+            <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
+          </a>
         </div>
-
-        <!-- Linha da Navegação -->
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <nav class="navbar navbar-expand-lg navbar-light">
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="categories-menu navbar-nav mx-auto">
-                                <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Bonecas</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Veículos</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Pelúcias</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Jogos de cartas</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Tabuleiros</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Eletrônicos</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a class="nav-link nav-link-uppercase" href="#">Outros brinquedos</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-            </div>
+        <div class="col-6" style="margin-left: 120px;">
+          <form class="form-inline" action="{{ route('produto.search') }}" method="GET">
+            <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;">
+            <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
+          </form>
         </div>
-    </header>
+        <div class="col-2">
+          @if( Auth::user())
+          <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+            Olá, {{ Auth::user()->USUARIO_NOME }}
+          </a>
+          @else
+          <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+            Entrar /
+            Cadastrar
+          </a>
+          @endif
+
+        </div>
+        <div class="col-2">
+          <a href="{{ route('pedidos.index') }}" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
+            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+            Meu Carrinho
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Linha da Navegação -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="categories-menu navbar-nav mx-auto">
+                <li class="nav-item custom-nav-item">
+                  <button class="nav-link nav-link-uppercase searchOption">Bonecas</button>
+                </li>
+                <li class="nav-item custom-nav-item">
+                  <button class="nav-link nav-link-uppercase searchOption">Veículos</button>
+                </li>
+                <li class="nav-item custom-nav-item">
+                  <button class="nav-link nav-link-uppercase searchOption">Pelúcias</button>
+                </li>
+                <li class="nav-item custom-nav-item">
+                  <button class="nav-link nav-link-uppercase searchOption">Jogos de cartas</button>
+                </li>
+                <li class="nav-item custom-nav-item">
+                  <button class="nav-link nav-link-uppercase searchOption">Tabuleiros</button>
+                </li>
+                <li class="nav-item custom-nav-item">
+                  <button class="nav-link nav-link-uppercase searchOption">Eletrônicos</button>
+                </li>
+                <li class="nav-item custom-nav-item">
+                  <button class="nav-link nav-link-uppercase searchOption">Outros brinquedos</button>
+                </li>
+                <li class="nav-item custom-nav-item">
+                  <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos" href='#lancamentos'>Lançamentos</a>
+                </li>
+                <li class="nav-item custom-nav-item">
+                  <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
 
     <!--parte tafinha-->
 
@@ -101,7 +122,7 @@
                 <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" alt="product-image" id="main-image">
                 <div class="product-images">
                     <div class="thumbnail-carousel mt-5 me-5">
-                        @foreach ($produto->imagens as $imagem) 
+                        @foreach ($produto->imagens as $imagem)
                         <img style="border: 2px solid #ddd;" src="{{ $imagem->IMAGEM_URL }}" alt="Thumbnail 1" class="thumbnail">
                         @endforeach
                     </div>
@@ -127,7 +148,7 @@
                     <button class="plus-btn btn btn btn-sm ml-1" style="background-color: #43ADDA; color:white">+</button>
                 </div>
                 <div class="button mt-5">
-                <p class="mt-5 text-secondary">Calcule o valor do frete para a sua região</p>
+                    <p class="mt-5 text-secondary">Calcule o valor do frete para a sua região</p>
                     <div class="input-group mb-3">
                         <input type="number" id="cepInput" class="form-control" placeholder="00000-000">
                         <button class="btn btn-primary" type="button">Calcular</button>

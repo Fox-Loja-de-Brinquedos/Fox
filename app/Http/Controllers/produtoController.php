@@ -26,36 +26,54 @@ class produtoController extends Controller
             ->take(12)
             ->get();
 
+        // Produtos Mais Vendidos
+        $produtoMaisVendidos = (clone $queryBase)->select(
+            'PRODUTO.PRODUTO_ID',
+            'pi.PRIMEIRA_IMAGEM',
+            'PRODUTO.PRODUTO_NOME',
+            DB::raw('SUM(PEDIDO_ITEM.ITEM_QTD) AS TOTAL_VENDIDO'),
+            'PRODUTO.PRODUTO_PRECO',
+            'PRODUTO.PRODUTO_DESCONTO'
+        )
+            ->leftJoin('PEDIDO_ITEM', 'PRODUTO.PRODUTO_ID', '=', 'PEDIDO_ITEM.PRODUTO_ID') // Ajusta o nome da tabela
+            ->join(DB::raw('(SELECT PRODUTO_ID, MIN(IMAGEM_ORDEM), MIN(IMAGEM_URL) as PRIMEIRA_IMAGEM FROM PRODUTO_IMAGEM GROUP BY PRODUTO_ID) AS pi'), function ($join) {
+                $join->on('PRODUTO.PRODUTO_ID', '=', 'pi.PRODUTO_ID');
+            })
+            ->where('PEDIDO_ITEM.ITEM_QTD', '>', 0)
+            ->groupBy('PRODUTO.PRODUTO_ID', 'pi.PRIMEIRA_IMAGEM', 'PRODUTO.PRODUTO_NOME', 'PRODUTO.PRODUTO_PRECO', 'PRODUTO.PRODUTO_DESCONTO')
+            ->orderByDesc('TOTAL_VENDIDO')
+            ->get();
+
         return view('produto.index', [
             'produtoLancamentos' => $produtoLancamentos,
-            'produtoOfertas' => $produtoOfertas,
+            'produtoMaisVendidos' => $produtoMaisVendidos,
+            'produtoOfertas' => $produtoOfertas
         ]);
     }
 
     public function search(Request $request)
     {
-        //Recebe o que foi digitado pelo usuário
+        // Recebe o que foi digitado pelo usuário
         $search = $request->input('search');
 
-        //Recebe o ID da categoria
+        // Recebe o ID da categoria
         $categoria_id = $request->get('categoria_id');
 
-        //Verifica se a checkbox de promoção foi checkada
+        // Verifica se a checkbox de promoção foi checada
         $isPromotionChecked = $request->has('promotion_checkbox');
 
-        //Recebe um dos filtros do dropdown
+        // Recebe um dos filtros do dropdown
         $dropdownFilter = $request->get('dropdownFilter');
 
-        //Recebe o input de maior e menor valor
+        // Recebe o input de maior e menor valor
         $minValueInput = $request->get('minValue');
         $maxValueInput = $request->get('maxValue');
 
-        //Verica se Lançamentos foi clicado
+        // Verifica se Lançamentos foi clicado
         $produtoLancamentos = $request->get('produtoLancamentos');
 
         // Verifica se foi passado algum valor na pesquisa
         if ($search) {
-
             // Consulta base
             $query = Produto::where('PRODUTO_ATIVO', 1)
                 ->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) > 0')
@@ -69,30 +87,42 @@ class produtoController extends Controller
                 $query->where('CATEGORIA_ID', $categoria_id);
             }
 
-            // Filtra por produtos em promocao se definido
-            if ($isPromotionChecked  || $dropdownFilter == 'descontos') {
+            // Filtra por produtos em promoção se definido
+            if ($isPromotionChecked || $dropdownFilter == 'descontos') {
                 $query->where('PRODUTO_DESCONTO', '>', 0);
             }
 
-            //Filtro e ordenação dropdown
-            if ($dropdownFilter) {
-                switch ($dropdownFilter) {
-                    case 'maisVendidos':
-                        $produtos = Produto::select('PRODUTO.*', DB::raw('COUNT(PEDIDO_ITEM.PRODUTO_ID) AS total_vendas'))
-                            ->leftJoin('PEDIDO_ITEM', 'PRODUTO.PRODUTO_ID', '=', 'PEDIDO_ITEM.PRODUTO_ID')
-                            ->groupBy('PRODUTO.PRODUTO_ID')
-                            ->orderByDesc('total_vendas');
-                        break;
-                    case 'maiorPreco':
-                        $query->orderByRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) DESC');
-                        break;
-                    case 'menorPreco':
-                        $query->orderByRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) ASC');
-                        break;
-                }
+            // Filtra e ordena de acordo com o dropdown
+            switch ($dropdownFilter) {
+                case 'maisVendidos':
+                    $query->select(
+                        'PRODUTO.PRODUTO_ID',
+                        'pi.PRIMEIRA_IMAGEM',
+                        'PRODUTO.PRODUTO_NOME',
+                        DB::raw('SUM(PEDIDO_ITEM.ITEM_QTD) AS TOTAL_VENDIDO'),
+                        'PRODUTO.PRODUTO_PRECO',
+                        'PRODUTO.PRODUTO_DESCONTO'
+                    )
+                        ->leftJoin('PEDIDO_ITEM', 'PRODUTO.PRODUTO_ID', '=', 'PEDIDO_ITEM.PRODUTO_ID') // Ajusta o nome da tabela
+                        ->join(DB::raw('(SELECT PRODUTO_ID, MIN(IMAGEM_ORDEM), MIN(IMAGEM_URL) as PRIMEIRA_IMAGEM FROM PRODUTO_IMAGEM GROUP BY PRODUTO_ID) AS pi'), function ($join) {
+                            $join->on('PRODUTO.PRODUTO_ID', '=', 'pi.PRODUTO_ID');
+                        })
+                        ->where('PEDIDO_ITEM.ITEM_QTD', '>', 0)
+                        ->groupBy('PRODUTO.PRODUTO_ID', 'pi.PRIMEIRA_IMAGEM', 'PRODUTO.PRODUTO_NOME', 'PRODUTO.PRODUTO_PRECO', 'PRODUTO.PRODUTO_DESCONTO')
+                        ->orderByDesc('TOTAL_VENDIDO');
+                    break;
+                case 'lancamentos':
+                    $query->orderBy('PRODUTO_ID', 'desc');
+                    break;
+                case 'maiorPreco':
+                    $query->orderByRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) DESC');
+                    break;
+                case 'menorPreco':
+                    $query->orderByRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) ASC');
+                    break;
             }
 
-            //Filtrar por preço
+            // Filtra por preço
             if ($minValueInput || $maxValueInput) {
                 $query->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) >= ?', [$minValueInput])
                     ->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) <= ?', [$maxValueInput]);
@@ -116,10 +146,10 @@ class produtoController extends Controller
                 $produtos = $query->paginate(12)->withQueryString();
             }
 
-            //Busca todas as categorias ativas
+            // Busca todas as categorias ativas
             $categorias = Categoria::where('CATEGORIA_ATIVO', 1)->get();
 
-            //Busca o maior valor dos produtos
+            // Busca o maior valor dos produtos
             $maxValue = Produto::max('PRODUTO_PRECO');
 
             // Conta quantos produtos foram achados na busca

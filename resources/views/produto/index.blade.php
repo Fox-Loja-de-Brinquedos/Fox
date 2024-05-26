@@ -197,7 +197,7 @@
 
   <!--Container Cards de Produtos-->
   <div class="container-fluid mb-5 mt-5">
-    <h2 class="text-center mb-4" id="lancamentos">LANÇAMENTOS</h2>
+    <h2 class="text-center mb-4 poetsen-one-regular">LANÇAMENTOS</h2>
     <div class="swiper-container container-fluid d-flex justify-content-center">
       <div class="swiper-content-and-buttons">
         <div class="swiper mySwiper m-0 container">
@@ -294,87 +294,85 @@
   </div>
 
   <!--Container Cards de Produtos-->
-  <div class="container mb-5 mt-5">
-    <h2 class="text-center  mb-4">MAIS VENDIDOS</h2>
-    <div class="row d-flex justify-content-around">
+  <div class="container-fluid mb-5 mt-5">
+    <h2 class="text-center mb-4 poetsen-one-regular">MAIS VENDIDOS</h2>
+    <div class="swiper-container container-fluid d-flex justify-content-center">
+      <div class="swiper-content-and-buttons">
+        <div class="swiper mySwiper m-0 container">
+          <div class="swiper-wrapper content">
+            @foreach ($produtoMaisVendidos as $produto)
 
-      <!--Card produto 1-->
-      <div class="card product-card" style="width: 18rem;">
-        <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
-          <img src="{{ asset('images/stitch.jpg') }}" class="card-img-top card-img-resize" alt="Imagem do produto">
-        </div>
-        <div class="card-body text-center">
-          <h5 class="card-title">Lorem Ipsum is simply dummy</h5>
-          <b>
-            <p class="card-text">R$ 489,00</p>
-          </b>
-          <p>6x de R$ 81,50 sem juros</p>
-          <a href="#" class="text-decoration-none">
-            <div class="py-2 add-to-cart-box">
-              Adicionar ao Carrinho
-            </div>
-          </a>
-        </div>
-      </div>
+            <!--Calculo para quantidade de parcelas e seus valores-->
+            @php
+            $qtd_parcelas = 1;
+            $produto_preco = $produto->PRODUTO_PRECO;
+            $produto_desconto = $produto->PRODUTO_DESCONTO;
 
-      <!--Card produto 2-->
-      <div class="card product-card" style="width: 18rem;">
-        <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
-          <img src="{{ asset('images/urso.jpg') }}" class="card-img-top card-img-resize" alt="Imagem do produto">
-        </div>
-        <div class="card-body text-center">
-          <h5 class="card-title">Lorem Ipsum is simply dummy</h5>
-          <b>
-            <p class="card-text">R$ 489,00</p>
-          </b>
-          <p>6x de R$ 81,50 sem juros</p>
-          <a href="#" class="text-decoration-none">
-            <div class="py-2 add-to-cart-box">
-              Adicionar ao Carrinho
-            </div>
-          </a>
-        </div>
-      </div>
+            if ($produto_preco >= 999) {
+            $qtd_parcelas = 12;
+            } elseif ($produto_preco >= 799) {
+            $qtd_parcelas = 10;
+            } elseif ($produto_preco >= 599) {
+            $qtd_parcelas = 8;
+            } elseif ($produto_preco >= 399) {
+            $qtd_parcelas = 6;
+            } elseif ($produto_preco >= 199) {
+            $qtd_parcelas = 4;
+            } elseif ($produto_preco >= 99) {
+            $qtd_parcelas = 2;
+            }
+            $valor_parcela = ($produto_preco - $produto_desconto) / $qtd_parcelas;
+            @endphp
 
-      <!--Card produto 3-->
-      <div class="card product-card" style="width: 18rem;">
-        <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
-          <img src="{{ asset('images/macaco.jpg') }}" class="card-img-top card-img-resize" alt="Imagem do produto">
-        </div>
-        <div class="card-body text-center">
-          <h5 class="card-title">Lorem Ipsum is simply dummy</h5>
-          <b>
-            <p class="card-text">R$ 489,00</p>
-          </b>
-          <p>6x de R$ 81,50 sem juros</p>
-          <a href="#" class="text-decoration-none">
-            <div class="py-2 add-to-cart-box">
-              Adicionar ao Carrinho
-            </div>
-          </a>
-        </div>
-      </div>
+            <!--Card do Produto-->
+            <div class="card product-card swiper-slide">
+              <div style="height: 50%;">
+                <a class="d-flex justify-content-center align-items-center mt-2" href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
+                  @if ($produto->imagens->isNotEmpty())
+                  <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
+                  @else
+                  <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
+                  @endif
+                </a>
+              </div>
+              <div class="card-body text-center">
+                <a href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
+                  <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
+                  <b>
+                    <p class="card-text">R$ {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
+                  </b>
+                </a>
+                <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
+                <a href="{{ route('pedidos.store' , [$produto->PRODUTO_ID]) }}">
+                  <div class="py-2 add-to-cart-box">
+                    Adicionar ao Carrinho
+                  </div>
+                </a>
+              </div>
 
-      <!--Card produto 4-->
-      <div class="card product-card" style="width: 18rem;">
-        <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
-          <img src="{{ asset('images/madruga.jpg') }}" class="card-img-top card-img-resize" alt="Imagem do produto">
-        </div>
-        <div class="card-body text-center">
-          <h5 class="card-title">Lorem Ipsum is simply dummy</h5>
-          <b>
-            <p class="card-text">R$ 489,00</p>
-          </b>
-          <p>6x de R$ 81,50 sem juros</p>
-          <a href="#" class="text-decoration-none">
-            <div class="py-2 add-to-cart-box">
-              Adicionar ao Carrinho
+              <!--Icone de desconto do Produto-->
+              @if($produto->PRODUTO_DESCONTO > 0)
+              @php
+              $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100
+              @endphp
+
+              <div id="discount-container">
+                <img src="{{ asset('images/discount.png') }}" alt="Icone de Desconto">
+                <p id="discount-icon-text">{{ number_format($porcentagem, 0) }}%</p>
+              </div>
+              @endif
+
             </div>
-          </a>
+            @endforeach
+
+          </div>
         </div>
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
       </div>
     </div>
-  </div>
+  </div> <!--Container Cards de Produtos-->
 
   <div class="container mt-5 mb-5">
     <div class="row">
@@ -386,7 +384,7 @@
 
   <!--Container Cards de Produtos-->
   <div class="container-fluid mb-5 mt-5">
-    <h2 class="text-center mb-4" id="lancamentos">OFERTAS IMPERDÍVEIS</h2>
+    <h2 class="text-center mb-4 poetsen-one-regular">OFERTAS IMPERDÍVEIS</h2>
     <div class="swiper-container container-fluid d-flex justify-content-center">
       <div class="swiper-content-and-buttons">
         <div class="swiper mySwiper m-0 container">

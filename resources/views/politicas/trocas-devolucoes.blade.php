@@ -12,6 +12,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
@@ -34,7 +36,7 @@
     <div class="container">
 
       <!-- Linha do Logo, Barra de Pesquisa e Botões -->
-      <div class="row mt-3 mb-3 d-flex justify-content-between" style="position: relative;">
+      <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center" style="position: relative;">
         <div class="col-1" style="position: absolute; top: -45px">
           <a href="{{ route('produto.index') }}">
             <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
@@ -47,12 +49,25 @@
           </form>
         </div>
         <div class="col-2">
-          <a href="/profile"><button class="btn text-uppercase fw-bold btn-login"><img src="{{ asset('images/icon-account.png') }}" alt=""> Entrar /
-              Cadastrar</button></a>
+          @if( Auth::user())
+          <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+            Olá, {{ Auth::user()->USUARIO_NOME }}
+          </a>
+          @else
+          <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+            Entrar /
+            Cadastrar
+          </a>
+          @endif
+
         </div>
         <div class="col-2">
-          <button class="btn text-uppercase fw-bold btn-cart"><img src="{{ asset('images/icon-cart.png') }}" alt=""> Meu
-            Carrinho</button>
+          <a href="{{ route('pedidos.index') }}" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
+            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+            Meu Carrinho
+          </a>
         </div>
       </div>
     </div>

@@ -219,6 +219,9 @@
                             <a class="dropdown-item {{ request()->input('dropdownFilter') === null ? 'active' : '' }}" href="{{ route('produto.search', ['categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}">- Sem Filtro -</a>
                         </li>
                         <li>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'lancamentos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'lancamentos', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}">Mais recentes</a>
+                        </li>
+                        <li>
                             <a class="dropdown-item {{ request()->input('dropdownFilter') === 'maisVendidos' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'maisVendidos', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}">Mais vendidos</a>
                         </li>
                         <li>
@@ -383,8 +386,6 @@
                 </div>
             </div>
             @endif
-
-
 
         </div>
     </div>

@@ -11,17 +11,13 @@ class orderController extends Controller
 {
     public function index(){
         $userId = Auth::id();
-        
-        $pedidos = Pedido::where('USUARIO_ID', $userId)->get();
+        $pedidos = Pedido::where('USUARIO_ID', $userId)->with(['itens.produto'])->get();
 
-        // Calcula a soma das unidades para cada pedido
         foreach ($pedidos as $pedido) {
             $pedido->totalUnidades = $pedido->itens->sum('ITEM_QTD');
-        }
-
-        // Calcula a soma dos preços para cada pedido
-        foreach ($pedidos as $pedido) {
-            $pedido->totalPreco = $pedido->itens->sum('ITEM_PRECO');
+            $pedido->totalPreco = $pedido->itens->sum(function ($item) {
+                return $item->ITEM_PRECO * $item->ITEM_QTD;
+            });
         }
 
         return view("perfil.orderList", compact('pedidos'));

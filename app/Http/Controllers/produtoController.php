@@ -12,7 +12,7 @@ class produtoController extends Controller
     public function index()
     {
         // Consulta base
-        $queryBase = Produto::where('PRODUTO_ATIVO', '=', 1);
+        $queryBase = Produto::where('PRODUTO_ATIVO',  1);
 
         // Últimos produtos cadastrados
         $produtoLancamentos = (clone $queryBase)->orderBy('PRODUTO_ID', 'desc')
@@ -49,6 +49,9 @@ class produtoController extends Controller
         $minValueInput = $request->get('minValue');
         $maxValueInput = $request->get('maxValue');
 
+        //Verica se Lançamentos foi clicado
+        $produtoLancamentos = $request->get('produtoLancamentos');
+
         // Verifica se foi passado algum valor na pesquisa
         if ($search) {
 
@@ -69,6 +72,7 @@ class produtoController extends Controller
                 $query->where('PRODUTO_DESCONTO', '>', 0);
             }
 
+            //Filtro e ordenação dropdown
             if ($dropdownFilter) {
                 switch ($dropdownFilter) {
                     case 'maisVendidos':
@@ -86,20 +90,19 @@ class produtoController extends Controller
                 }
             }
 
+            //Filtrar por preço
             if ($minValueInput || $maxValueInput) {
                 $query->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) >= ?', [$minValueInput])
                     ->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) <= ?', [$maxValueInput]);
             }
 
+            //Filtra pelos último 12 produtos
+            if ($produtoLancamentos) {
+                $query->orderBy('PRODUTO_ID', 'desc')->limit(12);
+            }
 
-            //Exibe apenas 12 produtos por página    
+            // Pagina a consulta com 12 produtos por página
             $produtos = $query->paginate(12)->withQueryString();
-
-            // Últimos produtos cadastrados
-            $produtoLancamentos = Produto::where('PRODUTO_ID', 1)
-                ->orderBy('PRODUTO_ID', 'desc')
-                ->take(20)
-                ->get();
 
             //Busca todas as categorias ativas
             $categorias = Categoria::where('CATEGORIA_ATIVO', 1)->get();
@@ -115,8 +118,7 @@ class produtoController extends Controller
                 'categorias' => $categorias,
                 'qtdProdutos' => $qtdProdutos,
                 'produtos' => $produtos,
-                'maxValue' => $maxValue,
-                'produtoLancamentos' => $produtoLancamentos
+                'maxValue' => $maxValue
             ]);
         } else {
             // Exibe uma mensagem de erro

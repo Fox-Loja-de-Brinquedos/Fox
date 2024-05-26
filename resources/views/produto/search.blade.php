@@ -42,8 +42,7 @@
                 </div>
                 <div class="col-6" style="margin-left: 120px;">
                     <form class="form-inline" action="{{ route('produto.search') }}" method="GET">
-                        <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text"
-                         placeholder="Qual produto você está buscando?" style="width: 80%;" value="{{ $search === '%' ? '' : $search }}">
+                        <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;" value="{{ $search === '%' ? '' : $search }}">
                         <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
@@ -100,7 +99,7 @@
                                     <button class="nav-link nav-link-uppercase searchOption">Outros brinquedos</button>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , [ 'search' => '%']) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
                                     <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>

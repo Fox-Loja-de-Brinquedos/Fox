@@ -157,8 +157,7 @@ class pedidoController extends Controller
                 'PEDIDO_DATA' => $currentDate,
                 'ENDERECO_ID' => $idDoEndereco
             ]);
-            // Remove os itens do carrinho do usuário
-            Carrinho::where('USUARIO_ID', $user)->delete();
+          
         }
     }
 

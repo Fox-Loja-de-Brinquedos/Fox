@@ -54,6 +54,8 @@ Route::get("/checkout" , [pedidoController::class, "checkout"])->name('pedidos.c
 Route::get("/pedido-realizado" , [pedidoController::class, "finish"])->name('pedidos.finish');
 Route::get("/pedido-realizado" , [pedidoController::class, "storePedidoItem"])->name('pedidos.storePedidoItem');
 
+
+
 });
 
 require __DIR__.'/auth.php';

@@ -62,25 +62,15 @@
                         <th>Total</th>
                     </tr>
 
-                    <tr class="tableItem">
-                        <td> <img src="\images\fox1.svg" alt=""> <span>produtoNome</span></td> 
-                        <td>R$60.00</td>
-                        <td class="qtd">1</td>
-                        <td>R$50.00</td>
-                    </tr>
-                    
-
                     @foreach ($pedido->itens as $item)
-                    <tr>
-                        <td> 
-                            @if ($item->produto->imagens->isNotEmpty())
-                            <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto">
-                            @endif
-                            {{ $item->produto->NOME_PRODUTO }}
-                        </td>
-                        <td>R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}</td>
-                        <td>{{ $item->ITEM_QTD }}</td>
-                        <td>R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</td>
+                    <tr class="tableItem">
+                      @if ($item->produto->imagens->isNotEmpty())
+                        <td> <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto">
+                      @endif 
+                        <span>{{ $item->produto->PRODUTO_NOME }}</span></td> 
+                        <td class="preco">R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}</td>
+                        <td class="qtd">{{ $item->ITEM_QTD }}</td>
+                        <td>R$ {{ number_format($item->ITEM_PRECO * $item->ITEM_QTD, 2, ',', '.') }}</td>
                     </tr>
                     @endforeach
                 </div>

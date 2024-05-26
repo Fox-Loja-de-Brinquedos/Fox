@@ -266,9 +266,10 @@
                     @endphp
 
                     <!--Card do Produto-->
-                    <div class="card product-card" style="width: 18rem;">
-                        <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
-                            <a href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
+                    @if($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO > 0)
+                    <div class="card product-card swiper-slide">
+                        <div style="height: 50%;">
+                            <a class="d-flex justify-content-center align-items-center mt-2" href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
                                 @if ($produto->imagens->isNotEmpty())
                                 <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
                                 @else
@@ -291,10 +292,9 @@
                             </a>
                         </div>
 
-                        <!--Exibe desconto caso haja-->
+                        <!--Icone de desconto do Produto-->
                         @if($produto->PRODUTO_DESCONTO > 0)
                         @php
-                        //Regra de 3 para tirar porcentagem
                         $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100
                         @endphp
 
@@ -305,6 +305,7 @@
                         @endif
 
                     </div>
+                    @endif
                     @endforeach
                 </div>
 
@@ -339,26 +340,45 @@
             <div class="container d-flex justify-content-center mt-5 mb-5">
                 <div class="w-25 d-flex justify-content-around align-items-center">
                     <div class="col-auto">
+                        @if ($produtos->onFirstPage())
+                        <!-- Desativar o link quando estiver na primeira página -->
+                        <span class="disabled">
+                            <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
+                                <path d="M241,451.75l-18.11,18.1L9.07,256,222.92,42.15,241,60.25,45.28,256Z"></path>
+                            </svg>
+                        </span>
+                        @else
+                        <!-- Link para a página anterior -->
                         <a href="{{ $produtos->previousPageUrl() }}">
                             <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
                                 <path d="M241,451.75l-18.11,18.1L9.07,256,222.92,42.15,241,60.25,45.28,256Z"></path>
                             </svg>
                         </a>
+                        @endif
                     </div>
 
                     <div>
                         <span>{{ $produtos->currentPage() }}</span>
                         <span>/</span>
                         <span>{{ $produtos->lastPage() }}</span>
-
                     </div>
 
                     <div>
+                        @if ($produtos->hasMorePages())
+                        <!-- Link para a próxima página -->
                         <a href="{{ $produtos->nextPageUrl() }}">
                             <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
                                 <path d="M210.72,256,15,60.25l18.11-18.1L246.93,256,33.08,469.85,15,451.75Z"></path>
                             </svg>
                         </a>
+                        @else
+                        <!-- Desativar o link quando estiver na última página -->
+                        <span class="disabled">
+                            <svg class="icon-inline mt-1 shaft-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
+                                <path d="M210.72,256,15,60.25l18.11-18.1L246.93,256,33.08,469.85,15,451.75Z"></path>
+                            </svg>
+                        </span>
+                        @endif
                     </div>
                 </div>
             </div>

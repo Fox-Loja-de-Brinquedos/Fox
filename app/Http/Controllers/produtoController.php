@@ -12,7 +12,8 @@ class produtoController extends Controller
     public function index()
     {
         // Consulta base
-        $queryBase = Produto::where('PRODUTO_ATIVO',  1);
+        $queryBase = Produto::where('PRODUTO_ATIVO', 1)
+            ->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) > 0');
 
         // Últimos produtos cadastrados
         $produtoLancamentos = (clone $queryBase)->orderBy('PRODUTO_ID', 'desc')
@@ -52,12 +53,12 @@ class produtoController extends Controller
         //Verica se Lançamentos foi clicado
         $produtoLancamentos = $request->get('produtoLancamentos');
 
-
         // Verifica se foi passado algum valor na pesquisa
         if ($search) {
 
             // Consulta base
             $query = Produto::where('PRODUTO_ATIVO', 1)
+                ->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) > 0')
                 ->where(function ($q) use ($search) {
                     $q->where('PRODUTO_NOME', 'like', '%' . $search . '%')
                         ->orWhere('PRODUTO_DESC', 'like', '%' . $search . '%');
@@ -97,13 +98,23 @@ class produtoController extends Controller
                     ->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) <= ?', [$maxValueInput]);
             }
 
-            //Filtra pelos último 12 produtos
+            // Verifica se $produtoLancamentos é verdadeiro
             if ($produtoLancamentos) {
-                $query->orderBy('PRODUTO_ID', 'desc');
-            }
+                // Filtra pelos últimos 12 produtos
+                $ultimosProdutos = $query->orderBy('PRODUTO_ID', 'desc')->take(12)->get();
 
-            // Pagina a consulta com 12 produtos por página
-            $produtos = $query->paginate(12)->withQueryString();
+                // Pagina a coleção de 12 produtos
+                $produtos = new \Illuminate\Pagination\LengthAwarePaginator(
+                    $ultimosProdutos,
+                    count($ultimosProdutos),
+                    12,
+                    null,
+                    ['path' => \Illuminate\Pagination\Paginator::resolveCurrentPath()]
+                );
+            } else {
+                // Pagina a consulta com 12 produtos por página
+                $produtos = $query->paginate(12)->withQueryString();
+            }
 
             //Busca todas as categorias ativas
             $categorias = Categoria::where('CATEGORIA_ATIVO', 1)->get();

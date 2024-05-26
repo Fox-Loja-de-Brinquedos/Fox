@@ -52,6 +52,7 @@ class produtoController extends Controller
         //Verica se Lançamentos foi clicado
         $produtoLancamentos = $request->get('produtoLancamentos');
 
+
         // Verifica se foi passado algum valor na pesquisa
         if ($search) {
 
@@ -98,7 +99,7 @@ class produtoController extends Controller
 
             //Filtra pelos último 12 produtos
             if ($produtoLancamentos) {
-                $query->orderBy('PRODUTO_ID', 'desc')->limit(12);
+                $query->orderBy('PRODUTO_ID', 'desc');
             }
 
             // Pagina a consulta com 12 produtos por página

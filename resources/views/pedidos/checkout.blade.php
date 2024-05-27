@@ -32,53 +32,35 @@
         <div class="container mt-5">
             <div class="row gx-5">
                 <div class="col-7">
-                    <form action="">
-                        <!--
-                    <div class="bg-white p-4 container-box">
-                        <h3>Dados pessoais</h3>
-                        <p>Solicitamos apenas informações essenciais</p>
-                        <div id="dados-pessoais">
-                            <label for="nome">Nome completo
-                                <input type="text" name="nome" id="nome" class="input-1-1">
-                            </label>
-                            <label for="cpf">CPF
-                                <input type="text" name="cpf" id="cpf" class="input-1-1">
-                            </label>
-                            <label for="email">E-mail
-                                <input type="email" name="email" id="email" class="input-1-1">
-                            </label>
-                            <label for="senha">Senha
-                                <input type="password" name="senha" id="senha" class="input-1-1">
-                            </label>
-                            <label for="confirmar-senha">Confirme a senha
-                                <input type="password" name="confirmar-senha" id="confirmar-senha" class="input-1-1">
-                            </label>
-                        </div>
-                    </div>
-                    -->
-
+                    <form action="{{ route('pedido.finalizar') }}" method="POST">
+                        @csrf
                         <div class="bg-white p-4 container-box">
                             <h3>Entrega</h3>
                             <p>Solicitamos apenas informações essenciais</p>
                             <div id="entrega">
+                                @if($endereco)
+                                <input type="hidden" name="ENDERECO_ID" value="{{ $endereco->ENDERECO_ID }}">
                                 <label for="cep">CEP
-                                    <input type="text" name="cep" id="cep" class="input-1-1">
+                                    <input type="text" name="cep" id="cep" class="input-1-1" value="{{ $endereco->ENDERECO_CEP }}">
                                 </label>
                                 <label for="endereco">Endereço
-                                    <input type="text" name="endereco" id="endereco" class="input-1-1">
+                                    <input type="text" name="endereco" id="endereco" class="input-1-1" value="{{ $endereco->ENDERECO_LOGRADOURO }}">
                                 </label>
                                 <label for="numero">Número
-                                    <input type="number" name="numero" id="numero" class="input-1-1">
+                                    <input type="number" name="numero" id="numero" class="input-1-1" value="{{ $endereco->ENDERECO_NUMERO }}">
                                 </label>
                                 <label for="bairro">Bairro
-                                    <input type="text" name="bairro" id="bairro" class="input-1-1">
+                                    <input type="text" name="bairro" id="bairro" class="input-1-1" value="{{ $endereco->ENDERECO_COMPLEMENTO }}">
                                 </label>
                                 <label for="cidade">Cidade
-                                    <input type="text" name="cidade" id="cidade" class="input-1-1">
+                                    <input type="text" name="cidade" id="cidade" class="input-1-1" value="{{ $endereco->ENDERECO_CIDADE }}">
                                 </label>
                                 <label for="estado">Estado
-                                    <input type="text" name="estado" id="estado" class="input-1-1">
+                                    <input type="text" name="estado" id="estado" class="input-1-1" value="{{ $endereco->ENDERECO_ESTADO }}">
                                 </label>
+                                @else
+                                <p>O usuário não tem um endereço cadastrado. Por favor, cadastre um endereço.</p>
+                                @endif
                             </div>
                         </div>
 
@@ -87,7 +69,7 @@
                             <p>Solicitamos apenas informações essenciais</p>
                             <div id="forma-de-pagamento">
                                 <div class="mb-3"><input type="radio" name="boleto" id="boleto"><label for="boleto" class="opcao-pagamento"> Boleto</label></div>
-                                <a href="/pedido-realizado" id="finalizar-pedido" class="pedido-btn">FINALIZAR PEDIDO</a>
+                                <button type="submit">Finalizar Pedido</button>
                             </div>
                         </div>
 
@@ -101,26 +83,31 @@
                             @php
                             $total = 0;
                             @endphp
-                            @foreach($carrinhoItens as $item)
+                            @foreach($itens as $item)
                             @php
-                            $total += $item->PRODUTO_PRECO - $item->PRODUTO_DESCONTO;
+                            $subtotal = $item->ITEM_QTD * ($item->PRODUTO_PRECO - $item->PRODUTO_DESCONTO);
+                            $total += $subtotal;
                             @endphp
                             <tr>
                                 <td class="ps-4">
-                                    @if($item->IMAGEM_URL)
-                                    <img src="{{ $item->IMAGEM_URL }}" alt="{{ $item->PRODUTO_NOME }}" style="max-width: 80px; max-height: 80px; object-fit: contain;">
+                                    @if($item->produto->imagens->isNotEmpty())
+                                    <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="{{ $item->produto->PRODUTO_NOME }}" style="max-width: 80px; max-height: 80px; object-fit: contain;">
                                     @else
-                                    <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" alt="Produto sem imagem">
+                                    <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" alt="Produto sem imagem" style="max-width: 80px; max-height: 80px; object-fit: contain;">
                                     @endif
                                     <span>{{ $item->ITEM_QTD }}x</span>
                                 </td>
                                 <td>
-                                    <p> $item->PRODUTO_NOME </p>
-                                    <p>R$ {{ $item->PRODUTO_PRECO - $item->PRODUTO_DESCONTO }}</p>
+                                    <p>{{ $item->produto->PRODUTO_NOME }}</p>
+                                    <p>R$ {{ number_format($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO, 2, ',', '.') }}</p>
                                 </td>
-                                <td class="pe-4">R$ {{ $item->ITEM_QTD * ($item->PRODUTO_PRECO - $item->PRODUTO_DESCONTO)}}</td>
+                                <td class="pe-4">R$ {{ number_format($subtotal, 2, ',', '.') }}</td>
                             </tr>
                             @endforeach
+                            <tr>
+                                <td colspan="2" class="text-end">Total:</td>
+                                <td class="pe-4">R$ {{ number_format($total, 2, ',', '.') }}</td>
+                            </tr>
                         </table>
 
                         <table class="table resumo-table">

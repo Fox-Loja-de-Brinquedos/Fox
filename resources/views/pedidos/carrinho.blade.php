@@ -154,11 +154,11 @@
                 <td></td>
               </tr>
             </table>
-            <a href="">FINALIZAR A COMPRA</a>
+            <a href="{{ route('carrinho.checkout') }}">FINALIZAR A COMPRA</a>
 
           </div>
 
-          <p><a href="/">Continuar comprando</a></p>
+          <p><a href="">Continuar comprando</a></p>
 
         </div>
       </div>

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
+
 class pedidoController extends Controller
 {
     public function listarItens()
@@ -88,5 +89,59 @@ class pedidoController extends Controller
 
         return redirect()->route('carrinho.listar')->with('success', 'Quantidade de item atualizada com sucesso.');
     }
+
+    public function checkout(){
+        $usuario_id = auth()->id();
+        $itens = Carrinho::where('USUARIO_ID', $usuario_id)
+            ->where('ITEM_QTD', '>', 0)
+            ->get();
+
+            $endereco = Endereco::where('USUARIO_ID', $usuario_id)
+            ->where('ENDERECO_APAGADO', 0)
+            ->first();
+            
+            return view('pedidos.checkout', compact('itens', 'endereco'));
+    }
+
+    public function finalizarPedido(Request $request)
+{
+
+    // pegando os dados do formulário de endereco
+    $usuario_id = auth()->id();
+    $endereco_id = $request->input('ENDERECO_ID'); 
+    $itens = Carrinho::where('USUARIO_ID', $usuario_id)
+        ->where('ITEM_QTD', '>', 0)
+        ->get();
+
+    // Gerando um pedido
+    $pedido = Pedido::create([
+        'USUARIO_ID' => $usuario_id,
+        'STATUS_ID' => 1,
+        'PEDIDO_DATA' => now(),
+        'ENDERECO_ID' => $endereco_id,
+    ]);
+
+    // Adicione os itens do carrinho como itens do pedido
+    foreach ($itens as $item) {
+        Pedido_Item::create([
+            'PEDIDO_ID' => $pedido->PEDIDO_ID,
+            'PRODUTO_ID' => $item->PRODUTO_ID,
+            'ITEM_QTD' => $item->ITEM_QTD,
+            'ITEM_PRECO' => $item->produto->PRODUTO_PRECO, 
+        ]);
+    }
+
+    //Chamando funcao para limpar o carrinho apos todas etapas cumpridas
+    $this->limparCarrinho();
+    
+    return view('pedidos.pedido-realizado');
+}
+
+public function limparCarrinho()
+{
+    $usuario_id = auth()->id();
+
+    Carrinho::where('USUARIO_ID', $usuario_id)->update(['ITEM_QTD' => 0]);
+}
 
 }

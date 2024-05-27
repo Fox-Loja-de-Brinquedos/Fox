@@ -267,8 +267,6 @@
             </div>
             @endforeach
 
-
-
           </div>
         </div>
 
@@ -277,6 +275,46 @@
       </div>
     </div>
   </div> <!--Container Cards de Produtos-->
+
+
+  <!--Banners Marcas-->
+  <div class="container mt-5 mb-5">
+    <div class="row justify-content-center ">
+
+      <!--First column-->
+      <div class="col-3">
+        <a href="#"><img class="rounded" src="{{ asset('images/foxBanner.png') }}"></a>
+      </div>
+
+      <!--Second column-->
+      <div class="col-3 d-flex flex-column">
+          <a href="#">
+            <img class="rounded brand-banner-half" src="{{ asset('images/foxBanner.png') }}">
+          </a>
+
+          <a href="#">
+            <img class="rounded brand-banner-half" src="{{ asset('images/foxBanner.png') }}">
+          </a>
+      </div>
+
+      <!--Third column-->
+      <div class="col-3">
+        <a href="#"><img class="rounded" src="{{ asset('images/foxBanner.png') }}"></a>
+      </div>
+
+      <!--Fourth column-->
+      <div class="col-3 d-flex flex-column">
+          <a href="#">
+            <img class="rounded brand-banner-half" src="{{ asset('images/foxBanner.png') }}">
+          </a>
+
+          <a href="#">
+            <img class="rounded brand-banner-half" src="{{ asset('images/foxBanner.png') }}">
+          </a>
+      </div>
+
+    </div>
+  </div>
 
   <!--Anúncio banners-->
   <div class="container mt-5 mb-5">

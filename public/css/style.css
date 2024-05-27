@@ -213,6 +213,15 @@ a {
   font-size: 14px;
 }
 
+/*Banners de marcas*/
+
+.brand-banner-half {
+  height: 180px !important;
+  width: 290px !important;
+}
+
+
+
 /*Carroussel de Produtos*/
 
 .swiper-content-and-buttons {

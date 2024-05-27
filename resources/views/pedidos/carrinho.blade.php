@@ -75,13 +75,30 @@
                   <td class="product-price">R$
                     {{ number_format($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO, 2, ',', '.') }}
                   </td>
+
                   <td class="product-quantity">
-                    <div class="quantity d-flex align-items-center my-1">
-                      <button class="minus-btn btn btn-sm mr-1" style="background-color: #43ADDA; color:white">-</button>
-                      <input type="text" name="item_qtd" class="form-control text-center mx-1" value="{{ $item->ITEM_QTD }}" readonly>
-                      <button class="plus-btn btn btn-sm ml-1" style="background-color: #43ADDA; color:white">+</button>
-                    </div>
-                  </td>
+                  <div class="quantity d-flex align-items-center my-1">
+                    <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline">
+                      @csrf
+                      <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
+                      <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
+                      <input type="hidden" name="ITEM_QTD" value="{{ $item->ITEM_QTD - 1 }}">
+                      <button type="submit" class="minus-btn btn btn-sm mr-1" style="background-color: #43ADDA; color:white" {{ $item->ITEM_QTD <= 1 ? 'disabled' : '' }}>-</button>
+                    </form>
+
+                    <input type="text" name="item_qtd" class="form-control text-center mx-1" value="{{ $item->ITEM_QTD }}" readonly>
+
+                    <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline">
+                      @csrf
+                      <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
+                      <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
+                      <input type="hidden" name="ITEM_QTD" value="{{ $item->ITEM_QTD}}">
+                      <button type="submit" class="plus-btn btn btn-sm ml-1" style="background-color: #43ADDA; color:white">+</button>
+                    </form>
+                  </div>
+                </td>
+
+
                   <td class="product-subtotal">R$
                     {{ number_format(($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO) * $item->ITEM_QTD, 2, ',', '.') }}
                   </td>

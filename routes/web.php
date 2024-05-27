@@ -55,6 +55,8 @@ Route::get('/order/{id}', [OrderController::class, 'show'])->name('orderDetail')
 Route::get('/carrinho', [pedidoController::class, 'listarItens'])->name('carrinho.listar');
 Route::post('/carrinho/adicionar', [pedidoController::class, 'adicionarItem'])->name('carrinho.adicionar');
 Route::post('/carrinho/remover-item', [pedidoController::class, 'removerItem'])->name('carrinho.removerItem');
+Route::post('/carrinho/atualizar-item', [PedidoController::class, 'atualizarItem'])->name('carrinho.atualizarItem');
+
 
 
 require __DIR__.'/auth.php';

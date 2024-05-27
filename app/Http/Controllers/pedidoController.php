@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class pedidoController extends Controller
 {
-
-    
     public function listarItens()
     {
         $usuario_id = auth()->id();
@@ -67,6 +65,28 @@ class pedidoController extends Controller
         }
 
         return redirect()->route('carrinho.listar')->with('success', 'Item removido do carrinho com sucesso.');
+    }
+
+    public function atualizarItem(Request $request)
+    {
+        $usuario_id = $request->input('USUARIO_ID');
+        $produto_id = $request->input('PRODUTO_ID');
+        $nova_quantidade = $request->input('ITEM_QTD');
+
+        if ($nova_quantidade < 1) {
+            return redirect()->route('carrinho.listar')->with('error', 'A quantidade mínima é 1.');
+        }
+
+        $carrinhoItem = Carrinho::where('USUARIO_ID', $usuario_id)
+            ->where('PRODUTO_ID', $produto_id)
+            ->first();
+
+        if ($carrinhoItem) {
+            $carrinhoItem->ITEM_QTD = $nova_quantidade;
+            $carrinhoItem->save();
+        }
+
+        return redirect()->route('carrinho.listar')->with('success', 'Quantidade de item atualizada com sucesso.');
     }
 
 }

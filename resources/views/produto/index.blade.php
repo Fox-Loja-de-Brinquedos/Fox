@@ -317,10 +317,13 @@
             <p class="card-text">R$ 489,00</p>
           </b>
           <p>6x de R$ 81,50 sem juros</p>
-          <a href="#" class="text-decoration-none">
-            <div class="py-2 add-to-cart-box">
-              Adicionar ao Carrinho
-            </div>
+          <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
+                    <button type="submit" class="btn btn-warning mt-3" style="width: 100%; height: 50px; font-size: 23px; color: white;">
+                        ADICIONAR AO CARRINHO
+                    </button>
+                </form>
           </a>
         </div>
       </div>
@@ -442,11 +445,13 @@
                   </b>
                 </a>
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                <a href="">
-                  <div class="py-2 add-to-cart-box">
-                    Adicionar ao Carrinho
-                  </div>
-                </a>
+                <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
+                    <button type="submit" class="btn btn-warning mt-3" style="width: 100%; height: 50px; font-size: 23px; color: white;">
+                        ADICIONAR AO CARRINHO
+                    </button>
+                </form>
               </div>
 
               <!--Icone de desconto do Produto-->

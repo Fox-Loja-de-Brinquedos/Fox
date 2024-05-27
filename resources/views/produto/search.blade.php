@@ -36,7 +36,7 @@
             <!-- Linha do Logo, Barra de Pesquisa e Botões -->
             <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center" style="position: relative;">
                 <div class="col-1" style="position: absolute; top: -45px">
-                    <a href="{{ route('produto.index') }}">
+                    <a href="">
                         <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
                     </a>
                 </div>
@@ -62,7 +62,7 @@
 
                 </div>
                 <div class="col-2">
-                    <a href="{{ route('pedidos.index') }}" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
+                    <a href="" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
                         <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
                         Meu Carrinho
                     </a>
@@ -284,7 +284,7 @@
                                 </b>
                             </a>
                             <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                            <a href="{{ route('pedidos.store' , [$produto->PRODUTO_ID]) }}">
+                            <a href="">
                                 <div class="py-2 add-to-cart-box">
                                     Adicionar ao Carrinho
                                 </div>

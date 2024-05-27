@@ -48,14 +48,13 @@ Route::get('/orderList', [orderController::class, 'index'])->name('orderList');
 Route::get('/order/{id}', [OrderController::class, 'show'])->name('orderDetail');
 
 //Rotas Carrinho
-Route::get("/carrinho" , [pedidoController::class, "index"])->name('pedidos.index');
-Route::get("/carrinho/{produto}" , [pedidoController::class, "store"])->name('pedidos.store');
-Route::get("/checkout" , [pedidoController::class, "checkout"])->name('pedidos.checkout');
-Route::get("/pedido-realizado" , [pedidoController::class, "finish"])->name('pedidos.finish');
-Route::get("/pedido-realizado" , [pedidoController::class, "storePedidoItem"])->name('pedidos.storePedidoItem');
-
 
 
 });
+
+Route::get('/carrinho', [pedidoController::class, 'listarItens'])->name('carrinho.listar');
+Route::post('/carrinho/adicionar', [pedidoController::class, 'adicionarItem'])->name('carrinho.adicionar');
+Route::post('/carrinho/remover-item', [pedidoController::class, 'removerItem'])->name('carrinho.removerItem');
+
 
 require __DIR__.'/auth.php';

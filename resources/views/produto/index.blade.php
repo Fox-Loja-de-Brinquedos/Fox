@@ -64,7 +64,7 @@
 
         </div>
         <div class="col-2">
-          <a href="{{ route('pedidos.index') }}" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
+          <a href="" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
             <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
             Meu Carrinho
           </a>
@@ -245,11 +245,19 @@
                   </b>
                 </a>
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                <a href="{{ route('pedidos.store' , [$produto->PRODUTO_ID]) }}">
-                  <div class="py-2 add-to-cart-box">
-                    Adicionar ao Carrinho
-                  </div>
-                </a>
+                
+                <!-- Formulário para adicionar ao carrinho -->
+                <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
+                    <input type="hidden" name="ITEM_QTD"> 
+                    <button type="submit" class="btn btn-primary">
+                        <div class="py-2 add-to-cart-box">
+                            Adicionar ao Carrinho
+                        </div>
+                    </button>
+                </form>
+
               </div>
 
               <!--Icone de desconto do Produto-->
@@ -434,7 +442,7 @@
                   </b>
                 </a>
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                <a href="{{ route('pedidos.store' , [$produto->PRODUTO_ID]) }}">
+                <a href="">
                   <div class="py-2 add-to-cart-box">
                     Adicionar ao Carrinho
                   </div>

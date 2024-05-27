@@ -6,24 +6,18 @@ use App\Http\Controllers\profileController;
 use App\Http\Controllers\orderController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\addressController;
+use App\Http\Controllers\PoliticaController;
 
 
 Route::get("/", [produtoController::class, "index"])->name('produto.index'); 
 Route::get("/search", [produtoController::class, "search"])->name('produto.search');
 Route::get("/show/{produto}", [produtoController::class, "show"])->name('produto.show');
 
-//rotas politicas
-Route::get('/politicas/trocas-devolucoes', function () {
-    return view('politicas.trocas-devolucoes');
-})->name('politicas.trocas-devolucoes');
+//rota politicas
+Route::get('/politicas/politica-de-privacidade', [PoliticaController::class, 'politicaDePrivacidade'])->name('politicas.politica-de-privacidade');
+Route::get('/politicas/sobre-nos', [PoliticaController::class, 'sobreNos'])->name('politicas.sobre-nos');
+Route::get('/politicas/trocas-devolucoes',[PoliticaController::class, 'trocasDevolucoes'])->name('politicas.trocas-devolucoes');
 
-Route::get('/politicas/politica-de-privacidade', function () {
-    return view('politicas.politica-de-privacidade');
-})->name('politicas.politica-de-privacidade');
-
-Route::get('/politicas/sobre-nos', function () {
-    return view('politicas.sobre-nos');
-})->name('politicas.sobre-nos');
 
 Route::middleware('auth')->group(function () {
 Route::get('/profile', [profileController::class, 'create'])->name('profile');

@@ -94,14 +94,13 @@
     </header>
 
     <!--parte tafinha-->
-
     <main class="conatainer-grid">
         <div class="container single-product">
             <div class="card-image mb-5">
                 <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" alt="product-image" id="main-image">
                 <div class="product-images">
                     <div class="thumbnail-carousel mt-5 me-5">
-                        @foreach ($produto->imagens as $imagem) 
+                        @foreach ($produto->imagens as $imagem)
                         <img style="border: 2px solid #ddd;" src="{{ $imagem->IMAGEM_URL }}" alt="Thumbnail 1" class="thumbnail">
                         @endforeach
                     </div>
@@ -127,17 +126,48 @@
                     <button class="plus-btn btn btn btn-sm ml-1" style="background-color: #43ADDA; color:white">+</button>
                 </div>
                 <div class="button mt-5">
-                <p class="mt-5 text-secondary">Calcule o valor do frete para a sua região</p>
+                    <p class="mt-5 text-secondary">Calcule o valor do frete para a sua região!</p>
                     <div class="input-group mb-3">
-                        <input type="number" id="cepInput" class="form-control" placeholder="00000-000">
-                        <button class="btn btn-primary" type="button">Calcular</button>
+                        <input type="text" id="cepInput" class="form-control" placeholder="00000-000" maxlength="9">
+                        <button class="btn btn" style="background-color: #43ADDA; color:white" type="button" id="calculateButton">Calcular</button>
                     </div>
+                    <div id="freteResult" class="mt-3"></div>
+
+
+                    <div id="freteResult" class="mt-3"></div>
+                    <script>
+                        function formatCEP(value) {
+                            value = value.replace(/\D/g, '');
+
+                            if (value.length > 5) {
+                                value = value.slice(0, 5) + '-' + value.slice(5, 8);
+                            }
+                            return value;
+                        }
+
+                        document.getElementById('cepInput').addEventListener('input', function() {
+                            this.value = formatCEP(this.value);
+                        });
+
+                        document.getElementById('calculateButton').addEventListener('click', function() {
+                            var cep = document.getElementById('cepInput').value.replace('-', ''); 
+                            var freteResultDiv = document.getElementById('freteResult');
+
+                            freteResultDiv.innerText = '';
+                            if (cep.length === 8) {
+                                var frete = 10.00;
+                                var freteText = 'SEDEX: Em até 4 dias úteis R$: ' + frete.toFixed(2);
+
+                                freteResultDiv.innerText = freteText;
+                            }
+                        });
+
+                    </script>
+
                     <button type="button" class="btn btn-warning mt-3" style="width: 100%; height: 50px; font-size: 23px; color: white;">
                         ADICIONAR AO CARRINHO
                     </button>
                 </div>
-
-
             </div>
         </div>
         <div class="container d-flex justify-content-center align-items-center mb-5 mt-5" style="height: 40%;">
@@ -147,6 +177,87 @@
             </div>
         </div>
 
+        <div class="container mb-5 mt-5">
+            <h2 class="text-center mb-4">QUEM VIU TAMBÉM COMPROU</h2>
+            <div class="row d-flex justify-content-around">
+
+                <!--Card produto 1-->
+                <div class="card product-card" style="width: 18rem;">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
+                        <img src="{{ asset('images/stitch.jpg') }}" class="card-img-top card-img-resize" alt="Imagem do produto">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Lorem Ipsum is simply dummy</h5>
+                        <b>
+                            <p class="card-text">R$ 489,00</p>
+                        </b>
+                        <p>6x de R$ 81,50 sem juros</p>
+                        <a href="#" class="text-decoration-none">
+                            <div class="py-2 add-to-cart-box">
+                                Adicionar ao Carrinho
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!--Card produto 2-->
+                <div class="card product-card" style="width: 18rem;">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
+                        <img src="{{ asset('images/urso.jpg') }}" class="card-img-top card-img-resize" alt="Imagem do produto">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Lorem Ipsum is simply dummy</h5>
+                        <b>
+                            <p class="card-text">R$ 489,00</p>
+                        </b>
+                        <p>6x de R$ 81,50 sem juros</p>
+                        <a href="#" class="text-decoration-none">
+                            <div class="py-2 add-to-cart-box">
+                                Adicionar ao Carrinho
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!--Card produto 3-->
+                <div class="card product-card" style="width: 18rem;">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
+                        <img src="{{ asset('images/macaco.jpg') }}" class="card-img-top card-img-resize" alt="Imagem do produto">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Lorem Ipsum is simply dummy</h5>
+                        <b>
+                            <p class="card-text">R$ 489,00</p>
+                        </b>
+                        <p>6x de R$ 81,50 sem juros</p>
+                        <a href="#" class="text-decoration-none">
+                            <div class="py-2 add-to-cart-box">
+                                Adicionar ao Carrinho
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!--Card produto 4-->
+                <div class="card product-card" style="width: 18rem;">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 50%;">
+                        <img src="{{ asset('images/madruga.jpg') }}" class="card-img-top card-img-resize" alt="Imagem do produto">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Lorem Ipsum is simply dummy</h5>
+                        <b>
+                            <p class="card-text">R$ 489,00</p>
+                        </b>
+                        <p>6x de R$ 81,50 sem juros</p>
+                        <a href="#" class="text-decoration-none">
+                            <div class="py-2 add-to-cart-box">
+                                Adicionar ao Carrinho
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script>
             var MainImg = document.getElementById("main-image");
@@ -185,13 +296,13 @@
             <div class="row d-flex justify-content-center">
                 <div class="col col-2 d-flex flex-column footer-column">
                     <h3 class="fs-5 text-uppercase">Institucional</h3>
-                    <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Sobre a marca</a>
-                    <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Trocas e Devoluções</a>
-                    <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Políticas de privacidade</a>
+                    <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3">Sobre a marca</a>
+                    <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3">Trocas e Devoluções</a>
+                    <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3">Políticas de privacidade</a>
                 </div>
                 <div class="col col-2 d-flex flex-column footer-column">
                     <h3 class="fs-5 text-uppercase">Loja</h3>
-                    <p>Minha conta</p>
+                    <a href="/profile" class="link-footer mb-3">Minha conta</a>
                     <p>Meu carrinho</p>
                     <p>Meus pedidos</p>
                 </div>

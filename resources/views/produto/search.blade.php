@@ -378,10 +378,9 @@
             <div class="row d-flex justify-content-center">
                 <div class="col col-2 d-flex flex-column footer-column">
                     <h3 class="fs-5 text-uppercase">Institucional</h3>
-                    <p>Sobre a marca</p>
-                    <p>Trocas e devoluções</p>
-                    <p>Políticas de privacidade</p>
-                    <p>Dúvidas frequentes</p>
+                    <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3">Sobre a marca</a>
+                    <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3">Trocas e Devoluções</a>
+                    <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3">Políticas de privacidade</a>
                 </div>
                 <div class="col col-2 d-flex flex-column footer-column">
                     <h3 class="fs-5 text-uppercase">Loja</h3>

@@ -272,17 +272,21 @@ body {
 }
 
 #main-image {
-  width: 135%; 
-  height: auto; 
-  max-width: none; 
+  width: 500px; /* Largura fixa desejada */
+  height: 5 0px; /* Altura fixa desejada */
+  object-fit: cover; /* Garante que a imagem preencha a área especificada */
 }
 
+
 .thumbnail {
-  width: 100px;
-  height: auto;
+  width: 70px; /* Largura fixa */
+  height: 70px; /* Altura fixa */
   margin: 0 5px;
   cursor: pointer;
+  max-width: 100%; /* Tamanho máximo igual a largura fixa */
+  max-height: 100%; /* Tamanho máximo igual a altura fixa */
 }
+
 
 .quantity {
   width: 150px;
@@ -328,13 +332,27 @@ body {
     font-size: 14px; 
   }
   
-  /*fim da parte tafinha*/
-
   .accept-cookies-btn {
     padding: 8px 16px;
     font-size: 14px;
   }
 }
+
+.link-footer {
+  text-decoration: none;
+  color:black;
+ }
+
+ #freteResult {
+  font-size: 16px;
+  color: #6C757D;
+  margin-top: 10px;
+}
+
+
+
+ /*fim da parte tafinha*/
+
 
 /* Pesquisa de produto */
 .filter-button {

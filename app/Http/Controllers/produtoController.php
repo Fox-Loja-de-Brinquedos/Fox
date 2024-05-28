@@ -27,21 +27,20 @@ class produtoController extends Controller
             ->get();
 
         // Produtos Mais Vendidos
-        $produtoMaisVendidos = (clone $queryBase)->select(
+        $produtoMaisVendidos = $queryBase->select(
             'PRODUTO.PRODUTO_ID',
-            'pi.PRIMEIRA_IMAGEM',
+            DB::raw('pi.PRIMEIRA_IMAGEM as PRIMEIRA_IMAGEM'),
             'PRODUTO.PRODUTO_NOME',
             DB::raw('SUM(PEDIDO_ITEM.ITEM_QTD) AS TOTAL_VENDIDO'),
             'PRODUTO.PRODUTO_PRECO',
             'PRODUTO.PRODUTO_DESCONTO'
         )
-            ->leftJoin('PEDIDO_ITEM', 'PRODUTO.PRODUTO_ID', '=', 'PEDIDO_ITEM.PRODUTO_ID') // Ajusta o nome da tabela
-            ->join(DB::raw('(SELECT PRODUTO_ID, MIN(IMAGEM_ORDEM), MIN(IMAGEM_URL) as PRIMEIRA_IMAGEM FROM PRODUTO_IMAGEM GROUP BY PRODUTO_ID) AS pi'), function ($join) {
-                $join->on('PRODUTO.PRODUTO_ID', '=', 'pi.PRODUTO_ID');
-            })
+            ->leftJoin('PEDIDO_ITEM', 'PRODUTO.PRODUTO_ID', '=', 'PEDIDO_ITEM.PRODUTO_ID')
+            ->leftJoin(DB::raw('(SELECT PRODUTO_ID, MIN(IMAGEM_ORDEM), MIN(IMAGEM_URL) as PRIMEIRA_IMAGEM FROM PRODUTO_IMAGEM GROUP BY PRODUTO_ID) AS pi'), 'PRODUTO.PRODUTO_ID', '=', 'pi.PRODUTO_ID')
             ->where('PEDIDO_ITEM.ITEM_QTD', '>', 0)
             ->groupBy('PRODUTO.PRODUTO_ID', 'pi.PRIMEIRA_IMAGEM', 'PRODUTO.PRODUTO_NOME', 'PRODUTO.PRODUTO_PRECO', 'PRODUTO.PRODUTO_DESCONTO')
             ->orderByDesc('TOTAL_VENDIDO')
+            ->limit(12)
             ->get();
 
         return view('produto.index', [
@@ -56,8 +55,7 @@ class produtoController extends Controller
         // Recebe o que foi digitado pelo usuário
         $search = $request->input('search');
 
-        // Recebe o ID da categoria
-        $categoria_id = $request->get('categoria_id');
+
 
         // Verifica se a checkbox de promoção foi checada
         $isPromotionChecked = $request->has('promotion_checkbox');
@@ -72,6 +70,9 @@ class produtoController extends Controller
         // Verifica se Lançamentos foi clicado
         $produtoLancamentos = $request->get('produtoLancamentos');
 
+        //Verifica qual categoria foi clicada
+        $categoriaNome = $request->get('categoriaNome');
+
         // Verifica se foi passado algum valor na pesquisa
         if ($search) {
             // Consulta base
@@ -81,6 +82,15 @@ class produtoController extends Controller
                     $q->where('PRODUTO_NOME', 'like', '%' . $search . '%')
                         ->orWhere('PRODUTO_DESC', 'like', '%' . $search . '%');
                 });
+
+
+            //Verifica se o usuário clicou na navegação por categoria da index e pega o ID da categoria
+            if ($categoriaNome) {
+                $categoria_id = Categoria::where('CATEGORIA_NOME', 'LIKE', $categoriaNome)->value('CATEGORIA_ID');
+            } else {
+                // Verifica qual categoria o usuário clicou
+                $categoria_id = $request->get('categoria_id');
+            }
 
             // Filtra por categoria se definido
             if ($categoria_id) {
@@ -120,6 +130,12 @@ class produtoController extends Controller
                 case 'menorPreco':
                     $query->orderByRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) ASC');
                     break;
+                case 'aZ':
+                    $query->orderBy('PRODUTO_NOME', 'asc');
+                    break;
+                case 'zA':
+                    $query->orderBy('PRODUTO_NOME', 'desc');
+                    break;
             }
 
             // Filtra por preço
@@ -128,7 +144,7 @@ class produtoController extends Controller
                     ->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) <= ?', [$maxValueInput]);
             }
 
-            // Verifica se $produtoLancamentos é verdadeiro
+            // Verifica se $produtoLancamentos tem valor
             if ($produtoLancamentos) {
                 // Filtra pelos últimos 12 produtos
                 $ultimosProdutos = $query->orderBy('PRODUTO_ID', 'desc')->take(12)->get();
@@ -160,7 +176,8 @@ class produtoController extends Controller
                 'categorias' => $categorias,
                 'qtdProdutos' => $qtdProdutos,
                 'produtos' => $produtos,
-                'maxValue' => $maxValue
+                'maxValue' => $maxValue,
+                'categoria_id' => $categoria_id
             ]);
         } else {
             // Exibe uma mensagem de erro

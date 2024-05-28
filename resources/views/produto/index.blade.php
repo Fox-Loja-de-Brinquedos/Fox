@@ -195,12 +195,12 @@
     </div>
   </div>
 
-  <!--Container Cards de Produtos-->
+  <!--Container Cards de Produtos Lançamentos-->
   <div class="container-fluid mb-5 mt-5">
     <h2 class="text-center mb-4 poetsen-one-regular">LANÇAMENTOS</h2>
     <div class="swiper-container container-fluid d-flex justify-content-center">
       <div class="swiper-content-and-buttons">
-        <div class="swiper mySwiper m-0 container">
+        <div class="swiper mySwiperProdutoLancametos m-0 container">
           <div class="swiper-wrapper content">
             @foreach ($produtoLancamentos as $produto)
 
@@ -270,11 +270,90 @@
           </div>
         </div>
 
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next releases-next swiper-button"></div>
+        <div class="swiper-button-prev releases-prev swiper-button"></div>
       </div>
     </div>
   </div> <!--Container Cards de Produtos-->
+
+
+  <!--Container Navegue por Categoria-->
+  <div class="container-fluid category-container">
+    <h2 class="text-center mb-4 poetsen-one-regular">Navegue por categoria</h2>
+    <div class="swiper-container container-fluid d-flex justify-content-center">
+      <div class="swiper-content-and-buttons-category d-flex align-items-center">
+        <div class="swiper mySwiperCategory m-0 container">
+          <div class="swiper-wrapper swiper-wrapper-category">
+
+            <!--Veículo-->
+            <div class="swiper-slide swiper-slide-category">
+              <div class="rounded-circle category-circle">
+                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link" href="#">
+                  <img class="category-img m-0" src="{{ asset('images/monsterTruck.png') }}">
+                  <p class="fs-4 poetsen-one-regular category-description">Veículo</p>
+                </a>
+              </div>
+            </div>
+
+            <!--Decoração-->
+            <div class="swiper-slide swiper-slide-category">
+              <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
+                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Itens decorativos%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                  <img class="category-img m-0" src="{{ asset('images/capaceteStarwars.png') }}">
+                  <p class="fs-4 poetsen-one-regular category-description">Decoração</p>
+                </a>
+              </div>
+            </div>
+
+            <!--Action Figure-->
+            <div class="swiper-slide swiper-slide-category">
+              <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
+                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Figura de Ação%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                  <img class="category-img m-0" src="{{ asset('images/ellieActionFigure.png') }}">
+                  <p class="fs-4 poetsen-one-regular category-description">Action Figure</p>
+                </a>
+              </div>
+            </div>
+
+            <!--Bonecas-->
+            <div class="swiper-slide swiper-slide-category">
+              <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
+                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                  <img class="category-img m-0" src="{{ asset('images/barbie.png') }}">
+                  <p class="fs-4 poetsen-one-regular category-description">Bonecas</p>
+                </a>
+              </div>
+            </div>
+
+               <!--Funko-->
+               <div class="swiper-slide swiper-slide-category">
+              <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
+                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Mordedores%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                  <img class="category-img m-0" src="{{ asset('images/freddyFunko.png') }}">
+                  <p class="fs-4 poetsen-one-regular category-description">Funko</p>
+                </a>
+              </div>
+            </div>
+
+             <!--Cartas-->
+             <div class="swiper-slide swiper-slide-category">
+              <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
+                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                  <img class="category-img m-0" src="{{ asset('images/unoDeck.png') }}">
+                  <p class="fs-4 poetsen-one-regular category-description">Cartas</p>
+                </a>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="swiper-button-next swiper-button-category category-next"></div>
+        <div class="swiper-button-prev swiper-button-category category-prev"></div>
+      </div>
+    </div>
+  </div> <!--Container Categorias-->
 
 
   <!--Banners Marcas-->
@@ -316,12 +395,12 @@
     </div>
   </div>
 
-  <!--Container Cards de Produtos-->
+  <!--Container Cards de Produtos Mais Vendidos-->
   <div class="container-fluid mb-5 mt-5">
     <h2 class="text-center mb-4 poetsen-one-regular">MAIS VENDIDOS</h2>
     <div class="swiper-container container-fluid d-flex justify-content-center">
       <div class="swiper-content-and-buttons">
-        <div class="swiper mySwiper m-0 container">
+        <div class="swiper mySwiperProdutoMaisVendidos m-0 container">
           <div class="swiper-wrapper content">
             @foreach ($produtoMaisVendidos as $produto)
 
@@ -391,8 +470,8 @@
           </div>
         </div>
 
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next best-sellers-next swiper-button"></div>
+        <div class="swiper-button-prev best-sellers-prev swiper-button"></div>
       </div>
     </div>
   </div> <!--Container Cards de Produtos-->
@@ -410,7 +489,7 @@
     <h2 class="text-center mb-4 poetsen-one-regular">OFERTAS IMPERDÍVEIS</h2>
     <div class="swiper-container container-fluid d-flex justify-content-center">
       <div class="swiper-content-and-buttons">
-        <div class="swiper mySwiper m-0 container">
+        <div class="swiper mySwiperProdutoOfertas m-0 container">
           <div class="swiper-wrapper content">
             @foreach ($produtoOfertas as $produto)
 
@@ -480,8 +559,8 @@
           </div>
         </div>
 
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next offers-next swiper-button"></div>
+        <div class="swiper-button-prev offers-prev swiper-button"></div>
       </div>
     </div>
   </div> <!--Container Cards de Produtos-->

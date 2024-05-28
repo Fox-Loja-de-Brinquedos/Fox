@@ -126,9 +126,9 @@
                     <p class="fs-5 ms-3 fw-semibold">Categoria</p>
                     <div class="ms-2 overflow-y-scroll" id="category-list">
                         <div class="list-group">
-                            <!-- Define a última categoria selecionada -->
+                            <!-- Define o último estado de categoria, filtro e checkbox -->
                             @php
-                            $selectedCategoryId = request('categoria_id');
+                            $selectedCategoryId = $categoria_id;
                             $dropdownFilter = request('dropdownFilter');
                             $promotionCheckbox = request('promotion_checkbox') ? 'true' : null;
                             @endphp
@@ -232,6 +232,12 @@
                         </li>
                         <li>
                             <a class="dropdown-item {{ request()->input('dropdownFilter') === 'menorPreco' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'menorPreco', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}">Menor preço</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'aZ' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'aZ', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}">De A a Z</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ request()->input('dropdownFilter') === 'zA' ? 'active' : '' }}" href="{{ route('produto.search', ['dropdownFilter' => 'zA', 'categoria_id' => $selectedCategoryId, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}">De Z a A</a>
                         </li>
                     </ul>
                 </div>

@@ -70,7 +70,7 @@ banners.forEach(banner => {
 
 
 //Carroussel de produto
-var swiper = new Swiper(".mySwiper", {
+var swiperOfertas = new Swiper(".mySwiperProdutoOfertas", {
     slidesPerView: 4,
     spaceBetween: 37,
     slidesPerGroup: 1,
@@ -81,8 +81,58 @@ var swiper = new Swiper(".mySwiper", {
       clickable: true,
     },
     navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
+      nextEl: ".offers-next",
+      prevEl: ".offers-prev",
+    },
+  });
+
+  var swiperLancamentos = new Swiper(".mySwiperProdutoLancametos", {
+    slidesPerView: 4,
+    spaceBetween: 37,
+    slidesPerGroup: 1,
+    loop: true,
+    loopFillGroupWithBlank: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".releases-next",
+      prevEl: ".releases-prev",
+    },
+  });
+
+
+  var mySwiperCategory = new Swiper(".mySwiperCategory", {
+    slidesPerView: 4,
+    spaceBetween: 37,
+    slidesPerGroup: 1,
+    loop: true,
+    loopFillGroupWithBlank: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".category-next",
+      prevEl: ".category-prev",
+    },
+  });
+
+
+  var swiperMaisVendidos = new Swiper(".mySwiperProdutoMaisVendidos", {
+    slidesPerView: 4,
+    spaceBetween: 37,
+    slidesPerGroup: 1,
+    loop: true,
+    loopFillGroupWithBlank: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".best-sellers-next",
+      prevEl: ".best-sellers-prev",
     },
   });
 });

@@ -213,6 +213,63 @@ a {
   font-size: 14px;
 }
 
+/*Navegação por Categoria*/
+
+.category-container{
+  padding: 2rem;
+  background-color: #f8f8f8;
+}
+
+.category-container {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.swiper-content-and-buttons-category {
+  height: 300px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0em 3em;
+}
+
+.category-circle {
+  width: 150px;
+  height: 150px;
+  background-color: #43ADDA;
+  position: relative;
+}
+
+.category-img {
+  min-width: 170px;
+  max-width: 170px;
+  min-height: 170px;
+  max-height: 170px;
+  object-fit: contain;
+  transition: 0.2s ease-in-out;
+}
+
+.category-img:hover {
+  transform: scale(1.1);
+}
+
+.category-description {
+  position: absolute;
+  left: 55;  
+  bottom: -60px;  
+}
+
+.swiper-wrapper-category {
+  padding: 4rem;
+}
+
+.swiper-button-category {
+  transform: scale(0.7);
+  color: #000000;
+}
+
+
 /*Banners de marcas*/
 
 .brand-banner {
@@ -257,18 +314,16 @@ a {
   top: 450px;
 }*/
 
-.swiper-button-next,
-.swiper-button-prev {
+.swiper-button {
   opacity: 0.7;
-  color: #868686;
-  transition: all 0.3s ease;
+  color: #353535;
+  transition: all 0.2s ease;
 
 }
 
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
+.swiper-button:hover {
   opacity: 1;
-  color: rgb(7, 7, 7);
+  color: rgb(0, 0, 0);
 }
 
 /*Footer*/

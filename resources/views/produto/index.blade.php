@@ -283,51 +283,36 @@
 
       <!--First column-->
       <div class="col-3">
-        <a href="#"><img class="rounded" src="{{ asset('images/foxBanner.png') }}"></a>
+        <a href="#"><img class="rounded" src="{{ asset('images/disneyBanner.png') }}"></a>
       </div>
 
       <!--Second column-->
       <div class="col-3 d-flex flex-column">
           <a href="#">
-            <img class="rounded brand-banner-half" src="{{ asset('images/foxBanner.png') }}">
+            <img class="rounded brand-banner-half" src="{{ asset('images/playdohBanner.png') }}">
           </a>
 
           <a href="#">
-            <img class="rounded brand-banner-half" src="{{ asset('images/foxBanner.png') }}">
+            <img class="rounded brand-banner-half" src="{{ asset('images/fisherpriceBanner.png') }}">
           </a>
       </div>
 
       <!--Third column-->
       <div class="col-3">
-        <a href="#"><img class="rounded" src="{{ asset('images/foxBanner.png') }}"></a>
+        <a href="#"><img class="rounded" src="{{ asset('images/dreamworksBanner.png') }}"></a>
       </div>
 
       <!--Fourth column-->
       <div class="col-3 d-flex flex-column">
           <a href="#">
-            <img class="rounded brand-banner-half" src="{{ asset('images/foxBanner.png') }}">
+            <img class="rounded brand-banner-half" src="{{ asset('images/chicco.png') }}">
           </a>
 
           <a href="#">
-            <img class="rounded brand-banner-half" src="{{ asset('images/foxBanner.png') }}">
+            <img class="rounded brand-banner-half" src="{{ asset('images/sylvanianBanner.png') }}">
           </a>
       </div>
 
-    </div>
-  </div>
-
-  <!--Anúncio banners-->
-  <div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-      <div class="col-3">
-        <a href="#ofertas"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
-      </div>
-      <div class="col-3">
-        <a href="#"><img src="{{ asset('images/banner-sessao-geek.png') }}" alt=""></a>
-      </div>
-      <div class="col-3">
-        <a href="#ofertas"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
-      </div>
     </div>
   </div>
 
@@ -492,8 +477,6 @@
             </div>
             @endforeach
 
-
-
           </div>
         </div>
 
@@ -502,6 +485,22 @@
       </div>
     </div>
   </div> <!--Container Cards de Produtos-->
+
+    <!--Anúncio banners-->
+    <div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-3">
+        <a href="#ofertas"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
+      </div>
+      <div class="col-3">
+        <a href="#"><img src="{{ asset('images/banner-sessao-geek.png') }}" alt=""></a>
+      </div>
+      <div class="col-3">
+        <a href="#ofertas"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
+      </div>
+    </div>
+  </div>
+
 
 
   <!-- pop-up cookies

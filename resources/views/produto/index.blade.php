@@ -279,40 +279,40 @@
 
   <!--Banners Marcas-->
   <div class="container mt-5 mb-5">
-    <div class="row justify-content-center ">
-
+    <div class="row">
       <!--First column-->
-      <div class="col-3">
-        <a href="#"><img class="rounded" src="{{ asset('images/disneyBanner.png') }}"></a>
+      <div class="col-6 col-md-3 mb-4 mb-md-0 d-flex align-items-center brand-banner">
+        <a href="#" class="d-flex align-items-center w-100">
+          <img class="rounded img-fluid m-0" src="{{ asset('images/disneyBanner.png') }}">
+        </a>
       </div>
 
       <!--Second column-->
-      <div class="col-3 d-flex flex-column">
-          <a href="#">
-            <img class="rounded brand-banner-half" src="{{ asset('images/playdohBanner.png') }}">
-          </a>
-
-          <a href="#">
-            <img class="rounded brand-banner-half" src="{{ asset('images/fisherpriceBanner.png') }}">
-          </a>
+      <div class="col-6 col-md-3 mb-4 mb-md-0 d-flex flex-column brand-banner">
+        <a href="#" class="mb-3 flex-grow-1 d-flex align-items-center">
+          <img class="rounded img-fluid m-0" src="{{ asset('images/playdohBanner.png') }}">
+        </a>
+        <a href="#" class="flex-grow-1 d-flex align-items-center">
+          <img class="rounded img-fluid m-0" src="{{ asset('images/fisherpriceBanner.png') }}">
+        </a>
       </div>
 
       <!--Third column-->
-      <div class="col-3">
-        <a href="#"><img class="rounded" src="{{ asset('images/dreamworksBanner.png') }}"></a>
+      <div class="col-6 col-md-3 mb-4 mb-md-0 d-flex brand-banner">
+        <a href="#" class="d-flex align-items-center w-100">
+          <img class="rounded img-fluid m-0" src="{{ asset('images/dreamworksBanner.png') }}">
+        </a>
       </div>
 
       <!--Fourth column-->
-      <div class="col-3 d-flex flex-column">
-          <a href="#">
-            <img class="rounded brand-banner-half" src="{{ asset('images/chicco.png') }}">
-          </a>
-
-          <a href="#">
-            <img class="rounded brand-banner-half" src="{{ asset('images/sylvanianBanner.png') }}">
-          </a>
+      <div class="col-6 col-md-3 d-flex flex-column brand-banner">
+        <a href="#" class="mb-3 flex-grow-1 d-flex align-items-center">
+          <img class="rounded img-fluid m-0" src="{{ asset('images/chicco.png') }}">
+        </a>
+        <a href="#" class="flex-grow-1 d-flex align-items-center">
+          <img class="rounded img-fluid m-0" src="{{ asset('images/sylvanianBanner.png') }}">
+        </a>
       </div>
-
     </div>
   </div>
 
@@ -486,8 +486,8 @@
     </div>
   </div> <!--Container Cards de Produtos-->
 
-    <!--Anúncio banners-->
-    <div class="container mt-5 mb-5">
+  <!--Anúncio banners-->
+  <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
       <div class="col-3">
         <a href="#ofertas"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
@@ -563,6 +563,7 @@
     <!--Receba promoções banner-->
     <div id="news-and-promotions-banner" class="container-fluid">
       <div class="row h-100 d-flex align-items-center justify-content-center">
+
         <div class="col col-4 fs-3 text-light fw-semibold">RECEBA PROMOÇÕES E NOVIDADES!</div>
 
         <div class="col col-4 d-flex justify-content-evenly">
@@ -599,7 +600,7 @@
             <p class="m-0">@lojafoxbrinquedos</p>
           </div>
         </div>
-        <div class="col col-2 footer-column">
+        <div class="col col-2 footer-column d-flex flex-column align-items-center">
           <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
           <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
         </div>

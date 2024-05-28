@@ -215,12 +215,18 @@ a {
 
 /*Banners de marcas*/
 
-.brand-banner-half {
-  height: 180px !important;
-  width: 290px !important;
+.brand-banner {
+  max-height: 100%;
 }
 
+.brand-banner img {
+  object-fit: cover;
+  transition: 0.1s ease-in-out;
+}
 
+.brand-banner img:hover {
+  transform: scale(0.98);
+}
 
 /*Carroussel de Produtos*/
 

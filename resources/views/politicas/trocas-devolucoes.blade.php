@@ -64,14 +64,13 @@
 
         </div>
         <div class="col-2">
-          <a href="{{ route('pedidos.index') }}" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
+          <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
             <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
             Meu Carrinho
           </a>
         </div>
       </div>
     </div>
-
     <!-- Linha da Navegação -->
     <div class="container">
       <div class="row">
@@ -183,13 +182,13 @@
       <div class="row d-flex justify-content-center">
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Institucional</h3>
-          <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Sobre a marca</a>
-          <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Trocas e Devoluções</a>
-          <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3" style="text-decoration: none; color:black">Políticas de privacidade</a>
+          <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3">Sobre a marca</a>
+          <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3">Trocas e Devoluções</a>
+          <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3">Políticas de privacidade</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
-          <p>Minha conta</p>
+          <a href="/profile"class="link-footer mb-3">Minha conta</a>
           <p>Meu carrinho</p>
           <p>Meus pedidos</p>
         </div>

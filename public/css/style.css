@@ -180,11 +180,12 @@ a {
   color: white;
   border: 2px solid #F9A80C;
   transition: 0.2s;
+  border-radius: 7px;
 }
 
 .add-to-cart-box:hover {
   background-color: #ffffff;
-  border: 2px solid #F9A80C;
+  border: 7px solid solid transparent;
   color: #F9A80C;
   transition: 0.2s;
 }
@@ -362,29 +363,20 @@ a {
 }
 
 /* TAFINHA */
-
-
-/* TAFINHA */
 body {
   background-color: white;
 }
 
 .container.single-product {
   display: grid;
-  grid-template-columns: repeat(11, 1fr);
-  grid-template-rows: repeat(1, 1fr);
+  grid-template-columns: repeat(12, 1fr); /* Aumenta colunas */
+  grid-template-rows: repeat(1, 1fr);/* Aumenta linhas */
   background-color: white;
   margin: auto;
 }
 
-.container img {
-  max-width: 100%;
-  height: auto;
-  margin-top: 5%;
-}
-
 .card-image {
-  grid-column: 2/ span 3;
+  grid-column: 3/ span 3; 
   grid-row: 1/ span 2;
   margin-top: 35%;
 }
@@ -394,6 +386,15 @@ body {
   grid-column: 7/11;
   grid-row: 1 / span 1;
   margin-top: 25%;
+  max-width: 500px;
+}
+
+
+.card-image img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 5%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .product-images {
@@ -402,21 +403,45 @@ body {
   align-items: start;
 }
 
+#main-image {
+  width: 500px;
+  height: 5 0px;
+  object-fit: cover; 
+}
+
+
 .thumbnail-carousel {
   display: flex;
 }
 
-#main-image {
-  width: 135%;
-  height: auto;
-  max-width: none;
-}
-
 .thumbnail {
-  width: 100px;
-  height: auto;
+  width: 70px; 
+  height: 70px; 
   margin: 0 5px;
   cursor: pointer;
+  max-width: 100%; 
+  max-height: 100%; 
+}
+
+.btn-add-to-cart {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  background-color: #FFA500; 
+  color: white; 
+  border: 2px solid transparent;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+  transition: 0.2s;
+}
+
+.btn-add-to-cart:hover {
+  background-color: white;
+  border-color: #FFA500;
+  color: #FFA500;
+  border-radius: 7px;
+  transition: 0.2s;
 }
 
 .quantity {
@@ -462,14 +487,26 @@ body {
     max-width: 90%;
     font-size: 14px;
   }
-
-  /*fim da parte tafinha*/
-
+  
   .accept-cookies-btn {
     padding: 8px 16px;
     font-size: 14px;
   }
 }
+
+.link-footer {
+  text-decoration: none;
+  color:black;
+ }
+
+ #freteResult {
+  font-size: 16px;
+  color: #6C757D;
+  margin-top: 10px;
+}
+
+ /*fim da parte tafinha*/
+
 
 /* Pesquisa de produto */
 .filter-button {

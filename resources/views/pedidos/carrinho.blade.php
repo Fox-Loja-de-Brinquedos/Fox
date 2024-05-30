@@ -58,37 +58,64 @@
                   <th class="product-remove"></th>
                 </tr>
               </thead>
+
+              
               <tbody>
-                @php
-                $total = 0;
-                @endphp
-                @foreach($carrinhoItens as $item)
-                @php
-                $total += $item->PRODUTO_PRECO - $item->PRODUTO_DESCONTO;
-                @endphp
+                @foreach($itens as $item)
                 <tr>
                   <td class="product-thumbnail d-flex justify-content-center">
-                    @if($item->IMAGEM_URL)
-                    <img src="{{ $item->IMAGEM_URL }}" alt="{{ $item->PRODUTO_NOME }}" style="min-height: 70px; max-height: 70px; object-fit: contain;">
+                    @if($item->produto->imagens->isNotEmpty())
+                    <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="{{ $item->produto->PRODUTO_NOME }}" style="min-height: 70px; max-height: 70px; object-fit: contain;">
                     @else
-                    <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" alt="Produto sem imagem">
+                    <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" alt="Produto sem imagem"
+                    style="min-height: 70px; max-height: 70px; object-fit: contain;">
                     @endif
                   </td>
-                  <td class="product-name">{{ $item->PRODUTO_NOME }}</td>
-                  <td class="product-price">R$ {{ $item->PRODUTO_PRECO - $item->PRODUTO_DESCONTO }}</td>
-                  <td class="product-quantity">
-                    <div class="quantity d-flex align-items-center my-2">
-                      <button class="minus-btn btn btn btn-sm mr-1" style="background-color: #43ADDA; color:white">-</button>
-                      <input type="text" name="item_qtd" class="form-control text-center mx-1" value="{{ $item->ITEM_QTD }}" readonly>
-                      <button class="plus-btn btn btn btn-sm ml-1" style="background-color: #43ADDA; color:white">+</button>
-                    </div>
+                  <td class="product-name">{{ $item->produto->PRODUTO_NOME }}</td>
+                  <td class="product-price">R$
+                    {{ number_format($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO, 2, ',', '.') }}
                   </td>
-                  <td class="product-subtotal">R$ {{ ($item->PRODUTO_PRECO - $item->PRODUTO_DESCONTO) * $item->ITEM_QTD }}</td>
-                  <td class="product-remove"><a href="#">X</a></td>
+
+                  <td class="product-quantity">
+                  <div class="quantity d-flex align-items-center my-1">
+                    <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline">
+                      @csrf
+                      <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
+                      <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
+                      <input type="hidden" name="ITEM_QTD" value="{{ $item->ITEM_QTD - 1 }}">
+                      <button type="submit" class="minus-btn btn btn-sm mr-1" style="background-color: #43ADDA; color:white" {{ $item->ITEM_QTD <= 1 ? 'disabled' : '' }}>-</button>
+                    </form>
+
+                    <input type="text" name="item_qtd" class="form-control text-center mx-1" value="{{ $item->ITEM_QTD }}" readonly>
+
+                    <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline">
+                      @csrf
+                      <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
+                      <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
+                      <input type="hidden" name="ITEM_QTD" value="{{ $item->ITEM_QTD}}">
+                      <button type="submit" class="plus-btn btn btn-sm ml-1" style="background-color: #43ADDA; color:white">+</button>
+                    </form>
+                  </div>
+                </td>
+
+
+                  <td class="product-subtotal">R$
+                    {{ number_format(($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO) * $item->ITEM_QTD, 2, ',', '.') }}
+                  </td>
+                  
+                  <td class="product-remove">
+                  <form action="{{ route('carrinho.removerItem') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
+                    <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
+                    <button type="submit" class="btn btn-danger btn-sm">X</button>
+                  </form>
+                </td>
+
                 </tr>
                 @endforeach
-
               </tbody>
+
             </table>
           </div>
 
@@ -115,7 +142,7 @@
               <tr>
                 <td>Subtotal:</td>
                 <td>
-                  R$ {{$total}}
+                 
                 </td>
               </tr>
               <tr>
@@ -124,14 +151,14 @@
               </tr>
               <tr>
                 <td>Total:</td>
-                <td>R${{$total + 10}}</td>
+                <td></td>
               </tr>
             </table>
-            <a href="{{ route('pedidos.checkout') }}">FINALIZAR A COMPRA</a>
+            <a href="{{ route('carrinho.checkout') }}">FINALIZAR A COMPRA</a>
 
           </div>
 
-          <p><a href="/">Continuar comprando</a></p>
+          <p><a href="">Continuar comprando</a></p>
 
         </div>
       </div>

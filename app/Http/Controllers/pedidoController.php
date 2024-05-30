@@ -8,201 +8,137 @@ use App\Models\Pedido;
 use App\Models\Pedido_Item;
 use App\Models\Endereco;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-
 
 
 class pedidoController extends Controller
 {
-    public function index()
+    public function listarItens()
     {
-        // Pega o usuário logado
-        $user = Auth::user();
-
-        // Consulta os itens do carrinho
-        $carrinhoItens = DB::table('CARRINHO_ITEM')
-            ->where('CARRINHO_ITEM.USUARIO_ID', $user->USUARIO_ID)
-            ->join('PRODUTO', 'CARRINHO_ITEM.PRODUTO_ID', '=', 'PRODUTO.PRODUTO_ID')
-            ->leftJoin(DB::raw('(SELECT PRODUTO_ID, MIN(IMAGEM_URL) AS IMAGEM_URL FROM PRODUTO_IMAGEM GROUP BY PRODUTO_ID) AS IMAGENS'), function ($join) {
-                $join->on('PRODUTO.PRODUTO_ID', '=', 'IMAGENS.PRODUTO_ID');
-            })
-            ->select(
-                'PRODUTO.PRODUTO_ID',
-                'PRODUTO.PRODUTO_NOME',
-                'PRODUTO.PRODUTO_PRECO',
-                'PRODUTO.PRODUTO_DESCONTO',
-                DB::raw('SUM(CARRINHO_ITEM.ITEM_QTD) AS ITEM_QTD'),
-                'IMAGENS.IMAGEM_URL'
-            )
-            ->groupBy(
-                'PRODUTO.PRODUTO_ID',
-                'PRODUTO.PRODUTO_NOME',
-                'PRODUTO.PRODUTO_PRECO',
-                'PRODUTO.PRODUTO_DESCONTO',
-                'IMAGENS.IMAGEM_URL'
-            )
+        $usuario_id = auth()->id();
+        $itens = Carrinho::where('USUARIO_ID', $usuario_id)
+            ->where('ITEM_QTD', '>', 0)
             ->get();
-
-        return view('pedidos.carrinho', ["carrinhoItens" => $carrinhoItens]);
+    
+        return view('pedidos.carrinho', compact('itens'));
     }
 
-    public function store(Produto $produto)
+    public function adicionarItem(Request $request)
     {
-        if ($produto) {
-            // Pega o usuário logado
-            $user = Auth::user()->USUARIO_ID;
+        $request->validate([
+            'PRODUTO_ID' => 'required|exists:PRODUTO,PRODUTO_ID',
+        ]);
+    
+        $usuario_id = auth()->id();
+        $produto_id = $request->PRODUTO_ID;
+    
+        $carrinhoItem = Carrinho::where('USUARIO_ID', $usuario_id)
+            ->where('PRODUTO_ID', $produto_id)
+            ->first();
 
-            //Quantidade de produtos
-            $itemQtd = 1;
-
-            // Verifica se já existe um registro para o usuário e produto no carrinho
-            $existingCartItem = Carrinho::where('USUARIO_ID', $user)
-                ->where('PRODUTO_ID', $produto->PRODUTO_ID)
-                ->first();
-
-            // Se não houver registro, cria um novo
-            if (!$existingCartItem) {
-                Carrinho::create([
-                    'USUARIO_ID' => $user,
-                    'PRODUTO_ID' => $produto->PRODUTO_ID,
-                    'ITEM_QTD' => $itemQtd,
-                ]);
-            } else {
-                /*$existingCartItem->update([
-                'ITEM_QTD' => $existingCartItem->ITEM_QTD + $itemQtd,
-            ]);*/
-            }
-        }
-
-        // Consulta os itens do carrinho
-        $carrinhoItens = DB::table('CARRINHO_ITEM')
-            ->where('CARRINHO_ITEM.USUARIO_ID', $user)
-            ->join('PRODUTO', 'CARRINHO_ITEM.PRODUTO_ID', '=', 'PRODUTO.PRODUTO_ID')
-            ->leftJoin(DB::raw('(SELECT PRODUTO_ID, MIN(IMAGEM_URL) AS IMAGEM_URL FROM PRODUTO_IMAGEM GROUP BY PRODUTO_ID) AS IMAGENS'), function ($join) {
-                $join->on('PRODUTO.PRODUTO_ID', '=', 'IMAGENS.PRODUTO_ID');
-            })
-            ->select(
-                'PRODUTO.PRODUTO_ID',
-                'PRODUTO.PRODUTO_NOME',
-                'PRODUTO.PRODUTO_PRECO',
-                'PRODUTO.PRODUTO_DESCONTO',
-                DB::raw('SUM(CARRINHO_ITEM.ITEM_QTD) AS ITEM_QTD'),
-                'IMAGENS.IMAGEM_URL'
-            )
-            ->groupBy(
-                'PRODUTO.PRODUTO_ID',
-                'PRODUTO.PRODUTO_NOME',
-                'PRODUTO.PRODUTO_PRECO',
-                'PRODUTO.PRODUTO_DESCONTO',
-                'IMAGENS.IMAGEM_URL'
-            )
-            ->get();
-
-        return view('pedidos.carrinho', ['carrinhoItens' => $carrinhoItens]);
-    }
-
-    public function checkout()
-    {
-        $user = Auth::user()->USUARIO_ID;
-
-        // Consulta os itens do carrinho
-        $carrinhoItens = DB::table('CARRINHO_ITEM')
-            ->where('CARRINHO_ITEM.USUARIO_ID', $user)
-            ->join('PRODUTO', 'CARRINHO_ITEM.PRODUTO_ID', '=', 'PRODUTO.PRODUTO_ID')
-            ->leftJoin(DB::raw('(SELECT PRODUTO_ID, MIN(IMAGEM_URL) AS IMAGEM_URL FROM PRODUTO_IMAGEM GROUP BY PRODUTO_ID) AS IMAGENS'), function ($join) {
-                $join->on('PRODUTO.PRODUTO_ID', '=', 'IMAGENS.PRODUTO_ID');
-            })
-            ->select(
-                'PRODUTO.PRODUTO_ID',
-                'PRODUTO.PRODUTO_NOME',
-                'PRODUTO.PRODUTO_PRECO',
-                'PRODUTO.PRODUTO_DESCONTO',
-                DB::raw('SUM(CARRINHO_ITEM.ITEM_QTD) AS ITEM_QTD'),
-                'IMAGENS.IMAGEM_URL'
-            )
-            ->groupBy(
-                'PRODUTO.PRODUTO_ID',
-                'PRODUTO.PRODUTO_NOME',
-                'PRODUTO.PRODUTO_PRECO',
-                'PRODUTO.PRODUTO_DESCONTO',
-                'IMAGENS.IMAGEM_URL'
-            )
-            ->get();
-
-
-        return view('pedidos.checkout', ['carrinhoItens' => $carrinhoItens]);
-    }
-
-    public function finish()
-    {
-        $user = Auth::user()->USUARIO_ID;
-        $statusID = 1;
-        $currentDate = today()->format('Y-m-d');
-        $idDoEndereco = Endereco::where('USUARIO_ID', $user)->value('ENDERECO_ID');
-
-        // Verifica se já existe um pedido com os mesmos valores
-        $existingPedido = Pedido::where([
-            'USUARIO_ID' => $user,
-            'STATUS_ID' => $statusID,
-            'PEDIDO_DATA' => $currentDate,
-            'ENDERECO_ID' => $idDoEndereco
-        ])->first();
-
-        // Se não existir, cria um novo pedido
-        if (!$existingPedido) {
-            Pedido::create([
-                'USUARIO_ID' => $user,
-                'STATUS_ID' => $statusID,
-                'PEDIDO_DATA' => $currentDate,
-                'ENDERECO_ID' => $idDoEndereco
+        if ($carrinhoItem) {
+            $carrinhoItem->ITEM_QTD += 1;
+            $carrinhoItem->save();
+        } else {
+            $carrinhoItem = Carrinho::create([
+                'USUARIO_ID' => $usuario_id,
+                'PRODUTO_ID' => $produto_id,
+                'ITEM_QTD' => 1
             ]);
-          
         }
+        return redirect()->route('carrinho.listar')->with('success', 'Item adicionado ao carrinho com sucesso.');
     }
 
-    public function storePedidoItem()
+    public function removerItem(Request $request)
     {
-        // Obtém o ID do usuário autenticado
-        $user = Auth::user()->USUARIO_ID;
+        $usuario_id = $request->input('USUARIO_ID');
+        $produto_id = $request->input('PRODUTO_ID');
 
-        // Obtém o ID do pedido mais recente do usuário
-        $pedidoId = Pedido::where('USUARIO_ID', $user)->orderBy('PEDIDO_ID', 'desc')->value('PEDIDO_ID');
+        $carrinhoItem = Carrinho::where('USUARIO_ID', $usuario_id)
+            ->where('PRODUTO_ID', $produto_id)
+            ->first();
 
-        // Consulta os IDs dos produtos no carrinho, as quantidades, os preços e os descontos
-        $produtosEQuantidades = DB::table('CARRINHO_ITEM')
-            ->where('CARRINHO_ITEM.USUARIO_ID', $user)
-            ->join('PRODUTO', 'CARRINHO_ITEM.PRODUTO_ID', '=', 'PRODUTO.PRODUTO_ID')
-            ->select(
-                'CARRINHO_ITEM.PRODUTO_ID',
-                DB::raw('SUM(CARRINHO_ITEM.ITEM_QTD) as ITEM_QTD'),
-                'PRODUTO.PRODUTO_PRECO',
-                'PRODUTO.PRODUTO_DESCONTO'
-            )
-            ->groupBy('CARRINHO_ITEM.PRODUTO_ID', 'PRODUTO.PRODUTO_PRECO', 'PRODUTO.PRODUTO_DESCONTO')
+        if ($carrinhoItem) {
+            $carrinhoItem->ITEM_QTD = 0;
+            $carrinhoItem->save();
+        }
+
+        return redirect()->route('carrinho.listar')->with('success', 'Item removido do carrinho com sucesso.');
+    }
+
+    public function atualizarItem(Request $request)
+    {
+        $usuario_id = $request->input('USUARIO_ID');
+        $produto_id = $request->input('PRODUTO_ID');
+        $nova_quantidade = $request->input('ITEM_QTD');
+
+        if ($nova_quantidade < 1) {
+            return redirect()->route('carrinho.listar')->with('error', 'A quantidade mínima é 1.');
+        }
+
+        $carrinhoItem = Carrinho::where('USUARIO_ID', $usuario_id)
+            ->where('PRODUTO_ID', $produto_id)
+            ->first();
+
+        if ($carrinhoItem) {
+            $carrinhoItem->ITEM_QTD = $nova_quantidade;
+            $carrinhoItem->save();
+        }
+
+        return redirect()->route('carrinho.listar')->with('success', 'Quantidade de item atualizada com sucesso.');
+    }
+
+    public function checkout(){
+        $usuario_id = auth()->id();
+        $itens = Carrinho::where('USUARIO_ID', $usuario_id)
+            ->where('ITEM_QTD', '>', 0)
             ->get();
 
-        // Itera sobre cada produto e quantidade
-        foreach ($produtosEQuantidades as $produtoItem) {
-            // Verifica se o item do pedido já existe
-            $existingPedidoItem = Pedido_Item::where('PEDIDO_ID', $pedidoId)
-                ->where('PRODUTO_ID', $produtoItem->PRODUTO_ID)
-                ->first();
-
-            if (!$existingPedidoItem) {
-                // Calcula o preço total do item considerando o desconto
-                $itemPreco = ($produtoItem->PRODUTO_PRECO - $produtoItem->PRODUTO_DESCONTO) * $produtoItem->ITEM_QTD;
-
-                // Cria o item do pedido
-                Pedido_Item::create([
-                    'PRODUTO_ID' => $produtoItem->PRODUTO_ID,
-                    'PEDIDO_ID' => $pedidoId,
-                    'ITEM_QTD' => $produtoItem->ITEM_QTD,
-                    'ITEM_PRECO' => $itemPreco
-                ]);
-            }
-        }
-        
-        return view('pedidos.pedido-realizado');
+            $endereco = Endereco::where('USUARIO_ID', $usuario_id)
+            ->where('ENDERECO_APAGADO', 0)
+            ->first();
+            
+            return view('pedidos.checkout', compact('itens', 'endereco'));
     }
+
+    public function finalizarPedido(Request $request)
+{
+
+    // pegando os dados do formulário de endereco
+    $usuario_id = auth()->id();
+    $endereco_id = $request->input('ENDERECO_ID'); 
+    $itens = Carrinho::where('USUARIO_ID', $usuario_id)
+        ->where('ITEM_QTD', '>', 0)
+        ->get();
+
+    // Gerando um pedido
+    $pedido = Pedido::create([
+        'USUARIO_ID' => $usuario_id,
+        'STATUS_ID' => 1,
+        'PEDIDO_DATA' => now(),
+        'ENDERECO_ID' => $endereco_id,
+    ]);
+
+    // Adicione os itens do carrinho como itens do pedido
+    foreach ($itens as $item) {
+        Pedido_Item::create([
+            'PEDIDO_ID' => $pedido->PEDIDO_ID,
+            'PRODUTO_ID' => $item->PRODUTO_ID,
+            'ITEM_QTD' => $item->ITEM_QTD,
+            'ITEM_PRECO' => $item->produto->PRODUTO_PRECO, 
+        ]);
+    }
+
+    //Chamando funcao para limpar o carrinho apos todas etapas cumpridas
+    $this->limparCarrinho();
+    
+    return view('pedidos.pedido-realizado');
+}
+
+public function limparCarrinho()
+{
+    $usuario_id = auth()->id();
+
+    Carrinho::where('USUARIO_ID', $usuario_id)->update(['ITEM_QTD' => 0]);
+}
+
 }

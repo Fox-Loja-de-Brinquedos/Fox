@@ -153,9 +153,15 @@
                         <input type="number" id="cepInput" class="form-control" placeholder="00000-000">
                         <button class="btn btn-primary" type="button">Calcular</button>
                     </div>
-                    <button type="button" class="btn btn-warning mt-3" style="width: 100%; height: 50px; font-size: 23px; color: white;">
+
+                    <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
+                    <button type="submit" class="btn btn-warning mt-3" style="width: 100%; height: 50px; font-size: 23px; color: white;">
                         ADICIONAR AO CARRINHO
                     </button>
+                </form>
+                    
                 </div>
 
 

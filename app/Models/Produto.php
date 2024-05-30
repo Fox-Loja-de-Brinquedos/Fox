@@ -32,4 +32,9 @@ class Produto extends Model
         public function pedido_item() {
             return $this->hasMany(PEDIDO_ITEM::class, "PRODUTO_ID");
         }
+
+        public function carrinhoItens()
+        {
+            return $this->hasMany(Carrinho::class, 'PRODUTO_ID', 'PRODUTO_ID');
+        }
 }

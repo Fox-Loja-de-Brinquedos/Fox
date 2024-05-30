@@ -38,4 +38,6 @@ class Pedido extends Model
     {
         return $this->belongsTo('App\Models\Endereco', 'ENDERECO_ID');
     }
+
+    
 }

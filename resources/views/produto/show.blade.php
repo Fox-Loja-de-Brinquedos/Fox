@@ -129,7 +129,7 @@
                     <p class="mt-5 text-secondary">Calcule o valor do frete para a sua região!</p>
                     <div class="input-group mb-3">
                         <input type="text" id="cepInput" class="form-control" placeholder="00000-000" maxlength="9">
-                        <button class="btn btn" style="background-color: #43ADDA; color:white" type="button" id="calculateButton">Calcular</button>
+                        <button class="btn btn" style="background-color: #43ADDA; color:white" type="button" id="calculateButton">Calcular</ button>
                     </div>
                     <div id="freteResult" class="mt-3"></div>
 
@@ -150,7 +150,7 @@
                         });
 
                         document.getElementById('calculateButton').addEventListener('click', function() {
-                            var cep = document.getElementById('cepInput').value.replace('-', ''); 
+                            var cep = document.getElementById('cepInput').value.replace('-', '');
                             var freteResultDiv = document.getElementById('freteResult');
 
                             freteResultDiv.innerText = '';
@@ -161,21 +161,20 @@
                                 freteResultDiv.innerText = freteText;
                             }
                         });
-
                     </script>
 
-                    <button type="button" class="btn btn-warning mt-3" style="width: 100%; height: 50px; font-size: 23px; color: white;">
-                        ADICIONAR AO CARRINHO
-                    </button>
+                    <button class="btn-add-to-cart mt-4">ADICIONAR AO CARRINHO</button>
+
                 </div>
             </div>
         </div>
-        <div class="container d-flex justify-content-center align-items-center mb-5 mt-5" style="height: 40%;">
+        <div class="container d-flex justify-content-start align-items-start mb-5 mt-5" style="height: 40%;">
             <div class="card-4 p-4">
-                <h2 class="fs-3 text-info mb-3">Descrição</h2>
-                <p class="f-5 d-flex mb-5" style="font-size: 17px;">{{ $produto->PRODUTO_DESC }}</p>
+                <h2 class="fs-3 text-info mb-3">DESCRIÇÃO</h2>
+                <p class="f-5 d-flex mb-5" style="font-size: 17px; align-self: flex-start;">{{ $produto->PRODUTO_DESC }}</p>
             </div>
         </div>
+
 
         <div class="container mb-5 mt-5">
             <h2 class="text-center mb-4">QUEM VIU TAMBÉM COMPROU</h2>

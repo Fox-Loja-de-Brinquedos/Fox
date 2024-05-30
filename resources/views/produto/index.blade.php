@@ -325,8 +325,8 @@
               </div>
             </div>
 
-               <!--Funko-->
-               <div class="swiper-slide swiper-slide-category">
+            <!--Funko-->
+            <div class="swiper-slide swiper-slide-category">
               <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
                 <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Mordedores%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
                   <img class="category-img m-0" src="{{ asset('images/freddyFunko.png') }}">
@@ -335,8 +335,8 @@
               </div>
             </div>
 
-             <!--Cartas-->
-             <div class="swiper-slide swiper-slide-category">
+            <!--Cartas-->
+            <div class="swiper-slide swiper-slide-category">
               <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
                 <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
                   <img class="category-img m-0" src="{{ asset('images/unoDeck.png') }}">
@@ -345,6 +345,15 @@
               </div>
             </div>
 
+            <!--Lego-->
+            <div class="swiper-slide swiper-slide-category">
+              <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
+                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%LEGO%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                  <img class="category-img m-0" src="{{ asset('images/lego.png') }}">
+                  <p class="fs-4 poetsen-one-regular category-description">Lego</p>
+                </a>
+              </div>
+            </div>
 
           </div>
         </div>

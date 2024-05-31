@@ -7,7 +7,9 @@ use App\Models\Carrinho;
 use App\Models\Pedido;
 use App\Models\Pedido_Item;
 use App\Models\Endereco;
+use App\Models\Produto_Estoque;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class pedidoController extends Controller
@@ -18,7 +20,7 @@ class pedidoController extends Controller
         $itens = Carrinho::where('USUARIO_ID', $usuario_id)
             ->where('ITEM_QTD', '>', 0)
             ->get();
-    
+
         return view('pedidos.carrinho', compact('itens'));
     }
 
@@ -27,10 +29,10 @@ class pedidoController extends Controller
         $request->validate([
             'PRODUTO_ID' => 'required|exists:PRODUTO,PRODUTO_ID',
         ]);
-    
+
         $usuario_id = auth()->id();
         $produto_id = $request->PRODUTO_ID;
-    
+
         $carrinhoItem = Carrinho::where('USUARIO_ID', $usuario_id)
             ->where('PRODUTO_ID', $produto_id)
             ->first();
@@ -87,62 +89,85 @@ class pedidoController extends Controller
         return redirect()->route('carrinho.listar')->with('success', 'Quantidade de item atualizada com sucesso.');
     }
 
-    public function checkout(){
+    public function checkout()
+    {
         $usuario_id = auth()->id();
         $itens = Carrinho::where('USUARIO_ID', $usuario_id)
             ->where('ITEM_QTD', '>', 0)
             ->get();
 
-            if($itens->isEmpty()){
-                return redirect()->back()->with('error', 'Adicione itens ao carrinho antes de prosseguir para o checkout.');
-            }
+        if ($itens->isEmpty()) {
+            return redirect()->back()->with('error', 'Adicione itens ao carrinho antes de prosseguir para o checkout.');
+        }
 
-            $endereco = Endereco::where('USUARIO_ID', $usuario_id)
+        $endereco = Endereco::where('USUARIO_ID', $usuario_id)
             ->where('ENDERECO_APAGADO', 0)
             ->first();
-            
-            return view('pedidos.checkout', compact('itens', 'endereco'));
+
+        return view('pedidos.checkout', compact('itens', 'endereco'));
     }
 
-    public function finalizarPedido(Request $request)
-{
+    public function finalizarPedido(Request $request) {
+            //Todas as operações de banco de dados a seguir são incluídas nesta transação
+            DB::beginTransaction();
+            try {
+                // Pegando os dados do formulário de endereco
+                $usuario_id = auth()->id();
+                $endereco_id = $request->input('ENDERECO_ID');
+                $itens = Carrinho::where('USUARIO_ID', $usuario_id)
+                    ->where('ITEM_QTD', '>', 0)
+                    ->get();
 
-    // pegando os dados do formulário de endereco
-    $usuario_id = auth()->id();
-    $endereco_id = $request->input('ENDERECO_ID'); 
-    $itens = Carrinho::where('USUARIO_ID', $usuario_id)
-        ->where('ITEM_QTD', '>', 0)
-        ->get();
+                // Gerando um pedido
+                $pedido = Pedido::create([
+                    'USUARIO_ID' => $usuario_id,
+                    'STATUS_ID' => 1,
+                    'PEDIDO_DATA' => now(),
+                    'ENDERECO_ID' => $endereco_id,
+                ]);
 
-    // Gerando um pedido
-    $pedido = Pedido::create([
-        'USUARIO_ID' => $usuario_id,
-        'STATUS_ID' => 1,
-        'PEDIDO_DATA' => now(),
-        'ENDERECO_ID' => $endereco_id,
-    ]);
+                // Adiciona os itens do carrinho como itens do pedido e atualiza o estoque
+                foreach ($itens as $item) {
+                    // Atualiza o estoque do produto
+                    $produtoEstoque = Produto_Estoque::where('PRODUTO_ID', $item->PRODUTO_ID)->first();
+                    if ($produtoEstoque) {
+                        if ($produtoEstoque->PRODUTO_QTD < $item->ITEM_QTD) {
+                            // Lança exceção se o estoque for insuficiente
+                            throw new \Exception('Estoque insuficiente para o produto: ' . $item->produto->PRODUTO_NOME);
+                        }
 
-    // Adicione os itens do carrinho como itens do pedido
-    foreach ($itens as $item) {
-        Pedido_Item::create([
-            'PEDIDO_ID' => $pedido->PEDIDO_ID,
-            'PRODUTO_ID' => $item->PRODUTO_ID,
-            'ITEM_QTD' => $item->ITEM_QTD,
-            'ITEM_PRECO' => $item->produto->PRODUTO_PRECO, 
-        ]);
+                        $produtoEstoque->PRODUTO_QTD -= $item->ITEM_QTD;
+                        $produtoEstoque->save();
+                    }
+
+                    // Adiciona o item ao pedido
+                    Pedido_Item::create([
+                        'PEDIDO_ID' => $pedido->PEDIDO_ID,
+                        'PRODUTO_ID' => $item->PRODUTO_ID,
+                        'ITEM_QTD' => $item->ITEM_QTD,
+                        'ITEM_PRECO' => $item->produto->PRODUTO_PRECO,
+                    ]);
+                }
+
+                // Chamando funcao para limpar o carrinho apos todas etapas cumpridas
+                $this->limparCarrinho();
+
+                // Se todas as operações forem concluídas sem erros a transação é confirmada e todas as mudanças são aplicadas ao banco
+                DB::commit();
+
+                return view('pedidos.pedido-realizado');
+            } catch (\Exception $e) {
+
+                // Se qualquer operação dentro da transação falhar todas as mudanças feitas são revertidas
+                DB::rollBack();
+                return redirect()->back()->with('error', $e->getMessage());
+            }
+        }
+
+    public function limparCarrinho()
+    {
+        $usuario_id = auth()->id();
+
+        Carrinho::where('USUARIO_ID', $usuario_id)->update(['ITEM_QTD' => 0]);
     }
-
-    //Chamando funcao para limpar o carrinho apos todas etapas cumpridas
-    $this->limparCarrinho();
-    
-    return view('pedidos.pedido-realizado');
-}
-
-public function limparCarrinho()
-{
-    $usuario_id = auth()->id();
-
-    Carrinho::where('USUARIO_ID', $usuario_id)->update(['ITEM_QTD' => 0]);
-}
-
 }

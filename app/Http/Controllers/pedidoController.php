@@ -93,6 +93,10 @@ class pedidoController extends Controller
             ->where('ITEM_QTD', '>', 0)
             ->get();
 
+            if($itens->isEmpty()){
+                return redirect()->back()->with('error', 'Adicione itens ao carrinho antes de prosseguir para o checkout.');
+            }
+
             $endereco = Endereco::where('USUARIO_ID', $usuario_id)
             ->where('ENDERECO_APAGADO', 0)
             ->first();

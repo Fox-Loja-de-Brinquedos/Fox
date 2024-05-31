@@ -16,8 +16,6 @@
       background-color: #43ADDA;
     }
 
-    .checkout-container-body {}
-
     .cart-table td {
       vertical-align: middle;
     }
@@ -155,6 +153,12 @@
               </tr>
             </table>
             <a href="{{ route('carrinho.checkout') }}">FINALIZAR A COMPRA</a>
+                     
+            @if (session('error'))
+                  <div class="alert alert-danger">
+                      {{ session('error') }}
+                  </div>
+              @endif
 
           </div>
 

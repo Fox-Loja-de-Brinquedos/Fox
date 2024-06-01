@@ -122,7 +122,7 @@
                     <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" alt="product-image" id="main-image">
                 </div>
                 <div class="product-images">
-                    <div class="thumbnail-carousel mt-5">
+                    <div class="thumbnail-carousel">
                         @foreach ($produto->imagens->take(3) as $imagem)
                         <img src="{{ $imagem->IMAGEM_URL }}" alt="Thumbnail 1" class="thumbnail">
                         @endforeach
@@ -130,11 +130,11 @@
                 </div>
             </div>
             <div class="view-information ms-5 mt-5">
-                <h2 class="fs-4 text-left text-purple" style="color:#000000;">{{ $produto->PRODUTO_NOME }}</h2>
+                <h2 class="fs-2 text-left text-purple" style="color:#000000;">{{ $produto->PRODUTO_NOME }}</h2>
                 @if($produto->PRODUTO_DESCONTO > 0)
                 <p class="mt-3 mb-3" style="color:#595959; font-size: 20px; color:#595959">DE: <span class="span-1 fs-5">{{ number_format(($produto->PRODUTO_PRECO), 2, ',', '.') }}</span></p>
                 @endif
-                <p class=" mb-3" style="color:#FFA500; font-size: 25px">POR:{{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
+                <p class=" mb-3" style="color:#FFA500; font-size: 25px">POR: {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
                 @if($produto->PRODUTO_DESCONTO > 0)
                 @php
                 $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100
@@ -157,8 +157,9 @@
                     <button class="btn-add-to-cart mt-4">ADICIONAR AO CARRINHO</button>
                 </div>
             </div>
+        </div>
 
-            <div class="container d-flex justify-content-start align-items-start mb-5 mt-5 pe-4" style="height: 40%;">
+            <div class="container d-flex justify-content-start align-items-start mb-5 mt-3 pe-4" style="height: 40%;">
                 <div class="card-4 p-4">
                     <h2 class="fs-3 text-info mb-3">DESCRIÇÃO</h2>
                     <p class="f-5 d-flex mb-5" style="font-size: 17px; align-self: flex-start;">{{ $produto->PRODUTO_DESC }}</p>

@@ -392,6 +392,7 @@ body {
   margin-bottom: 20px;
   flex: 1;
   min-width: 300px;
+  margin-right: 50px;
 }
 
 .main-image {
@@ -416,7 +417,7 @@ body {
   display: flex;
   flex-direction: column;
   align-self: flex-start;
-  margin-left: 78px;
+  margin-left: 50px;
   height: 200px;
 }
 
@@ -429,7 +430,7 @@ body {
   max-height: 100px;
   min-width: 100px;
   min-height: 100px;
-  margin: 0 5px;
+  margin: 0 7px;
   cursor: pointer;
   border: 2px solid transparent;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);

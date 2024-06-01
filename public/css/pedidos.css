@@ -11,6 +11,44 @@ body {
 .cart-table td {
     vertical-align: middle;
 }
+.cart-table tr:last-child td{
+    border: none;
+}
+.cart-table-total {
+    font-weight: 600;
+}
+
+.item-qtd-input{
+    border-radius: 0;
+    border: none;
+    margin: 0 !important;
+    max-width: 35px;
+    height: 30px;
+    padding-top: 5px;
+}
+.item-qtd-input, .plus-btn, .minus-btn {
+    background-color: #F9A80C !important;
+    color: #fff;
+}
+.plus-btn, .minus-btn {
+    height: 30px;
+    width: 30px;
+}
+.plus-btn {
+    border-radius: 0 50% 50% 0;
+    padding-top: 3px;
+}
+.minus-btn {
+    border-radius: 50% 0 0 50%;
+    padding-top: 2px;
+}
+.minus-btn:disabled{
+    border: none;
+    color: #fff;
+}
+.plus-btn-form {
+    height: 30px;
+}
 
 input {
     background-color: #F3F3F3;
@@ -46,9 +84,9 @@ label.opcao-pagamento {
     font-size: 16px;
     color: #555;
 }
-a.pedido-btn {
+.pedido-btn {
     background-color: #F9A80C;
-    padding: 16px 32px;
+    padding: 12px 36px;
     text-transform: uppercase;
     color: #fff;
     border: none;
@@ -58,7 +96,7 @@ a.pedido-btn {
     transition: 0.2s;
     text-decoration: none;
 }
-button.pedido-btn:hover {
+.pedido-btn:hover {
     color: #F9A80C;
     background-color: #fff;
 }
@@ -96,4 +134,61 @@ button.pedido-btn:hover {
 }
 .container-box-pedido-realizado .info-box img{
     margin-right: 15px;
+}
+.step-item {
+    color: #fff;
+    z-index: 10;
+}
+.step-item a{
+    color: #fff;
+    text-decoration: none;
+}
+.step-item:not(.selected):hover a .step-circle{
+    background-color: #fff;
+    color: #43ADDA;
+}
+.step-item:not(.selected):hover a{
+    font-weight: 600;
+}
+.step-item.done .step-circle{
+    background-color: #fff;
+    color: #43ADDA;
+}
+.step-circle {
+    font-size: 24px;
+    width: 62px;
+    height: 62px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    padding-top: 8px;
+    background-color: #43ADDA;
+    transition: 0.2s;
+}
+.step-item.selected .step-circle{
+    background-color: #F9A80C;
+}
+.step-item.selected a{
+    cursor: default;
+}
+.steps-line {
+    border-top: 2px solid #fff;
+    transform: translateY(32px);
+    z-index: 5;
+    margin: 0 32px;
+}
+.checkout-item-qtd {
+    background-color: #F9A80C;
+    color: #fff;
+    border-radius: 10px;
+    padding: 0px 8px 2px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.forma-de-pagamento-box {
+    background-color: #F8F8F8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+.forma-de-pagamento-box label{
+    font-weight: 600;
 }

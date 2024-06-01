@@ -19,7 +19,25 @@
                     </a>
                 </div>
                 <div class="col-6 d-flex align-content-center flex-wrap">
-                    <img src="{{ asset('images/steps-identificacao.png') }}" alt="Imagem 1">
+                    <div class="w-100">
+                        <div class="steps-line"></div>
+                        <div class="steps-btns d-flex justify-content-between">
+                        <div class="step-item done text-center">
+                            <a href="{{ route('carrinho.listar') }}">
+                                <div class="step-circle mx-auto">1</div>
+                                <span class="step-label mt-1 d-block">Carrinho</span>
+                            </a>
+                        </div>
+                        <div class="step-item selected text-center">
+                            <div class="step-circle mx-auto">2</div>
+                            <span class="step-label mt-1 d-block">Finalizar compra</span>
+                        </div>
+                        <div class="step-item text-center">
+                            <div class="step-circle mx-auto">3</div>
+                            <span class="step-label mt-1 d-block">Pedido realizado</span>
+                        </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-3 text-end">
                     <img src="{{ asset('images/icone-seguro.png') }}">
@@ -37,27 +55,48 @@
                         <div class="bg-white p-4 container-box">
                             <h3>Entrega</h3>
                             <p>Solicitamos apenas informações essenciais</p>
-                            <div id="entrega">
+                            <div id="entrega" class="container">
                                 @if($endereco)
-                                <input type="hidden" name="ENDERECO_ID" value="{{ $endereco->ENDERECO_ID }}">
-                                <label for="cep">CEP
-                                    <input type="text" name="cep" id="cep" class="input-1-1" value="{{ $endereco->ENDERECO_CEP }}">
-                                </label>
-                                <label for="endereco">Endereço
-                                    <input type="text" name="endereco" id="endereco" class="input-1-1" value="{{ $endereco->ENDERECO_LOGRADOURO }}">
-                                </label>
-                                <label for="numero">Número
-                                    <input type="number" name="numero" id="numero" class="input-1-1" value="{{ $endereco->ENDERECO_NUMERO }}">
-                                </label>
-                                <label for="bairro">Bairro
-                                    <input type="text" name="bairro" id="bairro" class="input-1-1" value="{{ $endereco->ENDERECO_COMPLEMENTO }}">
-                                </label>
-                                <label for="cidade">Cidade
-                                    <input type="text" name="cidade" id="cidade" class="input-1-1" value="{{ $endereco->ENDERECO_CIDADE }}">
-                                </label>
-                                <label for="estado">Estado
-                                    <input type="text" name="estado" id="estado" class="input-1-1" value="{{ $endereco->ENDERECO_ESTADO }}">
-                                </label>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <input type="hidden" name="ENDERECO_ID" value="{{ $endereco->ENDERECO_ID }}">
+                                        <label for="cep">CEP
+                                            <input type="text" name="cep" id="cep" class="input-1-1" value="{{ $endereco->ENDERECO_CEP }}">
+                                        </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <label for="logradouro">Logradouro
+                                            <input type="text" name="logradouro" id="logradouro" class="input-1-1" value="{{ $endereco->ENDERECO_LOGRADOURO }}">
+                                        </label>
+                                    </div>
+                                    <div class="col-5">
+                                        <label for="endereco">Endereço
+                                            <input type="text" name="endereco" id="endereco" class="input-1-1" value="{{ $endereco->ENDERECO_NOME }}">
+                                        </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <label for="numero">Número
+                                            <input type="number" name="numero" id="numero" class="input-1-1" value="{{ $endereco->ENDERECO_NUMERO }}">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="bairro">Complemento
+                                            <input type="text" name="complemento" id="complemento" class="input-1-1" value="{{ $endereco->ENDERECO_COMPLEMENTO }}">
+                                        </label>
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="cidade">Cidade
+                                            <input type="text" name="cidade" id="cidade" class="input-1-1" value="{{ $endereco->ENDERECO_CIDADE }}">
+                                        </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <label for="estado">Estado
+                                            <input type="text" name="estado" id="estado" class="input-1-1" value="{{ $endereco->ENDERECO_ESTADO }}">
+                                        </label>
+                                    </div>
+                                </div>
                                 @else
                                 <p>O usuário não tem um endereço cadastrado. Por favor, cadastre um endereço.</p>
                                 @endif
@@ -66,10 +105,17 @@
 
                         <div class="bg-white p-4 my-5 container-box">
                             <h3>Formas de pagamento</h3>
-                            <p>Solicitamos apenas informações essenciais</p>
+                            <p>Escolha o método de pagamento de sua preferência.</p>
                             <div id="forma-de-pagamento">
-                                <div class="mb-3"><input type="radio" name="boleto" id="boleto"><label for="boleto" class="opcao-pagamento"> Boleto</label></div>
-                                <button type="submit">Finalizar Pedido</button>
+                                <div class="mb-3 forma-de-pagamento-box">
+                                    <div class="p-3">
+                                        <label for="boleto" class="opcao-pagamento"><input type="radio" name="boleto" id="boleto" checked><span class="d-inline-block ms-2">Boleto</span></label>
+                                    </div>
+                                    <div class="p-3 border-top">
+                                        <p class="text-secondary">O Boleto bancário será exibido após a confirmação da compra e poderá ser pago em qualquer agência bancária, pelo seu smartphone ou computador através de serviços digitais de bancos.</p>
+                                    </div>
+                                </div>
+                                <button class="pedido-btn mx-auto d-block" type="submit">Finalizar Pedido</button>
                             </div>
                         </div>
 
@@ -77,57 +123,55 @@
                 </div>
 
                 <div class="col-5">
-                    <div class="bg-white pt-4 container-box">
+                    <div class="bg-white pt-4 pb-1 container-box">
                         <h3 class="px-4">Resumo da compra</h3>
                         <table class="table">
                             @php
-                            $total = 0;
+                                $subtotal = 0;
                             @endphp
+
                             @foreach($itens as $item)
+
                             @php
-                            $subtotal = $item->ITEM_QTD * ($item->PRODUTO_PRECO - $item->PRODUTO_DESCONTO);
-                            $total += $subtotal;
+                                $subtotalProduto = $item->ITEM_QTD * ($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO);
+                                $subtotal += $subtotalProduto;
                             @endphp
                             <tr>
-                                <td class="ps-4">
+                                <td class="ps-4 position-relative">
                                     @if($item->produto->imagens->isNotEmpty())
                                     <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="{{ $item->produto->PRODUTO_NOME }}" style="max-width: 80px; max-height: 80px; object-fit: contain;">
                                     @else
                                     <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" alt="Produto sem imagem" style="max-width: 80px; max-height: 80px; object-fit: contain;">
                                     @endif
-                                    <span>{{ $item->ITEM_QTD }}x</span>
+                                    <span class="d-block position-absolute top-0 end-0 checkout-item-qtd mt-2">{{ $item->ITEM_QTD }}x</span>
                                 </td>
                                 <td>
-                                    <p>{{ $item->produto->PRODUTO_NOME }}</p>
-                                    <p>R$ {{ number_format($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO, 2, ',', '.') }}</p>
+                                    <p class="text-secondary mb-0">{{ $item->produto->PRODUTO_NOME }}</p>
+                                    <p class="text-secondary mb-0 cart-table-total">R$ {{ number_format($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO, 2, ',', '.') }}</p>
                                 </td>
-                                <td class="pe-4">R$ {{ number_format($subtotal, 2, ',', '.') }}</td>
+                                <td class="pe-4 text-secondary text-nowrap">R$ {{ number_format($subtotalProduto, 2, ',', '.') }}</td>
                             </tr>
                             @endforeach
-                            <tr>
-                                <td colspan="2" class="text-end">Total:</td>
-                                <td class="pe-4">R$ {{ number_format($total, 2, ',', '.') }}</td>
-                            </tr>
                         </table>
 
                         <table class="table resumo-table">
                             <tr>
-                                <td class="ps-4">Subtotal:</td>
-                                <td class="pe-4">R$ {{ $total }}</td>
+                                <td class="ps-4 text-secondary fs-5">Subtotal:</td>
+                                <td class="pe-4 text-secondary fs-5 text-end ">R$ {{ number_format($subtotal, 2, ',', '.') }}</td>
                             </tr>
                             <tr>
-                                <td class="ps-4">Frete:</td>
-                                <td class="pe-4">R$ 10,00</td>
+                                <td class="ps-4 text-secondary fs-5">Frete:</td>
+                                <td class="pe-4 text-secondary fs-5 text-end">R$ 10,00</td>
                             </tr>
                             <tr>
-                                <td class="ps-4">Total:</td>
-                                <td class="pe-4">R$ {{ $total + 10 }}</td>
+                                <td class="ps-4 cart-table-total fs-5 border-0">Total:</td>
+                                <td class="pe-4 cart-table-total fs-5 text-end border-0">R$ {{ number_format($subtotal + 10, 2, ',', '.') }}</td>
                             </tr>
                         </table>
 
                     </div>
 
-                    <p class="text-center"><a class="btn-back-to-store" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                    <p class="text-center mt-3"><a class="btn-back-to-store" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" />
                             </svg> Continuar comprando</a></p>
                             @if (session('error'))

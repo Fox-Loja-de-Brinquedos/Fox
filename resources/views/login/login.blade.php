@@ -31,7 +31,7 @@
       <li class="nav-item"><img src="images/seguro.png" alt="" width="23px" height="20px">Ambiente 100% seguro</li>
     </ul>
   </header>
-  
+
   <hr>
 
   <main>
@@ -102,7 +102,7 @@
 
           <!-- Aceitar Política de Privacidade -->
           <label>
-            <input type="checkbox" required> Aceito as <a href="/" target="blank">Políticas de Privacidade</a> <b>FOX</b>
+            <input type="checkbox" required> Aceito as <a href="{{ route('politicas.politica-de-privacidade') }}" target="blank">Políticas de Privacidade</a> <b>FOX</b>
           </label>
 
           <!-- Exibição de erro geral -->
@@ -134,16 +134,15 @@
       <div class="row d-flex justify-content-center">
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Institucional</h3>
-          <p>Sobre a marca</p>
-          <p>Trocas e devoluções</p>
-          <p>Políticas de privacidade</p>
-          <p>Dúvidas frequentes</p>
+          <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3">Sobre a marca</a>
+          <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3">Trocas e Devoluções</a>
+          <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3">Políticas de privacidade</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
-          <p>Minha conta</p>
-          <p>Meu carrinho</p>
-          <p>Meus pedidos</p>
+          <a href="/profile" class="link-footer mb-3">Minha conta</a>
+          <a href="/profile" class="link-footer mb-3">Meu carrinho</a>
+          <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Redes Sociais</h3>

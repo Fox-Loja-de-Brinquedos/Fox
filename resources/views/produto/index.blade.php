@@ -125,7 +125,7 @@
         <a class="banner-slide" data-search="Lego"><img src="{{ asset('images/banner05.png') }}" class="d-block w-100" alt="..."></a>
       </div>
       <div class="carousel-item">
-        <a class="banner-slide" data-search="produto2"><img src="{{ asset('images/banner02.png') }}" class="d-block w-100" alt="..."></a>
+        <a class="banner-slide" data-search="Monter high"><img src="{{ asset('images/banner06.png') }}" class="d-block w-100" alt="..."></a>
       </div>
       <div class="carousel-item">
         <a class="banner-slide" data-search="Funko"><img src="{{ asset('images/banner04.png') }}" class="d-block w-100" alt="..."></a>
@@ -586,22 +586,6 @@
     </div>
   </div> <!--Container Cards de Produtos-->
 
-  <!--Anúncio banners-->
-  <div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-      <div class="col-3">
-        <a href="#ofertas"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
-      </div>
-      <div class="col-3">
-        <a href="#"><img src="{{ asset('images/banner-sessao-geek.png') }}" alt=""></a>
-      </div>
-      <div class="col-3">
-        <a href="#ofertas"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
-      </div>
-    </div>
-  </div>
-
-
   <!-- Pop-up de Consentimento de Cookies -->
 <div id="cookie-popup" class="cookie-popup alert alert-dismissible alert-info fade show fixed-bottom" role="alert" style="display: none;">
   <div>
@@ -684,8 +668,8 @@
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
           <a href="/profile"class="link-footer mb-3">Minha conta</a>
-          <p>Meu carrinho</p>
-          <p>Meus pedidos</p>
+          <a href="/profile"class="link-footer mb-3">Meu Carrinho</a>
+          <a href="/profile"class="link-footer mb-3">Meus pedidos</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Redes Sociais</h3>

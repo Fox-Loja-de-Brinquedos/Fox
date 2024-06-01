@@ -188,6 +188,24 @@ class produtoController extends Controller
     //metedo exibir
     public function show(Produto $produto)
     {
-        return view('produto.show', ['produto' => $produto]);
+        // Produtos Mais Vendidos
+        $produtoMaisVendidos = Produto::where('PRODUTO_ATIVO', 1)
+        ->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) > 0')->select(
+            'PRODUTO.PRODUTO_ID',
+            DB::raw('pi.PRIMEIRA_IMAGEM as PRIMEIRA_IMAGEM'),
+            'PRODUTO.PRODUTO_NOME',
+            DB::raw('SUM(PEDIDO_ITEM.ITEM_QTD) AS TOTAL_VENDIDO'),
+            'PRODUTO.PRODUTO_PRECO',
+            'PRODUTO.PRODUTO_DESCONTO'
+        )
+            ->leftJoin('PEDIDO_ITEM', 'PRODUTO.PRODUTO_ID', '=', 'PEDIDO_ITEM.PRODUTO_ID')
+            ->leftJoin(DB::raw('(SELECT PRODUTO_ID, MIN(IMAGEM_ORDEM), MIN(IMAGEM_URL) as PRIMEIRA_IMAGEM FROM PRODUTO_IMAGEM GROUP BY PRODUTO_ID) AS pi'), 'PRODUTO.PRODUTO_ID', '=', 'pi.PRODUTO_ID')
+            ->where('PEDIDO_ITEM.ITEM_QTD', '>', 0)
+            ->groupBy('PRODUTO.PRODUTO_ID', 'pi.PRIMEIRA_IMAGEM', 'PRODUTO.PRODUTO_NOME', 'PRODUTO.PRODUTO_PRECO', 'PRODUTO.PRODUTO_DESCONTO')
+            ->orderByDesc('TOTAL_VENDIDO')
+            ->limit(12)
+            ->get();
+        return view('produto.show', ['produto' => $produto, 'produtoMaisVendidos'=> $produtoMaisVendidos]);
     }
+
 }

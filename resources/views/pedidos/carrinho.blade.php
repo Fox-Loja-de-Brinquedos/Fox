@@ -16,8 +16,6 @@
       background-color: #43ADDA;
     }
 
-    .checkout-container-body {}
-
     .cart-table td {
       vertical-align: middle;
     }
@@ -76,23 +74,27 @@
                     {{ number_format($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO, 2, ',', '.') }}
                   </td>
 
+                  
                   <td class="product-quantity">
                   <div class="quantity d-flex align-items-center my-1">
+                  <!-- formulario para diminuir quantidade de produto -->
                     <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline">
                       @csrf
                       <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
                       <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
-                      <input type="hidden" name="ITEM_QTD" value="{{ $item->ITEM_QTD - 1 }}">
+                      <input type="hidden" name="ITEM_QTD" id="decrement-{{ $item->PRODUTO_ID }}" value="{{ $item->ITEM_QTD - 1 }}">
                       <button type="submit" class="minus-btn btn btn-sm mr-1" style="background-color: #43ADDA; color:white" {{ $item->ITEM_QTD <= 1 ? 'disabled' : '' }}>-</button>
                     </form>
 
-                    <input type="text" name="item_qtd" class="form-control text-center mx-1" value="{{ $item->ITEM_QTD }}" readonly>
+                    <!-- mostrar valor que esta no input -->
+                    <input type="text" id="item-qtd-{{ $item->PRODUTO_ID }}" name="item_qtd" class="form-control text-center mx-1" value="{{ $item->ITEM_QTD }}" readonly>
 
+                    <!-- formulario para aumentar quantidade de produto -->
                     <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline">
                       @csrf
                       <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
                       <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
-                      <input type="hidden" name="ITEM_QTD" value="{{ $item->ITEM_QTD}}">
+                      <input type="hidden" name="ITEM_QTD" id="increment-{{ $item->PRODUTO_ID }}" value="{{ $item->ITEM_QTD + 1 }}">
                       <button type="submit" class="plus-btn btn btn-sm ml-1" style="background-color: #43ADDA; color:white">+</button>
                     </form>
                   </div>
@@ -155,6 +157,12 @@
               </tr>
             </table>
             <a href="{{ route('carrinho.checkout') }}">FINALIZAR A COMPRA</a>
+                     
+            @if (session('error'))
+                  <div class="alert alert-danger">
+                      {{ session('error') }}
+                  </div>
+              @endif
 
           </div>
 
@@ -165,7 +173,7 @@
     </div>
   </div>
 
-  <script src="{{ asset('js/show.js') }}"></script>
+  <script src="{{ asset('js/carrinho.js') }}"></script>
 
 </body>
 

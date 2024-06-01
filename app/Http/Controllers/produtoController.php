@@ -225,6 +225,7 @@ class produtoController extends Controller
             ->orderByDesc('TOTAL_VENDIDO')
             ->limit(12)
             ->get();
+            
         return view('produto.show', ['produto' => $produto, 'produtoMaisVendidos' => $produtoMaisVendidos]);
     }
 }

@@ -63,12 +63,25 @@
           @endif
 
         </div>
+        @if($qtdItensCarinho != 0)
+        <div class="col-2">
+          <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text position-relative">
+            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+            Meu Carrinho
+            <p id="qty-products-cart">
+              {{ $qtdItensCarinho }}
+            </p>
+          </a>
+
+        </div>
+        @else
         <div class="col-2">
           <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
             <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
             Meu Carrinho
           </a>
         </div>
+        @endif
       </div>
     </div>
 
@@ -125,7 +138,7 @@
         <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%LEGO%']) }}" class="banner-slide"><img src="{{ asset('images/banner05.png') }}" class="d-block w-100" alt="..."></a>
       </div>
       <div class="carousel-item">
-        <a class="banner-slide"><img src="{{ asset('images/banner02.png') }}" class="d-block w-100" alt="..."></a>
+        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="banner-slide" data-search="Monter high"><img src="{{ asset('images/banner06.png') }}" class="d-block w-100" alt="..."></a>
       </div>
       <div class="carousel-item">
         <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Mordedores%']) }}" class="banner-slide"><img src="{{ asset('images/banner04.png') }}" class="d-block w-100" alt="..."></a>
@@ -666,8 +679,8 @@
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
           <a href="/profile" class="link-footer mb-3">Minha conta</a>
-          <p>Meu carrinho</p>
-          <p>Meus pedidos</p>
+          <a href="/profile" class="link-footer mb-3">Meu Carrinho</a>
+          <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Redes Sociais</h3>

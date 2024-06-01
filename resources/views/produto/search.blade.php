@@ -61,12 +61,25 @@
                     @endif
 
                 </div>
+                @if($qtdItensCarinho != 0)
+                <div class="col-2">
+                    <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text position-relative">
+                        <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+                        Meu Carrinho
+                        <p id="qty-products-cart">
+                            {{ $qtdItensCarinho }}
+                        </p>
+                    </a>
+
+                </div>
+                @else
                 <div class="col-2">
                     <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
                         <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
                         Meu Carrinho
                     </a>
                 </div>
+                @endif
             </div>
         </div>
 

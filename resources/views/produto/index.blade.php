@@ -678,9 +678,15 @@
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
+<<<<<<< HEAD
           <a href="/profile" class="link-footer mb-3">Minha conta</a>
           <a href="/profile" class="link-footer mb-3">Meu Carrinho</a>
           <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
+=======
+          <a href="/profile"class="link-footer mb-3">Minha conta</a>
+          <a href="/profile"class="link-footer mb-3">Meu Carrinho</a>
+          <a href="/profile"class="link-footer mb-3">Meus pedidos</a>
+>>>>>>> b8ec9bc0d23d1c064d2ca116e870f2b1b1401806
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Redes Sociais</h3>

@@ -132,9 +132,9 @@
             <div class="view-information ms-5 mt-5">
                 <h2 class="fs-2 text-left text-purple" style="color:#000000;">{{ $produto->PRODUTO_NOME }}</h2>
                 @if($produto->PRODUTO_DESCONTO > 0)
-                <p class="mt-3 mb-3" style="color:#595959; font-size: 20px; color:#595959">DE: <span class="span-1 fs-5">{{ number_format(($produto->PRODUTO_PRECO), 2, ',', '.') }}</span></p>
+                <p class="mt-3 mb-3" style="color:#595959; font-size: 20px; color:#595959">DE: R$  <span class="span-1 fs-5">{{ number_format(($produto->PRODUTO_PRECO), 2, ',', '.') }}</span></p>
                 @endif
-                <p class=" mb-3" style="color:#FFA500; font-size: 27px">POR: {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
+                <p class=" mb-3" style="color:#FFA500; font-size: 27px">POR: R$ {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
                 @if($produto->PRODUTO_DESCONTO > 0)
                 @php
                 $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100
@@ -151,8 +151,6 @@
                     <input type="text" id="itemQtdInput" class="form-control text-center mx-1" value="1" readonly>
                     <button type="button" class="plus-btn btn btn btn-sm ml-1" style="background-color: #43ADDA; color:white">+</button>
                 </div>
-
-
 
                 <div class="button mt-3">
                     <p class="mt-4 text-secondary">Calcule o valor do frete para a sua região!</p>
@@ -234,11 +232,11 @@
                                     </b>
                                 </a>
                                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                                <form class="py-2 add-to-cart-box" action="{{ route('carrinho.adicionar') }}" method="POST">
+                                <form action="{{ route('carrinho.adicionar') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
-                                    <input type="hidden" name="ITEM_QTD">
-                                    <button type="submit">
+                                    <input type="hidden" name="ITEM_QTD" value="1">
+                                    <button class="py-2 add-to-cart-box" type="submit">
                                         Adicionar ao Carrinho
                                     </button>
                                 </form>

@@ -247,11 +247,11 @@
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
 
                 <!-- Formulário para adicionar ao carrinho -->
-                <form class="py-2 add-to-cart-box" action="{{ route('carrinho.adicionar') }}" method="POST">
+                <form action="{{ route('carrinho.adicionar') }}" method="POST">
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
-                  <input type="hidden" name="ITEM_QTD">
-                  <button type="submit">
+                  <input type="hidden" name="ITEM_QTD" value="1">
+                  <button class="py-2 add-to-cart-box" type="submit">
                     Adicionar ao Carrinho
                   </button>
                 </form>
@@ -460,11 +460,11 @@
                   </b>
                 </a>
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                <form class="py-2 add-to-cart-box" action="{{ route('carrinho.adicionar') }}" method="POST">
+                <form action="{{ route('carrinho.adicionar') }}" method="POST">
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
-                  <input type="hidden" name="ITEM_QTD">
-                  <button type="submit">
+                  <input type="hidden" name="ITEM_QTD" value="1">
+                  <button class="py-2 add-to-cart-box" type="submit">
                     Adicionar ao Carrinho
                   </button>
                 </form>
@@ -552,11 +552,11 @@
                   </b>
                 </a>
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                <form class="py-2 add-to-cart-box" action="{{ route('carrinho.adicionar') }}" method="POST">
+                <form action="{{ route('carrinho.adicionar') }}" method="POST">
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
-                  <input type="hidden" name="ITEM_QTD">
-                  <button type="submit">
+                  <input type="hidden" name="ITEM_QTD" value="1">
+                  <button class="py-2 add-to-cart-box" type="submit">
                     Adicionar ao Carrinho
                   </button>
                 </form>
@@ -587,57 +587,57 @@
   </div> <!--Container Cards de Produtos-->
 
   <!-- Pop-up de Consentimento de Cookies -->
-<div id="cookie-popup" class="cookie-popup alert alert-dismissible alert-info fade show fixed-bottom" role="alert" style="display: none;">
-  <div>
-    <p>Utilizamos cookies para melhorar a experiência do usuário e analisar o tráfego do site. Por esses
-      motivos, podemos compartilhar os dados de uso do seu site com nossos parceiros de análise.</p>
-    <p>Você concorda em armazenar em seu dispositivo todas as tecnologias descritas em nossa <a href="#" id="policy-link">Política de cookies.</a></p>
+  <div id="cookie-popup" class="cookie-popup alert alert-dismissible alert-info fade show fixed-bottom" role="alert" style="display: none;">
+    <div>
+      <p>Utilizamos cookies para melhorar a experiência do usuário e analisar o tráfego do site. Por esses
+        motivos, podemos compartilhar os dados de uso do seu site com nossos parceiros de análise.</p>
+      <p>Você concorda em armazenar em seu dispositivo todas as tecnologias descritas em nossa <a href="#" id="policy-link">Política de cookies.</a></p>
+    </div>
+    <div class="text-center mt-3">
+      <button type="button" class="btn btn-warning btn-lg me-2 accept-cookies-btn">Aceitar Cookies</button>
+      <button type="button" class="btn btn-secondary btn-lg reject-cookies-btn" data-bs-dismiss="alert">Rejeitar cookies</button>
+    </div>
   </div>
-  <div class="text-center mt-3">
-    <button type="button" class="btn btn-warning btn-lg me-2 accept-cookies-btn">Aceitar Cookies</button>
-    <button type="button" class="btn btn-secondary btn-lg reject-cookies-btn" data-bs-dismiss="alert">Rejeitar cookies</button>
-  </div>
-</div>
 
-<!-- Modal de Política de Cookies -->
-<div id="container-modal">
-  <div class="modal" tabindex="-1" id="policy-modal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Política de Cookies</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p style="font-size: 20px;">
-            Fox Loja de Brinquedos, estamos comprometidos em proporcionar a melhor experiência de compra online
-            possível para nossos clientes. Nossa política de cookies explica como usamos cookies e tecnologias
-            semelhantes em nosso site.
-          </p>
-          <p style="font-size: 20px;">
-            Utilizamos cookies por vários motivos, incluindo:
-          <ul>
-            <li>Cookies essenciais: Essenciais para fornecer funcionalidades básicas do site, como adicionar produtos ao carrinho de compras e processar pagamentos.</li>
-            <li>Cookies de desempenho: Nos ajudam a entender como os visitantes interagem com o site, fornecendo informações sobre páginas visitadas, tempo gasto no site e problemas encontrados, o que nos permite melhorar continuamente a experiência do usuário.</li>
-            <li>Cookies de funcionalidade: Permitem que o site se lembre de suas preferências e configurações, como idioma preferido e histórico de compras, para tornar sua experiência de compra mais personalizada e eficiente.</li>
-            <li>Cookies de publicidade: Podem ser usados para exibir anúncios relevantes para você em nosso site e em sites de terceiros, com base em seus interesses e atividades de navegação.</li>
-          </ul>
-          </p>
-          <p style="font-size: 20px;">
-            Atualizações desta política
-            Esta política pode ser atualizada periodicamente para refletir mudanças em nossas práticas de cookies.
-            Recomendamos que você reveja esta página regularmente para estar ciente de quaisquer alterações.
-          </p>
-          <p style="font-size: 20px;">
-            Entre em contato conosco
-            Se você tiver alguma dúvida sobre nossa política de cookies, entre em contato conosco através dos
-            dados fornecidos em nossa página de contato.
-          </p>
+  <!-- Modal de Política de Cookies -->
+  <div id="container-modal">
+    <div class="modal" tabindex="-1" id="policy-modal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Política de Cookies</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p style="font-size: 20px;">
+              Fox Loja de Brinquedos, estamos comprometidos em proporcionar a melhor experiência de compra online
+              possível para nossos clientes. Nossa política de cookies explica como usamos cookies e tecnologias
+              semelhantes em nosso site.
+            </p>
+            <p style="font-size: 20px;">
+              Utilizamos cookies por vários motivos, incluindo:
+            <ul>
+              <li>Cookies essenciais: Essenciais para fornecer funcionalidades básicas do site, como adicionar produtos ao carrinho de compras e processar pagamentos.</li>
+              <li>Cookies de desempenho: Nos ajudam a entender como os visitantes interagem com o site, fornecendo informações sobre páginas visitadas, tempo gasto no site e problemas encontrados, o que nos permite melhorar continuamente a experiência do usuário.</li>
+              <li>Cookies de funcionalidade: Permitem que o site se lembre de suas preferências e configurações, como idioma preferido e histórico de compras, para tornar sua experiência de compra mais personalizada e eficiente.</li>
+              <li>Cookies de publicidade: Podem ser usados para exibir anúncios relevantes para você em nosso site e em sites de terceiros, com base em seus interesses e atividades de navegação.</li>
+            </ul>
+            </p>
+            <p style="font-size: 20px;">
+              Atualizações desta política
+              Esta política pode ser atualizada periodicamente para refletir mudanças em nossas práticas de cookies.
+              Recomendamos que você reveja esta página regularmente para estar ciente de quaisquer alterações.
+            </p>
+            <p style="font-size: 20px;">
+              Entre em contato conosco
+              Se você tiver alguma dúvida sobre nossa política de cookies, entre em contato conosco através dos
+              dados fornecidos em nossa página de contato.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
   <!-- fim do pop-up cookies -->
 

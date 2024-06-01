@@ -1,28 +1,22 @@
-//funcao quantidade
-document.addEventListener("DOMContentLoaded", function() {
-    const minusBtns = document.querySelectorAll(".minus-btn");
-    const plusBtns = document.querySelectorAll(".plus-btn");
+
+document.addEventListener('DOMContentLoaded', function() {
+    const minusBtn = document.querySelector('.minus-btn');
+    const plusBtn = document.querySelector('.plus-btn');
     const itemQtdInput = document.getElementById('itemQtdInput');
     const itemQtdInputHidden = document.getElementById('itemQtdInputHidden');
 
-    minusBtns.forEach(btn => {
-        btn.addEventListener("click", function() {
-            const input = btn.nextElementSibling;
-            let value = parseInt(input.value);
-            if (value > 1) {
-                value--;
-                input.value = value;
-            }
-        });
+    minusBtn.addEventListener('click', function() {
+      let currentValue = parseInt(itemQtdInput.value);
+      if (currentValue > 1) {
+        itemQtdInput.value = currentValue - 1;
+        itemQtdInputHidden.value = itemQtdInput.value;
+      }
     });
 
-    plusBtns.forEach(btn => {
-        btn.addEventListener("click", function() {
-            const input = btn.previousElementSibling;
-            let value = parseInt(input.value);
-            value++;
-            input.value = value;
-        });
+    plusBtn.addEventListener('click', function() {
+      let currentValue = parseInt(itemQtdInput.value);
+      itemQtdInput.value = currentValue + 1;
+      itemQtdInputHidden.value = itemQtdInput.value;
     });
 });
 

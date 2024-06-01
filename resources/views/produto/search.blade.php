@@ -294,11 +294,11 @@
                                 </b>
                             </a>
                             <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                            <form class="py-2 add-to-cart-box" action="{{ route('carrinho.adicionar') }}" method="POST">
+                            <form action="{{ route('carrinho.adicionar') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
-                                <input type="hidden" name="ITEM_QTD">
-                                <button type="submit">
+                                <input type="hidden" name="ITEM_QTD" value="1">
+                                <button class="py-2 add-to-cart-box" type="submit">
                                     Adicionar ao Carrinho
                                 </button>
                             </form>

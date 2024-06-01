@@ -250,7 +250,7 @@
                 <form action="{{ route('carrinho.adicionar') }}" method="POST">
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
-                  <input type="hidden" name="ITEM_QTD">
+                  <input type="hidden" name="ITEM_QTD" value="1">
                   <button class="py-2 add-to-cart-box" type="submit">
                     Adicionar ao Carrinho
                   </button>
@@ -463,7 +463,7 @@
                 <form action="{{ route('carrinho.adicionar') }}" method="POST">
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
-                  <input type="hidden" name="ITEM_QTD">
+                  <input type="hidden" name="ITEM_QTD" value="1">
                   <button class="py-2 add-to-cart-box" type="submit">
                     Adicionar ao Carrinho
                   </button>
@@ -555,7 +555,7 @@
                 <form action="{{ route('carrinho.adicionar') }}" method="POST">
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
-                  <input type="hidden" name="ITEM_QTD">
+                  <input type="hidden" name="ITEM_QTD" value="1">
                   <button class="py-2 add-to-cart-box" type="submit">
                     Adicionar ao Carrinho
                   </button>

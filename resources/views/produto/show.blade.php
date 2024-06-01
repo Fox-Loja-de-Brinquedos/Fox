@@ -142,10 +142,14 @@
         @endif
 
         <div class="quantity d-flex align-items-center my-2">
-          <button class="minus-btn btn btn btn-sm mr-1" style="background-color: #43ADDA; color:white">-</button>
-          <input type="text" class="form-control text-center mx-1" value="1" readonly>
-          <button class="plus-btn btn btn btn-sm ml-1" style="background-color: #43ADDA; color:white">+</button>
+          <button  type="button" class="minus-btn btn btn btn-sm mr-1" style="background-color: #43ADDA; color:white">-</button>
+
+          <!-- quantidade de itens -->
+          <input type="text" id="itemQtdInput"  class="form-control text-center mx-1" value="1" readonly>
+          <button type="button" class="plus-btn btn btn btn-sm ml-1" style="background-color: #43ADDA; color:white">+</button>
         </div>
+
+
         <div class="button mt-5">
           <p class="mt-5 text-secondary">Calcule o valor do frete para a sua região!</p>
           <div class="input-group mb-3">
@@ -184,11 +188,25 @@
             });
           </script>
 
-          <button class="btn-add-to-cart mt-4">ADICIONAR AO CARRINHO</button>
+          <!-- Botao para enviar para o carrinho -->
+          <form action="{{ route('carrinho.adicionar') }}" method="POST">
+          @csrf
+          <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
+          <input type="hidden" name="ITEM_QTD" id="itemQtdInputHidden" value="1">
+          <button class="btn-add-to-cart mt-4" type="submit">ADICIONAR AO CARRINHO</button>
+          </form>
+
+
+
 
         </div>
       </div>
     </div>
+
+
+
+
+
     <div class="container d-flex justify-content-start align-items-start mb-5 mt-5" style="height: 40%;">
       <div class="card-4 p-4">
         <h2 class="fs-3 text-info mb-3">DESCRIÇÃO</h2>
@@ -214,13 +232,9 @@
             <p>6x de R$ 81,50 sem juros</p>
           </div>
 
-          <form action="{{ route('carrinho.adicionar') }}" method="POST">
-            @csrf
-            <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
-            <button type="submit" class="btn btn-warning mt-3" style="width: 100%; height: 50px; font-size: 23px; color: white;">
+            <button class="btn btn-warning mt-3" style="width: 100%; height: 50px; font-size: 23px; color: white;">
               ADICIONAR AO CARRINHO
             </button>
-          </form>
 
         </div>
 

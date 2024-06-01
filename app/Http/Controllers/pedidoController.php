@@ -28,23 +28,25 @@ class pedidoController extends Controller
     {
         $request->validate([
             'PRODUTO_ID' => 'required|exists:PRODUTO,PRODUTO_ID',
+            'ITEM_QTD' => 'required|integer|min:1',
         ]);
 
         $usuario_id = auth()->id();
         $produto_id = $request->PRODUTO_ID;
+        $item_qtd = $request->ITEM_QTD;
 
         $carrinhoItem = Carrinho::where('USUARIO_ID', $usuario_id)
             ->where('PRODUTO_ID', $produto_id)
             ->first();
 
         if ($carrinhoItem) {
-            $carrinhoItem->ITEM_QTD += 1;
+            $carrinhoItem->ITEM_QTD += $item_qtd;
             $carrinhoItem->save();
         } else {
             $carrinhoItem = Carrinho::create([
                 'USUARIO_ID' => $usuario_id,
                 'PRODUTO_ID' => $produto_id,
-                'ITEM_QTD' => 1
+                'ITEM_QTD' => $item_qtd
             ]);
         }
         return redirect()->route('carrinho.listar')->with('success', 'Item adicionado ao carrinho com sucesso.');
@@ -60,8 +62,7 @@ class pedidoController extends Controller
             ->first();
 
         if ($carrinhoItem) {
-            $carrinhoItem->ITEM_QTD = 0;
-            $carrinhoItem->save();
+            $carrinhoItem->update(['ITEM_QTD' => 0]);
         }
 
         return redirect()->route('carrinho.listar')->with('success', 'Item removido do carrinho com sucesso.');

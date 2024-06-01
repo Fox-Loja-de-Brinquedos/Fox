@@ -137,11 +137,14 @@
             <h3  class="mb-3">Entrega</h3>
             <label for="cep-calculate">CEP
               <div class="my-1">
-                <input id="cep-calculate" type="text" class="d-inline-block">
-                <button class="btn-calculate ms-1">CALCULAR</button>
+                <input id="cepInput" type="text" class="d-inline-block" placeholder="00000-000" maxlength="9">
+                <button type="button" class="btn-calculate ms-1" id="calculateButton">CALCULAR</button>
               </div>
             </label>
-            <a class="d-block" href="#">Não sei meu cep.</a>
+            <div id="freteResult" class="mt-1 mb-3"></div>
+            <a class="d-block" href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank">Não sei meu cep.</a>
+
+            
           </div>
 
         </div>
@@ -198,7 +201,8 @@
     </div>
   </div>
 
-  <script src="{{ asset('js/show.js') }}"></script>
+  
+  <script src="{{ asset('js/cep.js') }}"></script>
 
 </body>
 

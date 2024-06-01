@@ -338,6 +338,7 @@
         <script src="{{ asset('js/cookies.js') }}"></script>
         <script src="{{ asset('js/script.js') }}"></script>
         <script src="{{ asset('js/show.js') }}"></script>
+        <script src="{{ asset('js/cep.js') }}"></script>
 
 </body>
 

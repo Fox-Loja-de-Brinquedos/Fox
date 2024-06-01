@@ -243,6 +243,7 @@
 
               </div>
             </div>
+        </div>
 
             <div class="swiper-button-next best-sellers-next swiper-button"></div>
             <div class="swiper-button-prev best-sellers-prev swiper-button"></div>

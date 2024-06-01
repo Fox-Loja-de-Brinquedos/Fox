@@ -78,28 +78,28 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="categories-menu navbar-nav mx-auto">
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Bonecas</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="nav-link nav-link-uppercase">Bonecas</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Veículos</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}" class="nav-link nav-link-uppercase">Veículos</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Pelúcias</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}" class="nav-link nav-link-uppercase">Pelúcias</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Jogos de cartas</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}" class="nav-link nav-link-uppercase">Jogos de cartas</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Tabuleiros</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}" class="nav-link nav-link-uppercase">Tabuleiros</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Eletrônicos</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}" class="nav-link nav-link-uppercase">Eletrônicos</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Outros brinquedos</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%']) }}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos" href='#lancamentos'>Lançamentos</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
                                     <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
@@ -111,8 +111,6 @@
             </div>
         </div>
     </header>
-
-
 
     <!--Container Filtros e Listagem de Produtos-->
     <div class="container-fluid d-flex justify-content-around mt-5 user-select-none">

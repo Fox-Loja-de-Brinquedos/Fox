@@ -184,8 +184,15 @@
             });
           </script>
 
-          <button class="btn-add-to-cart mt-4">ADICIONAR AO CARRINHO</button>
-
+          <!-- Formulário para adicionar ao carrinho -->
+          <form action="{{ route('carrinho.adicionar') }}" method="POST">
+            @csrf
+            <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
+            <input type="hidden" name="ITEM_QTD">
+            <button class="py-2 add-to-cart-box" type="submit">
+              ADICIONAR AO CARRINHO
+            </button>
+          </form>
         </div>
       </div>
     </div>

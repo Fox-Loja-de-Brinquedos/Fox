@@ -55,7 +55,7 @@
                         <div class="bg-white p-4 container-box">
                             <h3>Entrega</h3>
                             <p>Solicitamos apenas informações essenciais</p>
-                            <div id="entrega" class="container">
+                            <div id="entrega step-1" class="container step">
                                 @if($endereco)
                                 <div class="row">
                                     <div class="col-3">
@@ -100,13 +100,14 @@
                                 @else
                                 <p>O usuário não tem um endereço cadastrado. Por favor, cadastre um endereço.</p>
                                 @endif
+                                <button class="pedido-btn mx-auto d-block mt-3" type="button" onclick="nextStep(2)">Prosseguir para pagamento</button>
                             </div>
                         </div>
 
                         <div class="bg-white p-4 my-5 container-box">
                             <h3>Formas de pagamento</h3>
                             <p>Escolha o método de pagamento de sua preferência.</p>
-                            <div id="forma-de-pagamento">
+                            <div id="forma-de-pagamento step-2" class="step">
                                 <div class="mb-3 forma-de-pagamento-box">
                                     <div class="p-3">
                                         <label for="boleto" class="opcao-pagamento"><input type="radio" name="boleto" id="boleto" checked><span class="d-inline-block ms-2">Boleto</span></label>
@@ -115,7 +116,13 @@
                                         <p class="text-secondary">O Boleto bancário será exibido após a confirmação da compra e poderá ser pago em qualquer agência bancária, pelo seu smartphone ou computador através de serviços digitais de bancos.</p>
                                     </div>
                                 </div>
-                                <button class="pedido-btn mx-auto d-block" type="submit">Finalizar Pedido</button>
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn mx-auto d-block" type="button" onclick="prevStep(1)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" />
+                            </svg> Voltar ao passo anterior</button>
+                                    <button class="pedido-btn mx-auto d-block" type="submit">Finalizar Pedido</button>
+                                </div>
+                                
                             </div>
                         </div>
 
@@ -171,7 +178,7 @@
 
                     </div>
 
-                    <p class="text-center mt-3"><a class="btn-back-to-store" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                    <p class="text-center mt-3"><a class="btn-back-to-store" href="/"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" />
                             </svg> Continuar comprando</a></p>
                             @if (session('error'))
@@ -184,6 +191,30 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            showStep(1);
+        });
+
+        function showStep(step) {
+            const steps = document.querySelectorAll('.step');
+            steps.forEach((stepElement, index) => {
+                stepElement.classList.remove('active');
+                if (index + 1 === step) {
+                    stepElement.classList.add('active');
+                }
+            });
+        }
+
+        function nextStep(step) {
+            showStep(step);
+        }
+
+        function prevStep(step) {
+            showStep(step);
+        }
+
+    </script>
 
 </body>
 

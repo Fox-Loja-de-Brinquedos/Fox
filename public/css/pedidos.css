@@ -135,6 +135,12 @@ label.opcao-pagamento {
 .container-box-pedido-realizado .info-box img{
     margin-right: 15px;
 }
+.step {
+    display: none;
+}
+.step.active {
+    display: block;
+}
 .step-item {
     color: #fff;
     z-index: 10;

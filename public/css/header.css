@@ -1,0 +1,16 @@
+.nav-item {
+    margin: 20px 100px 0px 100px;
+  }
+
+
+  .nav-item img{
+      margin-left: 70px;
+      margin-bottom: 5px;
+  }
+
+  
+
+  .voltar-a-loja{
+    color: #000000;
+    text-decoration: none;
+  }

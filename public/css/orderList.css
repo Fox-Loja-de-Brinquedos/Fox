@@ -1,0 +1,112 @@
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-section{
+    margin-top: 90px;
+    margin-bottom: 40px;
+}
+
+.title-section h1{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.order{
+    border: solid 1px black;
+    width: 536px;
+    height: 170px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 40px  auto  auto auto;
+
+    margin-bottom: 50px;
+}
+
+
+.status-order{
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 40px;
+    padding-top: 10px;
+    
+    grid-column:  1/4;
+    grid-row-start: 1;
+}
+
+.item-order{
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 50px;
+    color: #43ADDA;
+
+    grid-column: 1/4;
+    grid-row-start: 2;
+}
+
+.item-order:hover{
+    color: #2e799a;
+}
+
+.img-order{
+    width: 80px;
+    height: 50px;
+    padding-left: 40px;
+    padding-bottom: 10px;
+
+    grid-column: 1/4;
+    grid-row-start: 3;
+}
+
+.date-order{
+    font-size: 10px;
+    padding-top: 10px;
+
+    grid-column: 4/4;
+    grid-row-start: 1;
+}
+
+.order-unit{
+    font-size: 10px;
+    padding-top: 10px;
+
+    grid-column: 4/4;
+    grid-row-start: 2;
+}
+
+.order-price{
+    font-size: 20px;
+    font-weight: bold;
+
+    grid-column: 4/4;
+    grid-row-start: 3;  
+}
+
+.order .progress-bar{
+    position: absolute;
+    width: 490px;
+    height: 5px;    
+
+    margin-top: 7.5%;
+    margin-left: 1.3%;
+
+    background-color: #F9A80C;
+
+}
+
+.order .progress-bar.open{
+    background-color: #F9A80C;
+}
+
+.order .progress-bar.close {
+    background-color: #6A6868;
+}
+
+
+footer{
+  margin-top: 10%;
+}

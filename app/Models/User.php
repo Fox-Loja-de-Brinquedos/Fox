@@ -2,44 +2,49 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    
+    protected $primaryKey = 'USUARIO_ID';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    public $timestamps = false;
+
+    protected $table = 'USUARIO';
+    
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'USUARIO_EMAIL',
+        'USUARIO_SENHA',
+        'USUARIO_NOME',
+        'USUARIO_CPF',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
-        'password',
+        'USUARIO_SENHA', // Esconda o campo de senha
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
+
+    
+    //RELACAO COM A TABELA ENDERECO
+    public function endereco(): HasOne
+    {
+        return $this->hasOne(Endereco::class, 'USUARIO_ID', 'USUARIO_ID');
+    }
+
+    public function carrinhoItens(): HasMany
+    {
+        return $this->hasMany(Carrinho::class, 'USUARIO_ID', 'USUARIO_ID');
+    }
+   
 }

@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+*{
+    font-family: 'Inter';
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+
+.title-details{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.title-detail{
+    font-size: 16px;
+    border-bottom: solid 3px black;
+    padding-bottom: 4px;
+    margin-top: 20px;
+}
+
+.profile-pref{
+    display: flex;
+    flex-direction: column;
+}
+
+.formProfile{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.name-label{
+    margin-top: 4px;
+    margin-left: 5px;
+    font-size: 10px;
+    position: absolute;    
+}
+
+
+.formProfile input{
+    margin-top: 25px;
+    border: none;
+    border-bottom: 2px solid #c6c6c686;
+    outline: none;
+    font-size: 12px;
+}
+
+
+
+.formProfile input:focus{
+    border-bottom: 2px solid black;
+    font-weight: bold;
+    color: #0000009e;
+}
+
+.formProfile input:hover{
+    border-bottom: 2px solid black;
+    font-weight: bold;
+    color: #0000009e;
+
+}
+
+.btn-detail{
+    width: 445px;
+    height: 39px;
+    color: #ffffff;
+    background-color: #F9A80C;
+
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
+
+    margin-top: 40px;
+}
+
+.passWarning{
+    font-size: 12px;
+    font-weight: 600px;
+}
+
+.profile-email label{
+    font-weight: bold;
+    font-size: 10px;
+}

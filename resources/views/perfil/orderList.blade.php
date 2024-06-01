@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <title>Fox Store - Loja de brinquedos</title>
+  <title>Fox Store - Loja de brinquedos</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -15,72 +16,75 @@
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="../css/orderList.css">
-    <link rel="stylesheet" href="../css/header.css">
-    
+  <link rel="stylesheet" href="../css/orderList.css">
+  <link rel="stylesheet" href="../css/header.css">
+
 </head>
+
 <body>
 
-<header>
+  <header>
     <ul class="nav justify-content-between align-items-center">
       <li class="nav-item"> <a href="/profile" class="voltar-a-loja"> <img src="images/de-volta.png" alt="" width="23px" height="20px"> Minha conta</a></li>
       <li class="nav-item"><img src="images/fox1.svg" alt="" width="116px" height="122px"></li>
       <li class="nav-item"><img src="images/seguro.png" alt="" width="23px" height="20px">Ambiente 100% seguro</li>
     </ul>
-<hr>
+    <hr>
   </header>
 
-    <main>
-        
+  <main>
+
     <div class="title-section">
-        <h1>LISTA DE PEDIDOS</h1>
+      <h1>LISTA DE PEDIDOS</h1>
     </div>
 
     <div class="orders-section">
-    @if ($pedidos->isEmpty())
-        <p>Você ainda não realizou nenhum pedido ::>_<::</p>
-    @else
-    @foreach ($pedidos as $pedido)
-        <div class="order">
+      @if ($pedidos->isEmpty())
+      <p>Você ainda não realizou nenhum pedido ::>_<::< /p>
+          @else
+          @foreach ($pedidos as $pedido)
+          <div class="order">
             <p class="status-order">{{ $pedido->status->STATUS_DESC }}</p>
-            <a href="{{ route('orderDetail', ['id' => $pedido->PEDIDO_ID]) }}" class="item-order" >#{{ $pedido->PEDIDO_ID }}</a>
+            <a href="{{ route('orderDetail', ['id' => $pedido->PEDIDO_ID]) }}" class="item-order">#{{ $pedido->PEDIDO_ID }}</a>
 
-        <!-- Definido para exibir apenas a primeira imagem de produto encontrado no pedido  -->
+            <!-- Definido para exibir apenas a primeira imagem de produto encontrado no pedido  -->
             @if ($pedido->itens->isNotEmpty())
-                @php $primeiroItem = $pedido->itens->first(); @endphp
-                @if ($primeiroItem->produto && $primeiroItem->produto->imagens->isNotEmpty())
-                    <img class="img-order" src="{{ $primeiroItem->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto">
-                @endif
+            @php $primeiroItem = $pedido->itens->first(); @endphp
+            @if ($primeiroItem->produto && $primeiroItem->produto->imagens->isNotEmpty())
+            <img class="img-order" src="{{ $primeiroItem->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto">
+            @endif
             @endif
 
             <!-- tipo de dado data do banco não compativel com função para formatar a data, entao importei o Carbon -->
             <p class="date-order">{{ \Carbon\Carbon::parse($pedido->PEDIDO_DATA)->format('d/m/Y') }}</p>
 
-        <!-- iterando para mostrar a quantidade e preço de cada pedido separadamente -->
+            <!-- iterando para mostrar a quantidade e preço de cada pedido separadamente -->
             @foreach ($pedido->itens as $item)
-                    <p class="order-unit">Produtos: {{ $pedido->totalUnidades }}</p>
-                    <p class="order-price">R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</p>
+            <p class="order-unit">Produtos: {{ $pedido->totalUnidades }}</p>
+            <p class="order-price">R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</p>
             @endforeach
 
             <div class="progress-bar open"> </div>
-        </div>
-    @endforeach
-    @endif
-</div>
+          </div>
+          @endforeach
+          @endif
+    </div>
 
     </div>
-</main>
+  </main>
 
-<footer>
+  < <footer>
+
     <!--Receba promoções banner-->
     <div id="news-and-promotions-banner" class="container-fluid">
       <div class="row h-100 d-flex align-items-center justify-content-center">
+
         <div class="col col-4 fs-3 text-light fw-semibold">RECEBA PROMOÇÕES E NOVIDADES!</div>
 
         <div class="col col-4 d-flex justify-content-evenly">
           <input type="email" class="form-control text-us-input" placeholder="Seu nome">
           <input type="email" class="form-control text-us-input" placeholder="E-mail">
-          <button type="button" class="btn btn-dark px-4">Enviar</button>
+          <button type="button" class="btn btn px-4" style="background-color: #F9A80C; color:white;">Enviar</button>
         </div>
       </div>
     </div>
@@ -89,30 +93,29 @@
       <div class="row d-flex justify-content-center">
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Institucional</h3>
-          <p>Sobre a marca</p>
-          <p>Trocas e devoluções</p>
-          <p>Políticas de privacidade</p>
-          <p>Dúvidas frequentes</p>
+          <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3">Sobre a marca</a>
+          <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3">Trocas e Devoluções</a>
+          <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3">Políticas de privacidade</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
-          <p>Minha conta</p>
-          <p>Meu carrinho</p>
-          <p>Meus pedidos</p>
+          <a href="/profile" class="link-footer mb-3">Minha conta</a>
+          <a href="/profile" class="link-footer mb-3">Meu Carrinho</a>
+          <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
           <div class="d-flex justify-content-start mb-4">
             <img src="{{ asset('images/facebook.png') }}" class="footer-icon-resize me-2" alt="Icone Facebook">
-            <p class="m-0">@lojafoxbrinquedos</p>
+            <a href="https://www.facebook.com/?locale=pt_BR" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
           </div>
 
           <div class="d-flex justify-content-start">
             <img src="{{ asset('images/instagram.png') }}" class="footer-icon-resize me-2" alt="Icone Instagram">
-            <p class="m-0">@lojafoxbrinquedos</p>
+            <a href="https://www.instagram.com" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
           </div>
         </div>
-        <div class="col col-2 footer-column">
+        <div class="col col-2 footer-column d-flex flex-column align-items-center">
           <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
           <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
         </div>
@@ -120,23 +123,26 @@
     </div>
 
     <hr>
+
     <div id="copyright-footer" class="container-fluid d-flex mb-3 mt-3 justify-content-between align-items-center">
       <a href="#">
         <img src="{{ asset('images/fox.png') }}" alt="Logo Fox" class="object-fit-contain ms-3" width="65px">
       </a>
+
       <i>
         <p>Fox Store © 2024 - Todos os direitos reservados</p>
       </i>
-      
-      <a href="#"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
+
+      <a href="https://wa.me/+5511944880786" target="_blank"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
       </a>
     </div>
 
-  </footer>
+    </footer>
 
 
-  <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+
 </html>

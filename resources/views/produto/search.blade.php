@@ -437,20 +437,20 @@
                 </div>
                 <div class="col col-2 d-flex flex-column footer-column">
                     <h3 class="fs-5 text-uppercase">Loja</h3>
-                    <p>Minha conta</p>
-                    <p>Meu carrinho</p>
-                    <p>Meus pedidos</p>
+                    <a href="/profile" class="link-footer mb-3">Minha conta</a>
+                    <a href="/profile" class="link-footer mb-3">Meu Carrinho</a>
+                    <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
                 </div>
                 <div class="col col-2 d-flex flex-column footer-column">
                     <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
                     <div class="d-flex justify-content-start mb-4">
                         <img src="{{ asset('images/facebook.png') }}" class="footer-icon-resize me-2" alt="Icone Facebook">
-                        <p class="m-0">@lojafoxbrinquedos</p>
+                        <a href="https://www.facebook.com/?locale=pt_BR" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
                     </div>
 
                     <div class="d-flex justify-content-start">
                         <img src="{{ asset('images/instagram.png') }}" class="footer-icon-resize me-2" alt="Icone Instagram">
-                        <p class="m-0">@lojafoxbrinquedos</p>
+                        <a href="https://www.instagram.com" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
                     </div>
                 </div>
                 <div class="col col-2 footer-column">

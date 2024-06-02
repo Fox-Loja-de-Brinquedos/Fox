@@ -88,7 +88,7 @@ class pedidoController extends Controller
         $nova_quantidade = $request->input('ITEM_QTD');
 
         if ($nova_quantidade < 1) {
-            return response()->json(['message' => 'A quantidade mínima é 1.'], 400);
+            return redirect()->route('carrinho.listar')->with('error', 'A quantidade mínima é 1.');
         }
 
         $carrinhoItem = Carrinho::where('USUARIO_ID', $usuario_id)
@@ -100,7 +100,7 @@ class pedidoController extends Controller
             $carrinhoItem->save();
         }
 
-        return response()->json(['message' => 'Quantidade de item atualizada com sucesso.']);
+        return redirect()->route('carrinho.listar')->with('success', 'Quantidade de item atualizada com sucesso.');
     }
 
     public function checkout()

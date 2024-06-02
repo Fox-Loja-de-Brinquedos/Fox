@@ -51,8 +51,6 @@
         });
     });
 
-    
-
 
   // AQUI PARA PERSONALIZAR O POPUP de adicionar produto ao carrinho da biblioteca TOASTR
   toastr.options = {

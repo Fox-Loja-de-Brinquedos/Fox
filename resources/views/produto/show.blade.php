@@ -17,6 +17,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
+
+  <!-- importando jquery para ajax -->
+  <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<!-- Toastr CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 
 <body>
@@ -189,15 +200,12 @@
           </script>
 
           <!-- Botao para enviar para o carrinho -->
-          <form action="{{ route('carrinho.adicionar') }}" method="POST">
+          <form action="{{ route('carrinho.adicionar') }}" method="POST" class="adicionarItemForm" > 
           @csrf
           <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
           <input type="hidden" name="ITEM_QTD" id="itemQtdInputHidden" value="1">
           <button class="btn-add-to-cart mt-4" type="submit">ADICIONAR AO CARRINHO</button>
           </form>
-
-
-
 
         </div>
       </div>
@@ -382,6 +390,7 @@
 
 
   <script src="{{ asset('js/show.js') }}"></script>
+  <script src="{{ asset('js/ajax.js') }}"></script>
 
 </body>
 

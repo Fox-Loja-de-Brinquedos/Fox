@@ -49,7 +49,14 @@ class pedidoController extends Controller
                 'ITEM_QTD' => $item_qtd
             ]);
         }
-        return redirect()->route('carrinho.listar')->with('success', 'Item adicionado ao carrinho com sucesso.');
+
+        //retornando a resposta do servidor em JSON para utilizar requisição AJAX
+        if ($request->ajax()) {
+            return response()->json(['success' => 'Item adicionado ao carrinho com sucesso.']);
+        }
+
+        //retorna ao carrinho com o produto caso falhe o ajax
+         return redirect()->route('carrinho.listar')->with('success', 'Item adicionado ao carrinho com sucesso.');
     }
 
     public function removerItem(Request $request)

@@ -12,6 +12,9 @@
                 data: form.serialize(), //transforma os dados do formulario em um formato especifico para AJAX
                 success: function(response) { //caso a solicitação tenha sucesso, os dados do servidor estarao dentro de response
                     toastr.success(response.success, 'Sucesso');
+
+                    // Atualiza a quantidade de itens no ícone do carrinho
+                    $('#qty-products-cart').text(response.qtdItensCarrinho);
                 },
                 error: function(xhr, status, error) { //caso a solicitação falhe, os parametros são detalhes do erro
                     if (xhr.status === 401) {

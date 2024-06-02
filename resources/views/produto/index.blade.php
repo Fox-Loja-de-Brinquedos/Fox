@@ -17,6 +17,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
+  
+  <!-- importando jquery para ajax -->
+  <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <!-- Toastr CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 
 <body>
@@ -258,7 +270,7 @@
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
 
                 <!-- Formulário para adicionar ao carrinho -->
-                <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                <form action="{{ route('carrinho.adicionar') }}" method="POST" class="adicionarItemForm"> 
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
                   <input type="hidden" name="ITEM_QTD" value="1">
@@ -283,6 +295,8 @@
 
             </div>
             @endforeach
+            
+            
 
           </div>
         </div>
@@ -471,7 +485,7 @@
                   </b>
                 </a>
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                <form action="{{ route('carrinho.adicionar') }}" method="POST" class="adicionarItemForm">
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
                   <input type="hidden" name="ITEM_QTD" value="1">
@@ -563,7 +577,7 @@
                   </b>
                 </a>
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                <form action="{{ route('carrinho.adicionar') }}" method="POST" class="adicionarItemForm">
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
                   <input type="hidden" name="ITEM_QTD" value="1">
@@ -724,6 +738,7 @@
 
   <script src="{{ asset('js/cookies.js') }}"></script>
   <script src="{{ asset('js/script.js') }}"></script>
+  <script src="{{ asset('js/ajax.js') }}"></script>
 
 </body>
 

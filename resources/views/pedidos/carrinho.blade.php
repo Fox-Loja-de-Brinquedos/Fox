@@ -7,6 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="{{ asset('css/pedidos.css') }}" rel="stylesheet">
+
+  <!-- importando jquery para ajax -->
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous">
+  </script>
 </head>
 
 <body>
@@ -69,7 +75,7 @@
                 @endphp
 
                 @foreach($itens as $item)
-                <tr>
+                <tr id="item-row-{{ $item->PRODUTO_ID }}">
                   <td class="product-thumbnail d-flex justify-content-center">
                     @if($item->produto->imagens->isNotEmpty())
                     <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="{{ $item->produto->PRODUTO_NOME }}" style="min-height: 70px; max-height: 70px; object-fit: contain;">
@@ -85,33 +91,36 @@
 
                   <td class="product-quantity">
                   <div class="quantity d-flex align-items-center my-1">
+
+                    <!-- formulario para diminuir quantidade de produto -->
                     <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline-block plus-btn-form">
                       @csrf
                       <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
                       <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
-                      <input type="hidden" name="ITEM_QTD" value="{{ $item->ITEM_QTD - 1 }}">
+                      <input type="hidden" name="ITEM_QTD" id="decrement-{{ $item->PRODUTO_ID }}" value="{{ $item->ITEM_QTD - 1 }}">
                       <button type="submit" class="minus-btn btn btn-sm mr-1" {{ $item->ITEM_QTD <= 1 ? 'disabled' : '' }}>-</button>
                     </form>
 
-                    <input type="text" name="item_qtd" class="form-control text-center mx-1 item-qtd-input" value="{{ $item->ITEM_QTD }}" readonly>
+                    <!-- mostrar valor que esta no input -->
+                    <input type="text" id="item-qtd-{{ $item->PRODUTO_ID }}" name="item_qtd" class="form-control text-center mx-1 item-qtd-input" value="{{ $item->ITEM_QTD }}" readonly>
 
+                    <!-- formulario para aumentar quantidade de produto -->
                     <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline-block plus-btn-form">
                       @csrf
                       <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
                       <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
-                      <input type="hidden" name="ITEM_QTD" value="{{ $item->ITEM_QTD}}">
+                      <input type="hidden" name="ITEM_QTD" id="increment-{{ $item->PRODUTO_ID }}" value="{{ $item->ITEM_QTD + 1 }}">
                       <button type="submit" class="plus-btn btn btn-sm ml-1">+</button>
                     </form>
                   </div>
                 </td>
-
 
                   <td class="product-subtotal text-nowrap">R$
                     {{ number_format(($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO) * $item->ITEM_QTD, 2, ',', '.') }}
                   </td>
                   
                   <td class="product-remove">
-                    <form action="{{ route('carrinho.removerItem') }}" method="POST">
+                    <form action="{{ route('carrinho.removerItem') }}" method="POST" class="removerCarrinho">
                       @csrf
                       <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
                       <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
@@ -201,8 +210,9 @@
     </div>
   </div>
 
-  
+  <script src="{{ asset('js/carrinho.js') }}"></script>
   <script src="{{ asset('js/cep.js') }}"></script>
+  <script src="{{ asset('js/ajax.js') }}"></script>
 
 </body>
 

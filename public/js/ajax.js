@@ -30,7 +30,6 @@
     $(document).ready(function() {
         $(document).on('submit', '.removerCarrinho', function(e) {
             e.preventDefault();
-
             let form = $(this);
             let url = form.attr('action');
             let rowId = form.find('input[name="PRODUTO_ID"]').val(); //extrair id unico para remover sua linha posteriormente
@@ -42,6 +41,10 @@
                 success: function(response) {
                     if(response.success) {
                         $('#item-row-' + rowId).remove(); //removendo linha de item do carrinho
+
+                        // Atualizar o subtotal e o total na página
+                        $('#subtotal').text('R$ ' + response.subtotal_formatado);
+                        $('#total').text('R$ ' + response.total_formatado);
                     } 
                 },
                 error: function(xhr, status, error) {

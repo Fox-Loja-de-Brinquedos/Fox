@@ -168,10 +168,11 @@
                 </div>
               </label>
             </div>
+
             <table class="table">
               <tr>
                 <td class="ps-4 text-secondary border-top">Subtotal:</td>
-                <td class="pe-4 text-secondary border-top text-end">R$ {{ number_format($subtotal, 2, ',', '.') }}
+                <td id="subtotal" class="pe-4 text-secondary border-top text-end">R$ {{ number_format($subtotal, 2, ',', '.') }}
                  
                 </td>
               </tr>
@@ -181,7 +182,7 @@
               </tr>
               <tr>
                 <td class="ps-4 border-0 cart-table-total">Total:</td>
-                <td class="pe-4 border-0 cart-table-total text-end">R$ {{ number_format($subtotal + 10, 2, ',', '.') }}</td>
+                <td id="total" class="pe-4 border-0 cart-table-total text-end">R$ {{ number_format($subtotal + 10, 2, ',', '.') }}</td>
               </tr>
             </table>
             <div class="text-center mt-3">

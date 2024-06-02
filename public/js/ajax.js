@@ -12,6 +12,9 @@
                 data: form.serialize(), //transforma os dados do formulario em um formato especifico para AJAX
                 success: function(response) { //caso a solicitação tenha sucesso, os dados do servidor estarao dentro de response
                     toastr.success(response.success, 'Sucesso');
+
+                    // Atualiza a quantidade de itens no ícone do carrinho
+                    $('#qty-products-cart').text(response.qtdItensCarrinho);
                 },
                 error: function(xhr, status, error) { //caso a solicitação falhe, os parametros são detalhes do erro
                     if (xhr.status === 401) {
@@ -30,7 +33,6 @@
     $(document).ready(function() {
         $(document).on('submit', '.removerCarrinho', function(e) {
             e.preventDefault();
-
             let form = $(this);
             let url = form.attr('action');
             let rowId = form.find('input[name="PRODUTO_ID"]').val(); //extrair id unico para remover sua linha posteriormente
@@ -42,6 +44,10 @@
                 success: function(response) {
                     if(response.success) {
                         $('#item-row-' + rowId).remove(); //removendo linha de item do carrinho
+
+                        // Atualizar o subtotal e o total na página
+                        $('#subtotal').text('R$ ' + response.subtotal_formatado);
+                        $('#total').text('R$ ' + response.total_formatado);
                     } 
                 },
                 error: function(xhr, status, error) {

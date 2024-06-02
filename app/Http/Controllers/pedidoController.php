@@ -57,12 +57,14 @@ class pedidoController extends Controller
                 'ITEM_QTD' => $item_qtd
             ]);
         }
+        // Obter a quantidade atualizada de itens no carrinho usando o ID do usuário autenticado
+        $qtdItensCarrinho = Carrinho::where('USUARIO_ID', $usuario_id)->where('ITEM_QTD', '>', 0)->count();
 
         //retornando a resposta do servidor em JSON para utilizar requisição AJAX
-        if ($request->ajax()) {
-            return response()->json(['success' => 'Item adicionado ao carrinho com sucesso.']);
-        }
-
+        return response()->json([
+            'success' => 'Item adicionado ao carrinho com sucesso.',
+            'qtdItensCarrinho' => $qtdItensCarrinho
+        ]);
     }
 
     public function removerItem(Request $request)
@@ -76,11 +78,31 @@ class pedidoController extends Controller
 
             if ($carrinhoItem) {
                 $carrinhoItem->update(['ITEM_QTD' => 0]);
-                return response()->json(['success' => true, 'message' => 'Item removido do carrinho com sucesso.']);
-            } else {
-                return response()->json(['success' => false, 'message' => 'Item não encontrado no carrinho.']);
             }
-        }
+
+            // Calcular novo subtotal e total
+            $itens = Carrinho::where('USUARIO_ID', $usuario_id)
+            ->where('ITEM_QTD', '>', 0)
+            ->get();
+
+            $subtotal = $itens->sum(function($item) {
+                return ($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO) * $item->ITEM_QTD;
+            });
+
+            $frete = 10.00;
+            $total = $subtotal + $frete;
+
+            // Retornar a resposta com os novos valores
+            return response()->json([
+                'success' => true,
+                'message' => 'Item removido do carrinho com sucesso.',
+                'produto_id' => $produto_id,
+                'subtotal' => $subtotal,
+                'total' => $total,
+                'subtotal_formatado' => number_format($subtotal, 2, ',', '.'),
+                'total_formatado' => number_format($total, 2, ',', '.')
+            ]);
+    }
 
     public function atualizarItem(Request $request)
     {

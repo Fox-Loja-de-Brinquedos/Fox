@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Finalizar compra</title>
+    <title>Finalizar compra - Pagamento</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -28,13 +28,21 @@
                                 <span class="step-label mt-1 d-block">Carrinho</span>
                             </a>
                         </div>
-                        <div class="step-item selected text-center">
-                            <div class="step-circle mx-auto">2</div>
-                            <span class="step-label mt-1 d-block">Finalizar compra</span>
+                        <div class="step-item done text-center">
+                            <a href="{{ route('checkout.dadospessoais') }}">
+                                <div class="step-circle mx-auto">2</div>
+                                <span class="step-label mt-1 d-block">Dados pessoais</span>
+                            </a>
                         </div>
-                        <div class="step-item text-center">
-                            <div class="step-circle mx-auto">3</div>
-                            <span class="step-label mt-1 d-block">Pedido realizado</span>
+                        <div class="step-item done text-center">
+                            <a href="{{ route('checkout.entrega') }}">
+                                <div class="step-circle mx-auto">3</div>
+                                <span class="step-label mt-1 d-block">Entrega</span>
+                            </a>
+                        </div>
+                        <div class="step-item selected text-center">
+                            <div class="step-circle mx-auto">4</div>
+                            <span class="step-label mt-1 d-block">Pagamento</span>
                         </div>
                         </div>
                     </div>
@@ -51,63 +59,12 @@
             <div class="row gx-5">
                 <div class="col-7">
                     <form action="{{ route('pedido.finalizar') }}" method="POST">
+                        <input type="hidden" name="ENDERECO_ID" value="{{ $endereco->ENDERECO_ID }}">
                         @csrf
                         <div class="bg-white p-4 container-box">
-                            <h3>Entrega</h3>
-                            <p>Solicitamos apenas informações essenciais</p>
-                            <div id="entrega step-1" class="container step">
-                                @if($endereco)
-                                <div class="row">
-                                    <div class="col-3">
-                                        <input type="hidden" name="ENDERECO_ID" value="{{ $endereco->ENDERECO_ID }}">
-                                        <label for="cep">CEP
-                                            <input type="text" name="cep" id="cep" class="input-1-1" value="{{ $endereco->ENDERECO_CEP }}">
-                                        </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <label for="logradouro">Logradouro
-                                            <input type="text" name="logradouro" id="logradouro" class="input-1-1" value="{{ $endereco->ENDERECO_LOGRADOURO }}">
-                                        </label>
-                                    </div>
-                                    <div class="col-5">
-                                        <label for="endereco">Endereço
-                                            <input type="text" name="endereco" id="endereco" class="input-1-1" value="{{ $endereco->ENDERECO_NOME }}">
-                                        </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <label for="numero">Número
-                                            <input type="number" name="numero" id="numero" class="input-1-1" value="{{ $endereco->ENDERECO_NUMERO }}">
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="bairro">Complemento
-                                            <input type="text" name="complemento" id="complemento" class="input-1-1" value="{{ $endereco->ENDERECO_COMPLEMENTO }}">
-                                        </label>
-                                    </div>
-                                    <div class="col-4">
-                                        <label for="cidade">Cidade
-                                            <input type="text" name="cidade" id="cidade" class="input-1-1" value="{{ $endereco->ENDERECO_CIDADE }}">
-                                        </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <label for="estado">Estado
-                                            <input type="text" name="estado" id="estado" class="input-1-1" value="{{ $endereco->ENDERECO_ESTADO }}">
-                                        </label>
-                                    </div>
-                                </div>
-                                @else
-                                <p>O usuário não tem um endereço cadastrado. Por favor, cadastre um endereço.</p>
-                                @endif
-                                <button class="pedido-btn mx-auto d-block mt-3" type="button" onclick="nextStep(2)">Prosseguir para pagamento</button>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-4 my-5 container-box">
                             <h3>Formas de pagamento</h3>
                             <p>Escolha o método de pagamento de sua preferência.</p>
-                            <div id="forma-de-pagamento step-2" class="step">
+                            <div id="forma-de-pagamento">
                                 <div class="mb-3 forma-de-pagamento-box">
                                     <div class="p-3">
                                         <label for="boleto" class="opcao-pagamento"><input type="radio" name="boleto" id="boleto" checked><span class="d-inline-block ms-2">Boleto</span></label>
@@ -117,15 +74,14 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <button class="btn mx-auto d-block" type="button" onclick="prevStep(1)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                                    <a class="btn mx-auto d-block" href="{{ route('checkout.entrega') }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" />
-                            </svg> Voltar ao passo anterior</button>
+                            </svg> Voltar ao passo anterior</a>
                                     <button class="pedido-btn mx-auto d-block" type="submit">Finalizar Pedido</button>
                                 </div>
                                 
                             </div>
                         </div>
-
                     </form>
                 </div>
 

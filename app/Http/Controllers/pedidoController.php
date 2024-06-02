@@ -8,6 +8,7 @@ use App\Models\Pedido;
 use App\Models\Pedido_Item;
 use App\Models\Endereco;
 use App\Models\Produto_Estoque;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -103,7 +104,39 @@ class pedidoController extends Controller
         return redirect()->route('carrinho.listar')->with('success', 'Quantidade de item atualizada com sucesso.');
     }
 
-    public function checkout()
+    public function checkoutDadosPessoais()
+    {
+        $usuario_id = auth()->id();
+        $itens = Carrinho::where('USUARIO_ID', $usuario_id)
+            ->where('ITEM_QTD', '>', 0)
+            ->get();
+
+        if ($itens->isEmpty()) {
+            return redirect()->back()->with('error', 'Adicione itens ao carrinho antes de prosseguir para o checkout.');
+        }
+
+        //$dadospessoais = User::where('USUARIO_ID', $usuario_id)
+        //    ->first();
+
+        return view('pedidos.checkout.dadospessoais', compact('itens'));
+    }
+
+    public function atualizarDadosPessoais(Request $request){
+
+        $request->validate([
+            'USUARIO_NOME' => 'required|string|max:255',
+            'USUARIO_CPF' => 'required|string|max:14',
+        ]);
+
+        $user = User::find(auth()->id());
+        $user->USUARIO_NOME = $request->USUARIO_NOME;
+        $user->USUARIO_CPF = $request->USUARIO_CPF;
+        $user->save();
+
+        return redirect()->route('checkout.entrega');
+    }
+
+    public function checkoutEntrega()
     {
         $usuario_id = auth()->id();
         $itens = Carrinho::where('USUARIO_ID', $usuario_id)
@@ -118,7 +151,84 @@ class pedidoController extends Controller
             ->where('ENDERECO_APAGADO', 0)
             ->first();
 
-        return view('pedidos.checkout', compact('itens', 'endereco'));
+        return view('pedidos.checkout.entrega', compact('itens', 'endereco'));
+    }
+
+    public function criarNovoEndereco(Request $request)
+    {
+        $request->validate([
+            'ENDERECO_NOME' => 'required|string|max:255',
+            'ENDERECO_LOGRADOURO' => 'required|string|max:255',
+            'ENDERECO_NUMERO' => 'required|string|max:10',
+            'ENDERECO_CIDADE' => 'required|string|max:255',
+            'ENDERECO_ESTADO' => 'required|string|max:255',
+            'ENDERECO_CEP' => 'required|string|max:9',
+            'ENDERECO_COMPLEMENTO' => 'nullable|string|max:255',
+        ]);
+
+        $userId = auth()->id();
+
+        //retirar mascara do cep
+        function cleanCEP($cep) {
+            $cep = str_replace([' ', '-'], '', $cep);
+            return $cep;
+        }
+        $cep = cleanCEP($request->input('ENDERECO_CEP'));
+        
+        $endereco = new Endereco([
+            'USUARIO_ID' => $userId,
+            'ENDERECO_NOME' => $request->input('ENDERECO_NOME'),
+            'ENDERECO_LOGRADOURO' => $request->input('ENDERECO_LOGRADOURO'),
+            'ENDERECO_NUMERO' => $request->input('ENDERECO_NUMERO'),
+            'ENDERECO_CIDADE' => $request->input('ENDERECO_CIDADE'),
+            'ENDERECO_ESTADO' => $request->input('ENDERECO_ESTADO'),
+            'ENDERECO_CEP' => $cep,
+            'ENDERECO_COMPLEMENTO' => $request->input('ENDERECO_COMPLEMENTO'),
+        ]);
+
+        $endereco->save();
+
+        return redirect()->route('checkout.pagamento');
+    }
+
+    public function atualizarEndereco(Request $request, Endereco $endereco)
+    {
+        //retirei mascara do cep
+        $request->merge([
+            'ENDERECO_CEP' => str_replace('-', '', $request->ENDERECO_CEP),
+        ]);
+
+        $request->validate([
+            'ENDERECO_NOME' => 'required|string|max:255',
+            'ENDERECO_LOGRADOURO' => 'required|string|max:255',
+            'ENDERECO_NUMERO' => 'required|string|max:10',
+            'ENDERECO_CIDADE' => 'required|string|max:255',
+            'ENDERECO_ESTADO' => 'required|string|max:255',
+            'ENDERECO_CEP' => 'required|string|max:8', 
+            'ENDERECO_COMPLEMENTO' => 'nullable|string|max:255',
+        ]);
+        
+        $endereco->update($request->all());
+    
+        return redirect()->route('checkout.pagamento');
+    }
+
+    public function checkoutPagamento()
+    {
+        $usuario_id = auth()->id();
+        $itens = Carrinho::where('USUARIO_ID', $usuario_id)
+            ->where('ITEM_QTD', '>', 0)
+            ->get();
+
+        if ($itens->isEmpty()) {
+            return redirect()->back()->with('error', 'Adicione itens ao carrinho antes de prosseguir para o checkout.');
+        }
+
+        $endereco = Endereco::where('USUARIO_ID', $usuario_id)
+            ->where('ENDERECO_APAGADO', 0)
+            ->first();
+
+        return view('pedidos.checkout.pagamento', compact('itens', 'endereco'));
     }
 
     public function finalizarPedido(Request $request) {

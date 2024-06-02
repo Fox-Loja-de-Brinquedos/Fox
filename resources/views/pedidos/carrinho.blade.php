@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Fox carrinho</title>
+  <title>Meu carrinho</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -33,14 +33,18 @@
                 <span class="step-label mt-1 d-block">Carrinho</span>
               </div>
               <div class="step-item text-center">
-                <a href="{{ route('carrinho.checkout') }}">
+                <a href="{{ route('checkout.dadospessoais') }}">
                   <div class="step-circle mx-auto">2</div>
-                  <span class="step-label mt-1 d-block">Finalizar compra</span>
+                  <span class="step-label mt-1 d-block">Dados pessoais</span>
                 </a>
               </div>
               <div class="step-item text-center">
                 <div class="step-circle mx-auto">3</div>
-                <span class="step-label mt-1 d-block">Pedido realizado</span>
+                <span class="step-label mt-1 d-block">Entrega</span>
+              </div>
+              <div class="step-item text-center">
+                <div class="step-circle mx-auto">4</div>
+                <span class="step-label mt-1 d-block">Pagamento</span>
               </div>
             </div>
           </div>
@@ -54,8 +58,13 @@
   <div class="container-fluid checkout-container-body">
     <div class="container mt-5">
       <div class="row gx-5">
+        
+
+        @if($itens->count()>0)  
+
         <div class="col-8">
           <div class="bg-white px-4 pt-4 pb-2 container-box">
+
             <table class="table cart-table">
               <thead>
                 <tr>
@@ -138,7 +147,6 @@
 
                 @endforeach
               </tbody>
-
             </table>
           </div>
 
@@ -185,7 +193,7 @@
               </tr>
             </table>
             <div class="text-center mt-3">
-              <a class="pedido-btn d-inline-block" href="{{ route('carrinho.checkout') }}">FINALIZAR A COMPRA</a>
+              <a class="pedido-btn d-inline-block" href="{{ route('checkout.dadospessoais') }}">FINALIZAR A COMPRA</a>
             </div>
                      
             @if (session('error'))
@@ -206,6 +214,23 @@
           </p>
 
         </div>
+        
+        @else
+
+        <div class="col-12">
+          <div class="bg-white px-4 py-4 container-box">
+              <h2>Seu carrinho está vazio!</h2>
+              <p>Volte à loja e adicione produtos ao seu carrinho.</p>
+              <a class="btn-back-to-store" href="/">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+              </svg> 
+              Ir para a loja
+            </a>
+          </div>
+        </div>
+
+        @endif
       </div>
     </div>
   </div>

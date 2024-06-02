@@ -13,6 +13,16 @@ document.getElementById('cepInput').addEventListener('input', function() {
     this.value = formatCEP(this.value);
 });
 
+
+document.getElementById('cepInput').addEventListener('load', function() {
+    this.value = formatCEP(this.value);
+});
+window.addEventListener("load", (event) => {
+    let cepInput = document.getElementById('cepInput');
+    cepInput.value = formatCEP(cepInput.value);
+});
+  
+
 document.getElementById('calculateButton').addEventListener('click', function() {
     var cep = document.getElementById('cepInput').value.replace('-', '');
     var freteResultDiv = document.getElementById('freteResult');

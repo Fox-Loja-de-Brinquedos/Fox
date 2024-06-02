@@ -47,7 +47,12 @@ Route::post('/carrinho/remover-item', [pedidoController::class, 'removerItem'])-
 Route::post('/carrinho/atualizar-item', [PedidoController::class, 'atualizarItem'])->name('carrinho.atualizarItem');
 
 //Rotas para checkout
-Route::get('/checkout', [pedidoController::class, 'checkout'])->name('carrinho.checkout');
+Route::get('/checkout/dadospessoais', [pedidoController::class, 'checkoutDadosPessoais'])->name('checkout.dadospessoais');
+Route::post('/checkout/dadospessoais/atualizardados', [pedidoController::class, 'atualizarDadosPessoais'])->name('checkout.dadospessoais.atualizardados');
+Route::get('/checkout/entrega', [pedidoController::class, 'checkoutEntrega'])->name('checkout.entrega');
+Route::put('/checkout/entrega/atualizarendereco/{endereco}', [pedidoController::class, 'atualizarEndereco'])->name('checkout.entrega.atualizarendereco');
+Route::post('/checkout/entrega/criarnovoendereco', [pedidoController::class, 'criarNovoEndereco'])->name('checkout.entrega.criarnovoendereco');
+Route::get('/checkout/pagamento', [pedidoController::class, 'checkoutPagamento'])->name('checkout.pagamento');
 Route::post('/finalizar-pedido', [pedidoController::class, 'finalizarPedido'])->name('pedido.finalizar');
 });
 

@@ -14,18 +14,45 @@
                     toastr.success(response.success, 'Sucesso');
                 },
                 error: function(xhr, status, error) { //caso a solicitação falhe, os parametros são detalhes do erro
-                    let err = JSON.parse(xhr.responseText);
-                    toastr.error(err.message, 'Erro');
+                    if (xhr.status === 401) {
+                        window.location.href = '/login'; // Usuário não autenticado, redirecionar para a página de login
+                    } else {
+                        // Outro erro ocorreu
+                        let err = JSON.parse(xhr.responseText);
+                        toastr.error(err.message, 'Erro');
+                    }
+                }
+            });
+        });
+    });
+    
+    //metodo ajax para remover itens do carrinho de forma assincrona
+    $(document).ready(function() {
+        $(document).on('submit', '.removerCarrinho', function(e) {
+            e.preventDefault();
+
+            let form = $(this);
+            let url = form.attr('action');
+            let rowId = form.find('input[name="PRODUTO_ID"]').val(); //extrair id unico para remover sua linha posteriormente
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function(response) {
+                    if(response.success) {
+                        $('#item-row-' + rowId).remove(); //removendo linha de item do carrinho
+                    } 
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erro ao remover o item:', error);
                 }
             });
         });
     });
 
-
-
-
-
     
+
 
   // AQUI PARA PERSONALIZAR O POPUP de adicionar produto ao carrinho da biblioteca TOASTR
   toastr.options = {

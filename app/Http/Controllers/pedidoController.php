@@ -26,6 +26,13 @@ class pedidoController extends Controller
 
     public function adicionarItem(Request $request)
     {
+        // Verificar se o usuário está autenticado
+        if (!auth()->check()) {
+            // Se não estiver autenticado, retornar um código de status 401 (Não Autorizado)
+            return response()->json([], 401)
+                ->header('Location', route('login')); // Redirecionar para a página de login
+        }
+
         $request->validate([
             'PRODUTO_ID' => 'required|exists:PRODUTO,PRODUTO_ID',
             'ITEM_QTD' => 'required|integer|min:1',
@@ -55,8 +62,6 @@ class pedidoController extends Controller
             return response()->json(['success' => 'Item adicionado ao carrinho com sucesso.']);
         }
 
-        //retorna ao carrinho com o produto caso falhe o ajax
-         return redirect()->route('carrinho.listar')->with('success', 'Item adicionado ao carrinho com sucesso.');
     }
 
     public function removerItem(Request $request)
@@ -68,12 +73,13 @@ class pedidoController extends Controller
             ->where('PRODUTO_ID', $produto_id)
             ->first();
 
-        if ($carrinhoItem) {
-            $carrinhoItem->update(['ITEM_QTD' => 0]);
+            if ($carrinhoItem) {
+                $carrinhoItem->update(['ITEM_QTD' => 0]);
+                return response()->json(['success' => true, 'message' => 'Item removido do carrinho com sucesso.']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Item não encontrado no carrinho.']);
+            }
         }
-
-        return redirect()->route('carrinho.listar')->with('success', 'Item removido do carrinho com sucesso.');
-    }
 
     public function atualizarItem(Request $request)
     {
@@ -82,7 +88,7 @@ class pedidoController extends Controller
         $nova_quantidade = $request->input('ITEM_QTD');
 
         if ($nova_quantidade < 1) {
-            return redirect()->route('carrinho.listar')->with('error', 'A quantidade mínima é 1.');
+            return response()->json(['message' => 'A quantidade mínima é 1.'], 400);
         }
 
         $carrinhoItem = Carrinho::where('USUARIO_ID', $usuario_id)
@@ -94,7 +100,7 @@ class pedidoController extends Controller
             $carrinhoItem->save();
         }
 
-        return redirect()->route('carrinho.listar')->with('success', 'Quantidade de item atualizada com sucesso.');
+        return response()->json(['message' => 'Quantidade de item atualizada com sucesso.']);
     }
 
     public function checkout()

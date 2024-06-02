@@ -20,6 +20,13 @@
       vertical-align: middle;
     }
   </style>
+
+<!-- importando jquery para ajax -->
+<script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous">
+</script>
+
 </head>
 
 <body>
@@ -60,7 +67,7 @@
               
               <tbody>
                 @foreach($itens as $item)
-                <tr>
+                <tr id="item-row-{{ $item->PRODUTO_ID }}">
                   <td class="product-thumbnail d-flex justify-content-center">
                     @if($item->produto->imagens->isNotEmpty())
                     <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="{{ $item->produto->PRODUTO_NOME }}" style="min-height: 70px; max-height: 70px; object-fit: contain;">
@@ -106,7 +113,7 @@
                   </td>
                   
                   <td class="product-remove">
-                  <form action="{{ route('carrinho.removerItem') }}" method="POST">
+                  <form action="{{ route('carrinho.removerItem') }}" method="POST" class="removerCarrinho">
                     @csrf
                     <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
                     <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
@@ -174,6 +181,7 @@
   </div>
 
   <script src="{{ asset('js/carrinho.js') }}"></script>
+  <script src="{{ asset('js/ajax.js') }}"></script>
 
 </body>
 

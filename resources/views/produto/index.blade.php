@@ -75,12 +75,25 @@
           @endif
 
         </div>
+        @if($qtdItensCarinho != 0)
+        <div class="col-2">
+          <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text position-relative">
+            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+            Meu Carrinho
+            <p id="qty-products-cart">
+              {{ $qtdItensCarinho }}
+            </p>
+          </a>
+
+        </div>
+        @else
         <div class="col-2">
           <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
             <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
             Meu Carrinho
           </a>
         </div>
+        @endif
       </div>
     </div>
 
@@ -92,25 +105,25 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="categories-menu navbar-nav mx-auto">
                 <li class="nav-item custom-nav-item">
-                  <button class="nav-link nav-link-uppercase searchOption">Bonecas</button>
+                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="nav-link nav-link-uppercase">Bonecas</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <button class="nav-link nav-link-uppercase searchOption">Veículos</button>
+                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}" class="nav-link nav-link-uppercase">Veículos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <button class="nav-link nav-link-uppercase searchOption">Pelúcias</button>
+                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}" class="nav-link nav-link-uppercase">Pelúcias</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <button class="nav-link nav-link-uppercase searchOption">Jogos de cartas</button>
+                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}" class="nav-link nav-link-uppercase">Jogos de cartas</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <button class="nav-link nav-link-uppercase searchOption">Tabuleiros</button>
+                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}" class="nav-link nav-link-uppercase">Tabuleiros</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <button class="nav-link nav-link-uppercase searchOption">Eletrônicos</button>
+                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}" class="nav-link nav-link-uppercase">Eletrônicos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <button class="nav-link nav-link-uppercase searchOption">Outros brinquedos</button>
+                  <a href="{{ route('produto.search' , ['search' => '%']) }}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
                   <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos" href='#lancamentos'>Lançamentos</a>
@@ -134,13 +147,13 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <a class="banner-slide" data-search="Lego"><img src="{{ asset('images/banner05.png') }}" class="d-block w-100" alt="..."></a>
+        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%LEGO%']) }}" class="banner-slide"><img src="{{ asset('images/banner05.png') }}" class="d-block w-100" alt="..."></a>
       </div>
       <div class="carousel-item">
-        <a class="banner-slide" data-search="produto2"><img src="{{ asset('images/banner02.png') }}" class="d-block w-100" alt="..."></a>
+        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="banner-slide" data-search="Monter high"><img src="{{ asset('images/banner06.png') }}" class="d-block w-100" alt="..."></a>
       </div>
       <div class="carousel-item">
-        <a class="banner-slide" data-search="Funko"><img src="{{ asset('images/banner04.png') }}" class="d-block w-100" alt="..."></a>
+        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Mordedores%']) }}" class="banner-slide"><img src="{{ asset('images/banner04.png') }}" class="d-block w-100" alt="..."></a>
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -152,8 +165,6 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-
-
 
   <!-- Linha com 4 colunas de features ---------------------------------------------------------------------------------------->
   <div class="container-fluid pt-4 pb-4" style="background-color: #FAFBFB;">
@@ -390,34 +401,34 @@
     <div class="row">
       <!--First column-->
       <div class="col-6 col-md-3 mb-4 mb-md-0 d-flex align-items-center brand-banner">
-        <a href="#" class="d-flex align-items-center w-100">
+        <a href="{{ route('produto.search' , ['search' => 'Disney']) }}" class="d-flex align-items-center w-100">
           <img class="rounded img-fluid m-0" src="{{ asset('images/disneyBanner.png') }}">
         </a>
       </div>
 
       <!--Second column-->
       <div class="col-6 col-md-3 mb-4 mb-md-0 d-flex flex-column brand-banner">
-        <a href="#" class="mb-3 flex-grow-1 d-flex align-items-center">
+        <a href="{{ route('produto.search' , ['search' => 'Massinha']) }}" class="mb-3 flex-grow-1 d-flex align-items-center">
           <img class="rounded img-fluid m-0" src="{{ asset('images/playdohBanner.png') }}">
         </a>
-        <a href="#" class="flex-grow-1 d-flex align-items-center">
+        <a href="{{ route('produto.search' , ['search' => 'Fisher Price']) }}" class="flex-grow-1 d-flex align-items-center">
           <img class="rounded img-fluid m-0" src="{{ asset('images/fisherpriceBanner.png') }}">
         </a>
       </div>
 
       <!--Third column-->
       <div class="col-6 col-md-3 mb-4 mb-md-0 d-flex brand-banner">
-        <a href="#" class="d-flex align-items-center w-100">
+        <a href="{{ route('produto.search' , ['search' => 'Dream Works']) }}" class="d-flex align-items-center w-100">
           <img class="rounded img-fluid m-0" src="{{ asset('images/dreamworksBanner.png') }}">
         </a>
       </div>
 
       <!--Fourth column-->
       <div class="col-6 col-md-3 d-flex flex-column brand-banner">
-        <a href="#" class="mb-3 flex-grow-1 d-flex align-items-center">
+        <a href="{{ route('produto.search' , ['search' => 'Chicco']) }}" class="mb-3 flex-grow-1 d-flex align-items-center">
           <img class="rounded img-fluid m-0" src="{{ asset('images/chicco.png') }}">
         </a>
-        <a href="#" class="flex-grow-1 d-flex align-items-center">
+        <a href="{{ route('produto.search' , ['search' => 'Casa de boneca']) }}" class="flex-grow-1 d-flex align-items-center">
           <img class="rounded img-fluid m-0" src="{{ asset('images/sylvanianBanner.png') }}">
         </a>
       </div>
@@ -511,7 +522,7 @@
   <div class="container mt-5 mb-5">
     <div class="row">
       <div class="col-12 text-center">
-        <a href="#"><img src="{{ asset('images/banner-color-kids.png') }}" alt=""></a>
+        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}"><img src="{{ asset('images/banner-color-kids.png') }}" alt=""></a>
       </div>
     </div>
   </div>
@@ -600,22 +611,6 @@
     </div>
   </div> <!--Container Cards de Produtos-->
 
-  <!--Anúncio banners-->
-  <div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-      <div class="col-3">
-        <a href="#ofertas"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
-      </div>
-      <div class="col-3">
-        <a href="#"><img src="{{ asset('images/banner-sessao-geek.png') }}" alt=""></a>
-      </div>
-      <div class="col-3">
-        <a href="#ofertas"><img src="{{ asset('images/banner-ofertas-do-dia.png') }}" alt=""></a>
-      </div>
-    </div>
-  </div>
-
-
   <!-- Pop-up de Consentimento de Cookies -->
   <div id="cookie-popup" class="cookie-popup alert alert-dismissible alert-info fade show fixed-bottom" role="alert" style="display: none;">
     <div>
@@ -697,20 +692,20 @@
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
-          <a href="/profile" class="link-footer mb-3">Minha conta</a>
-          <p>Meu carrinho</p>
-          <p>Meus pedidos</p>
+          <a href="/profile"class="link-footer mb-3">Minha conta</a>
+          <a href="/profile"class="link-footer mb-3">Meu Carrinho</a>
+          <a href="/profile"class="link-footer mb-3">Meus pedidos</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
           <div class="d-flex justify-content-start mb-4">
             <img src="{{ asset('images/facebook.png') }}" class="footer-icon-resize me-2" alt="Icone Facebook">
-            <p class="m-0">@lojafoxbrinquedos</p>
+            <a href="https://www.facebook.com/?locale=pt_BR" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
           </div>
 
           <div class="d-flex justify-content-start">
             <img src="{{ asset('images/instagram.png') }}" class="footer-icon-resize me-2" alt="Icone Instagram">
-            <p class="m-0">@lojafoxbrinquedos</p>
+            <a href="https://www.instagram.com" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
           </div>
         </div>
         <div class="col col-2 footer-column d-flex flex-column align-items-center">

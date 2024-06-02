@@ -18,6 +18,17 @@ document.addEventListener('DOMContentLoaded', function() {
       itemQtdInput.value = currentValue + 1;
       itemQtdInputHidden.value = itemQtdInput.value;
     });
-  });
+});
 
-  
+
+
+//carrossel de exbir imagens
+
+var mainImg = document.getElementById("main-image");
+var thumbnails = document.getElementsByClassName("thumbnail");
+
+Array.from(thumbnails).forEach(function(thumbnail) {
+    thumbnail.addEventListener("click", function() {
+        mainImg.src = this.src;
+    });
+});

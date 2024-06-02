@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="../css/header.css">
 
 
-</head> 
+</head>
 
 <body>
 
@@ -52,10 +52,10 @@
       <h2 class="order-title">OS SEUS PRODUTOS</h2>
       <span class="order-icon"><img src="images/sacola.svg" alt=""> Pedidos</span>
       @if($pedidos->isEmpty())
-            <p class="noOrders">Ainda não foram realizadas encomendas.</p>
-        @else
-            <a class="viewOrders" href="/orderList">Aperte aqui para ver suas encomendas!</a>
-        @endif
+      <p class="noOrders">Ainda não foram realizadas encomendas.</p>
+      @else
+      <a class="viewOrders" href="/orderList">Aperte aqui para ver suas encomendas!</a>
+      @endif
     </div>
 
     <div class="account-section">
@@ -69,16 +69,19 @@
     </div>
   </main>
 
+
   <footer>
+
     <!--Receba promoções banner-->
     <div id="news-and-promotions-banner" class="container-fluid">
       <div class="row h-100 d-flex align-items-center justify-content-center">
+
         <div class="col col-4 fs-3 text-light fw-semibold">RECEBA PROMOÇÕES E NOVIDADES!</div>
 
         <div class="col col-4 d-flex justify-content-evenly">
           <input type="email" class="form-control text-us-input" placeholder="Seu nome">
           <input type="email" class="form-control text-us-input" placeholder="E-mail">
-          <button type="button" class="btn btn-dark px-4">Enviar</button>
+          <button type="button" class="btn btn px-4" style="background-color: #F9A80C; color:white;">Enviar</button>
         </div>
       </div>
     </div>
@@ -87,30 +90,29 @@
       <div class="row d-flex justify-content-center">
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Institucional</h3>
-          <p>Sobre a marca</p>
-          <p>Trocas e devoluções</p>
-          <p>Políticas de privacidade</p>
-          <p>Dúvidas frequentes</p>
+          <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3">Sobre a marca</a>
+          <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3">Trocas e Devoluções</a>
+          <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3">Políticas de privacidade</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
-          <p>Minha conta</p>
-          <p>Meu carrinho</p>
-          <p>Meus pedidos</p>
+          <a href="/profile" class="link-footer mb-3">Minha conta</a>
+          <a href="/profile" class="link-footer mb-3">Meu Carrinho</a>
+          <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
           <div class="d-flex justify-content-start mb-4">
             <img src="{{ asset('images/facebook.png') }}" class="footer-icon-resize me-2" alt="Icone Facebook">
-            <p class="m-0">@lojafoxbrinquedos</p>
+            <a href="https://www.facebook.com/?locale=pt_BR" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
           </div>
 
           <div class="d-flex justify-content-start">
             <img src="{{ asset('images/instagram.png') }}" class="footer-icon-resize me-2" alt="Icone Instagram">
-            <p class="m-0">@lojafoxbrinquedos</p>
+            <a href="https://www.instagram.com" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
           </div>
         </div>
-        <div class="col col-2 footer-column">
+        <div class="col col-2 footer-column d-flex flex-column align-items-center">
           <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
           <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
         </div>
@@ -118,20 +120,21 @@
     </div>
 
     <hr>
+
     <div id="copyright-footer" class="container-fluid d-flex mb-3 mt-3 justify-content-between align-items-center">
       <a href="#">
         <img src="{{ asset('images/fox.png') }}" alt="Logo Fox" class="object-fit-contain ms-3" width="65px">
       </a>
+
       <i>
         <p>Fox Store © 2024 - Todos os direitos reservados</p>
       </i>
-      
-      <a href="#"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
+
+      <a href="https://wa.me/+5511944880786" target="_blank"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
       </a>
     </div>
 
   </footer>
-
 
   <script src="{{ asset('js/script.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

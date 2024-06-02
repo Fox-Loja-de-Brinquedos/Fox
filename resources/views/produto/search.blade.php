@@ -72,12 +72,25 @@
                     @endif
 
                 </div>
+                @if($qtdItensCarinho != 0)
+                <div class="col-2">
+                    <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text position-relative">
+                        <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+                        Meu Carrinho
+                        <p id="qty-products-cart">
+                            {{ $qtdItensCarinho }}
+                        </p>
+                    </a>
+
+                </div>
+                @else
                 <div class="col-2">
                     <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
                         <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
                         Meu Carrinho
                     </a>
                 </div>
+                @endif
             </div>
         </div>
 
@@ -89,28 +102,28 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="categories-menu navbar-nav mx-auto">
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Bonecas</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="nav-link nav-link-uppercase">Bonecas</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Veículos</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}" class="nav-link nav-link-uppercase">Veículos</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Pelúcias</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}" class="nav-link nav-link-uppercase">Pelúcias</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Jogos de cartas</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}" class="nav-link nav-link-uppercase">Jogos de cartas</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Tabuleiros</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}" class="nav-link nav-link-uppercase">Tabuleiros</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Eletrônicos</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}" class="nav-link nav-link-uppercase">Eletrônicos</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <button class="nav-link nav-link-uppercase searchOption">Outros brinquedos</button>
+                                    <a href="{{ route('produto.search' , ['search' => '%']) }}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
+                                    <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos" href='#lancamentos'>Lançamentos</a>
                                 </li>
                                 <li class="nav-item custom-nav-item">
                                     <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
@@ -122,8 +135,6 @@
             </div>
         </div>
     </header>
-
-
 
     <!--Container Filtros e Listagem de Produtos-->
     <div class="container-fluid d-flex justify-content-around mt-5 user-select-none">
@@ -437,20 +448,20 @@
                 </div>
                 <div class="col col-2 d-flex flex-column footer-column">
                     <h3 class="fs-5 text-uppercase">Loja</h3>
-                    <p>Minha conta</p>
-                    <p>Meu carrinho</p>
-                    <p>Meus pedidos</p>
+                    <a href="/profile" class="link-footer mb-3">Minha conta</a>
+                    <a href="/profile" class="link-footer mb-3">Meu Carrinho</a>
+                    <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
                 </div>
                 <div class="col col-2 d-flex flex-column footer-column">
                     <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
                     <div class="d-flex justify-content-start mb-4">
                         <img src="{{ asset('images/facebook.png') }}" class="footer-icon-resize me-2" alt="Icone Facebook">
-                        <p class="m-0">@lojafoxbrinquedos</p>
+                        <a href="https://www.facebook.com/?locale=pt_BR" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
                     </div>
 
                     <div class="d-flex justify-content-start">
                         <img src="{{ asset('images/instagram.png') }}" class="footer-icon-resize me-2" alt="Icone Instagram">
-                        <p class="m-0">@lojafoxbrinquedos</p>
+                        <a href="https://www.instagram.com" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
                     </div>
                 </div>
                 <div class="col col-2 footer-column">

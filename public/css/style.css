@@ -142,6 +142,20 @@ a {
   height: 3vw;
 }
 
+#qty-products-cart {
+  color: white;
+  position: absolute;
+  right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 360px;
+  padding: 8px;
+  background-color: #FFA500;
+}
+
 
 /* RICARDO */
 
@@ -217,7 +231,7 @@ a {
 
 /*Navegação por Categoria*/
 
-.category-container{
+.category-container {
   padding: 2rem;
   background-color: #f8f8f8;
 }
@@ -258,8 +272,8 @@ a {
 
 .category-description {
   position: absolute;
-  left: 55;  
-  bottom: -60px;  
+  left: 55;
+  bottom: -60px;
 }
 
 .swiper-wrapper-category {
@@ -368,68 +382,90 @@ body {
   background-color: white;
 }
 
+.container-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
 .container.single-product {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr); /* Aumenta colunas */
-  grid-template-rows: repeat(1, 1fr);/* Aumenta linhas */
-  background-color: white;
-  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 20px 0;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
 }
 
-.card-image {
-  grid-column: 3/ span 3; 
-  grid-row: 1/ span 2;
-  margin-top: 35%;
+.main-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  flex: 1;
+  min-width: 300px;
+  margin-right: 50px;
 }
 
-.view-information {
-  background-color: white;
-  grid-column: 7/11;
-  grid-row: 1 / span 1;
-  margin-top: 25%;
-  max-width: 500px;
+.main-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  height: 450px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-
-.card-image img {
-    max-width: 100%;
-    height: auto;
-    margin-top: 5%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+.main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .product-images {
+  justify-content: center;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-self: flex-start;
+  margin-left: 50px;
+  height: 200px;
 }
-
-#main-image {
-  width: 500px;
-  height: 5 0px;
-  object-fit: cover; 
-}
-
 
 .thumbnail-carousel {
   display: flex;
 }
 
 .thumbnail {
-  width: 70px; 
-  height: 70px; 
-  margin: 0 5px;
+  max-width: 100px;
+  max-height: 100px;
+  min-width: 100px;
+  min-height: 100px;
+  margin: 0 7px;
   cursor: pointer;
-  max-width: 100%; 
-  max-height: 100%; 
+  border: 2px solid transparent;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  object-fit: contain;
+}
+
+.view-information {
+  background-color: white;
+  max-width: 500px;
+  margin-left: 20px;
+  flex: 1;
+  min-width: 300px;
 }
 
 .btn-add-to-cart {
   width: 100%;
   padding: 15px;
   font-size: 18px;
-  background-color: #FFA500; 
-  color: white; 
+  background-color: #FFA500;
+  color: white;
   border: 2px solid transparent;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -464,7 +500,6 @@ body {
   justify-content: center;
 }
 
-
 #cookie-popup {
   align-items: center;
   text-align: left;
@@ -482,13 +517,12 @@ body {
   font-size: 17px;
 }
 
-
 @media (max-width: 768px) {
   #cookie-popup {
     max-width: 90%;
     font-size: 14px;
   }
-  
+
   .accept-cookies-btn {
     padding: 8px 16px;
     font-size: 14px;
@@ -497,16 +531,16 @@ body {
 
 .link-footer {
   text-decoration: none;
-  color:black;
- }
+  color: black;
+}
 
- #freteResult {
+#freteResult {
   font-size: 16px;
   color: #6C757D;
   margin-top: 10px;
 }
 
- /*fim da parte tafinha*/
+/*fim da parte tafinha*/
 
 
 /* Pesquisa de produto */

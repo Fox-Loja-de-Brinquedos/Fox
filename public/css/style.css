@@ -126,6 +126,10 @@ a {
   font-size: 12px;
 }
 
+.btn-login {
+  border: none !important;
+}
+
 .btn-login img,
 .btn-cart img {
   width: 18px;

@@ -78,18 +78,14 @@
                                 <div class="row">
                                     <div class="col-3">
                                         <input type="hidden" name="ENDERECO_ID" value="{{ $endereco->ENDERECO_ID }}">
+                                        <input type="hidden" name="ENDERECO_NOME" value="{{ $endereco->ENDERECO_NOME }}">
                                         <label for="cepInput">CEP
                                             <input type="text" name="ENDERECO_CEP" id="cepInput" class="input-1-1" value="{{ $endereco->ENDERECO_CEP }}" placeholder="00000-000" maxlength="9">
                                         </label>
                                     </div>
-                                    <div class="col-2">
-                                        <label for="ENDERECO_LOGRADOURO">Logradouro
+                                    <div class="col-7">
+                                        <label for="ENDERECO_LOGRADOURO">Endereço
                                             <input type="text" name="ENDERECO_LOGRADOURO" id="ENDERECO_LOGRADOURO" class="input-1-1" value="{{ $endereco->ENDERECO_LOGRADOURO }}">
-                                        </label>
-                                    </div>
-                                    <div class="col-5">
-                                        <label for="ENDERECO_NOME">Endereço
-                                            <input type="text" name="ENDERECO_NOME" id="ENDERECO_NOME" class="input-1-1" value="{{ $endereco->ENDERECO_NOME }}">
                                         </label>
                                     </div>
                                     <div class="col-2">
@@ -121,19 +117,15 @@
                                 <!-- CRIAR NOVO ENDEREÇO -->
 
                                 <div class="row">
+                                    <input type="hidden" name="ENDERECO_NOME" value="Principal">
                                     <div class="col-3">
                                         <label for="ENDERECO_CEP">CEP
                                             <input type="text" name="ENDERECO_CEP" id="cepInput" class="input-1-1">
                                         </label>
                                     </div>
-                                    <div class="col-2">
-                                        <label for="ENDERECO_LOGRADOURO">Logradouro
-                                            <input type="text" name="ENDERECO_LOGRADOURO" id="ENDERECO_LOGRADOURO" class="input-1-1" placeholder="Rua, Av. ...">
-                                        </label>
-                                    </div>
-                                    <div class="col-5">
-                                        <label for="ENDERECO_NOME">Endereço
-                                            <input type="text" name="ENDERECO_NOME" id="ENDERECO_NOME" class="input-1-1">
+                                    <div class="col-7">
+                                        <label for="ENDERECO_LOGRADOURO">Endereço
+                                            <input type="text" name="ENDERECO_LOGRADOURO" id="ENDERECO_LOGRADOURO" class="input-1-1">
                                         </label>
                                     </div>
                                     <div class="col-2">

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\Carrinho;
 use App\Models\Categoria;
+use App\Models\Produto_Estoque;
 use Illuminate\Support\Facades\DB;
 
 class produtoController extends Controller
@@ -17,13 +18,15 @@ class produtoController extends Controller
             ->whereRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) > 0');
 
         // Últimos produtos cadastrados
-        $produtoLancamentos = (clone $queryBase)->orderBy('PRODUTO_ID', 'desc')
+        $produtoLancamentos = (clone $queryBase)
+            ->latest('PRODUTO_ID')
             ->take(12)
             ->get();
 
         // Produtos em oferta
-        $produtoOfertas = (clone $queryBase)->where('PRODUTO_DESCONTO', '>', 0)
-            ->orderBy('PRODUTO_DESCONTO', 'desc')
+        $produtoOfertas = (clone $queryBase)
+            ->where('PRODUTO_DESCONTO', '>', 0)
+            ->orderByDesc('PRODUTO_DESCONTO')
             ->take(12)
             ->get();
 
@@ -44,7 +47,7 @@ class produtoController extends Controller
             ->limit(12)
             ->get();
 
-        //Usuário ativo
+        // Usuário ativo
         $usuarioId = auth()->id();
 
         // Conta o número de produtos diferentes no carrinho do usuário logado onde a quantidade do item é maior que 0
@@ -60,6 +63,7 @@ class produtoController extends Controller
             'qtdItensCarinho' => $qtdItensCarinho
         ]);
     }
+
 
     public function search(Request $request)
     {
@@ -225,7 +229,16 @@ class produtoController extends Controller
             ->orderByDesc('TOTAL_VENDIDO')
             ->limit(12)
             ->get();
-            
-        return view('produto.show', ['produto' => $produto, 'produtoMaisVendidos' => $produtoMaisVendidos]);
+
+        //Usuário ativo
+        $usuarioId = auth()->id();
+
+        // Conta o número de produtos diferentes no carrinho do usuário logado onde a quantidade do item é maior que 0
+        $qtdItensCarinho = Carrinho::where('USUARIO_ID', $usuarioId)
+            ->where('ITEM_QTD', '>', 0)
+            ->distinct('PRODUTO_ID')
+            ->count('PRODUTO_ID');
+
+        return view('produto.show', ['produto' => $produto, 'produtoMaisVendidos' => $produtoMaisVendidos, 'qtdItensCarinho' => $qtdItensCarinho]);
     }
 }

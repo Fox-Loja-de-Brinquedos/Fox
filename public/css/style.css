@@ -178,6 +178,14 @@ a {
   min-height: 396px;
 }
 
+.product-card span, h5, p{
+  cursor: pointer;
+}
+
+.product-card span img{
+  filter:grayscale(1);
+}
+
 .card-body {
   display: flex;
   flex-direction: column;
@@ -199,12 +207,20 @@ a {
   max-height: 3.6em;
 }
 
-
 .add-to-cart-box {
   width: 100%;
   background-color: #F9A80C;
   color: white;
   border: 2px solid #F9A80C;
+  transition: 0.2s;
+  border-radius: 7px;
+}
+
+.add-to-cart-box-out-of-stock {
+  width: 100%;
+  background-color: #999999;
+  color: white;
+  border: 2px solid #999999;
   transition: 0.2s;
   border-radius: 7px;
 }

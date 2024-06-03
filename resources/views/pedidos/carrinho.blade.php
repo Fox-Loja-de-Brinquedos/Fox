@@ -173,7 +173,7 @@
               <label for="cupom">
                 Cupom de desconto
                 <div class="mt-1 mb-2 d-flex justify-content-between">
-                  <input type="text" id="cupom">
+                  <input type="text" id="cupom" placeholder="Digite seu cupom">
                   <button class="btn-calculate">Aplicar</button>
                 </div>
               </label>

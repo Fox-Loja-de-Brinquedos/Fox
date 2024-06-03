@@ -217,7 +217,7 @@
             <div class="view-information ms-5 mt-5">
                 <h2 class="fs-2 text-left text-purple" style="color:#000000;">{{ $produto->PRODUTO_NOME }}</h2>
                 @if($produto->PRODUTO_DESCONTO > 0)
-                <p class="mt-3 mb-3" style="color:#595959; font-size: 20px; color:#595959">DE: R$ <span class="span-1 fs-5">{{ number_format(($produto->PRODUTO_PRECO), 2, ',', '.') }}</span></p>
+                <p class="mt-3 mb-3  fw-semibold" style="font-size: 20px; color:#595959">DE: R$ <span class="span-1 fs-5">{{ number_format(($produto->PRODUTO_PRECO), 2, ',', '.') }}</span></p>
                 @endif
                 <p class=" mb-3" style="color:#FFA500; font-size: 27px">POR: R$ {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
                 @if($produto->PRODUTO_DESCONTO > 0)

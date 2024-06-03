@@ -48,24 +48,32 @@
     <div class="container">
 
       <!-- Linha do Logo, Barra de Pesquisa e Botões -->
-      <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center" style="position: relative;">
-        <div class="col-1" style="position: absolute; top: -45px">
-          <a href="{{ route('produto.index') }}">
+      <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center position-relative">
+
+        <!-- Logotipo -->
+        <div class="col-6 col-md-1 col-lg-1">
+          <a href="{{ route('produto.index') }}" class="header-logo">
             <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
           </a>
         </div>
-        <div class="col-6" style="margin-left: 120px;">
-          <form class="form-inline" action="{{ route('produto.search') }}" method="GET">
-            <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;">
+
+        <!-- Barra de pesquisa -->
+        <div class="col-4 col-xxl-6 d-none d-lg-block">
+          <form class="form-inline " action="{{ route('produto.search') }}" method="GET">
+            <input class="form-control mr-2 searchbar d-inline-block" name="search" type="text" placeholder="Pesquisar produto...">
             <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
           </form>
         </div>
-        <div class="col-2">
+
+        <!-- Botão minha conta -->
+        <div class="col-2 col-md-5 col-lg-3 col-xxl-2 text-end px-0 px-md-1">
           @if( Auth::user())
           <div class="dropdown">
-            <a class="btn dropdown-toggle text-uppercase fw-bold btn-login d-flex align-items-center nav-text" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="btn p-0 p-md-1 dropdown-toggle text-uppercase fw-bold btn-login d-flex align-items-center nav-text justify-content-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
-              Olá, {{ Auth::user()->USUARIO_NOME }}
+              <span class="d-none d-md-inline-block">
+                Olá, {{ Auth::user()->USUARIO_NOME }}
+              </span>
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{{ route('profile') }}">Minha conta</a></li>
@@ -76,41 +84,79 @@
             </ul>
           </div>
           @else
-          <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+          <a href="/profile" class="btn p-0 p-md-1 text-uppercase fw-bold btn-login d-flex align-items-center nav-text justify-content-end">
             <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
-            Entrar /
-            Cadastrar
+            <span class="d-none d-md-inline-block">
+              Entrar /
+              Cadastrar
+            </span>
           </a>
           @endif
-
         </div>
-        @if($qtdItensCarinho != 0)
-        <div class="col-2">
-        <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text position-relative">
-            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
-            Meu Carrinho
-            <p id="qty-products-cart">
-                {{ $qtdItensCarinho }}
-            </p>
-        </a>
 
-        </div>
-        @else
-        <div class="col-2">
-          <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
-            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
-            Meu Carrinho
-            <p id="qty-products-cart">
-                {{ $qtdItensCarinho }}
-            </p>
+        <!-- Botão carrinho -->
+        <div class="col-2 col-md-4 col-lg-3 col-xxl-2">
+          <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text justify-content-end">
+              <div class="d-inline-block position-relative">
+                <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+                <p id="qty-products-cart">
+                    {{ $qtdItensCarinho }}
+                </p>
+              </div>
+              <span class="ps-3 d-none d-md-inline-block">
+                Meu Carrinho
+              </span>
           </a>
         </div>
-        @endif
+
+        <!-- Navbar para mobile -->
+        <div class="col-2 d-lg-none">
+          <nav class="navbar">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li>
+                        <hr class="dropdown-divider">
+                      </li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <form class="d-flex mt-3" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+        </div>
       </div>
+      
     </div>
 
     <!-- Linha da Navegação -->
-    <div class="container">
+    <div class="container d-none d-lg-block">
       <div class="row">
         <div class="col-12 text-center">
           <nav class="navbar navbar-expand-lg navbar-light">
@@ -534,7 +580,7 @@
   <div class="container mt-5 mb-5">
     <div class="row">
       <div class="col-12 text-center">
-        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}"><img src="{{ asset('images/banner-color-kids.png') }}" alt=""></a>
+        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}"><img src="{{ asset('images/banner-color-kids.png') }}" class="img-fluid" alt=""></a>
       </div>
     </div>
   </div>

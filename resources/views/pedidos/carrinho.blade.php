@@ -19,12 +19,12 @@
   <div class="container-fluid checkout-container-header">
     <header class="container py-4">
       <div class="row">
-        <div class="col-3">
+        <div class="col-12 col-md-3 text-center text-md-start mb-3 mb-md-0">
           <a href="/">
             <img src="{{ asset('images/logo-fox-carrinho.png') }}" alt="Logo" class="img-fluid">
           </a>
         </div>
-        <div class="col-6 d-flex align-content-center flex-wrap">
+        <div class="col-12 col-md-6 d-flex align-content-center flex-wrap">
           <div class="w-100">
             <div class="steps-line"></div>
             <div class="steps-btns d-flex justify-content-between">
@@ -49,7 +49,7 @@
             </div>
           </div>
         </div>
-        <div class="col-3 text-end">
+        <div class="d-none d-md-block col-12 col-md-3 text-end">
           <img src="{{ asset('images/icone-seguro.png') }}">
         </div>
       </div>
@@ -62,92 +62,94 @@
 
         @if($itens->count()>0)  
 
-        <div class="col-8">
+        <div class="col-12 col-xl-8">
           <div class="bg-white px-4 pt-4 pb-2 container-box">
 
-            <table class="table cart-table">
-              <thead>
-                <tr>
-                  <th class="product-thumbnail"></th>
-                  <th class="product-name">Produto</th>
-                  <th class="product-price">Preço</th>
-                  <th class="product-quantity">Quantidade</th>
-                  <th class="product-subtotal">Subtotal</th>
-                  <th class="product-remove"></th>
-                </tr>
-              </thead>
+            <div class="table-responsive">
+              <table class="table cart-table">
+                <thead>
+                  <tr>
+                    <th class="product-thumbnail"></th>
+                    <th class="product-name">Produto</th>
+                    <th class="product-price">Preço</th>
+                    <th class="product-quantity">Quantidade</th>
+                    <th class="product-subtotal">Subtotal</th>
+                    <th class="product-remove"></th>
+                  </tr>
+                </thead>
 
-              
-              <tbody>
-                @php
-                  $subtotal = 0;
-                @endphp
+                
+                <tbody>
+                  @php
+                    $subtotal = 0;
+                  @endphp
 
-                @foreach($itens as $item)
-                <tr id="item-row-{{ $item->PRODUTO_ID }}">
-                  <td class="product-thumbnail d-flex justify-content-center">
-                    @if($item->produto->imagens->isNotEmpty())
-                    <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="{{ $item->produto->PRODUTO_NOME }}" style="min-height: 70px; max-height: 70px; object-fit: contain;">
-                    @else
-                    <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" alt="Produto sem imagem"
-                    style="min-height: 70px; max-height: 70px; object-fit: contain;">
-                    @endif
+                  @foreach($itens as $item)
+                  <tr id="item-row-{{ $item->PRODUTO_ID }}">
+                    <td class="product-thumbnail d-flex justify-content-center">
+                      @if($item->produto->imagens->isNotEmpty())
+                      <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}" alt="{{ $item->produto->PRODUTO_NOME }}" style="min-height: 70px; max-height: 70px; object-fit: contain;">
+                      @else
+                      <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" alt="Produto sem imagem"
+                      style="min-height: 70px; max-height: 70px; object-fit: contain;">
+                      @endif
+                    </td>
+                    <td class="product-name">{{ $item->produto->PRODUTO_NOME }}</td>
+                    <td class="product-price text-nowrap">R$
+                      {{ number_format($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO, 2, ',', '.') }}
+                    </td>
+
+                    <td class="product-quantity">
+                    <div class="quantity d-flex align-items-center my-1">
+
+                      <!-- formulario para diminuir quantidade de produto -->
+                      <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline-block plus-btn-form">
+                        @csrf
+                        <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
+                        <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
+                        <input type="hidden" name="ITEM_QTD" id="decrement-{{ $item->PRODUTO_ID }}" value="{{ $item->ITEM_QTD - 1 }}">
+                        <button type="submit" class="minus-btn btn btn-sm mr-1" {{ $item->ITEM_QTD <= 1 ? 'disabled' : '' }}>-</button>
+                      </form>
+
+                      <!-- mostrar valor que esta no input -->
+                      <input type="text" id="item-qtd-{{ $item->PRODUTO_ID }}" name="item_qtd" class="form-control text-center mx-1 item-qtd-input" value="{{ $item->ITEM_QTD }}" readonly>
+
+                      <!-- formulario para aumentar quantidade de produto -->
+                      <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline-block plus-btn-form">
+                        @csrf
+                        <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
+                        <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
+                        <input type="hidden" name="ITEM_QTD" id="increment-{{ $item->PRODUTO_ID }}" value="{{ $item->ITEM_QTD + 1 }}">
+                        <button type="submit" class="plus-btn btn btn-sm ml-1">+</button>
+                      </form>
+                    </div>
                   </td>
-                  <td class="product-name">{{ $item->produto->PRODUTO_NOME }}</td>
-                  <td class="product-price text-nowrap">R$
-                    {{ number_format($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO, 2, ',', '.') }}
-                  </td>
 
-                  <td class="product-quantity">
-                  <div class="quantity d-flex align-items-center my-1">
+                    <td class="product-subtotal text-nowrap">R$
+                      {{ number_format(($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO) * $item->ITEM_QTD, 2, ',', '.') }}
+                    </td>
+                    
+                    <td class="product-remove">
+                      <form action="{{ route('carrinho.removerItem') }}" method="POST" class="removerCarrinho">
+                        @csrf
+                        <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
+                        <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
+                        <button type="submit" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                          </svg>
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
 
-                    <!-- formulario para diminuir quantidade de produto -->
-                    <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline-block plus-btn-form">
-                      @csrf
-                      <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
-                      <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
-                      <input type="hidden" name="ITEM_QTD" id="decrement-{{ $item->PRODUTO_ID }}" value="{{ $item->ITEM_QTD - 1 }}">
-                      <button type="submit" class="minus-btn btn btn-sm mr-1" {{ $item->ITEM_QTD <= 1 ? 'disabled' : '' }}>-</button>
-                    </form>
+                  @php
+                    $subtotal += ($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO) * $item->ITEM_QTD;
+                  @endphp
 
-                    <!-- mostrar valor que esta no input -->
-                    <input type="text" id="item-qtd-{{ $item->PRODUTO_ID }}" name="item_qtd" class="form-control text-center mx-1 item-qtd-input" value="{{ $item->ITEM_QTD }}" readonly>
-
-                    <!-- formulario para aumentar quantidade de produto -->
-                    <form action="{{ route('carrinho.atualizarItem') }}" method="POST" class="d-inline-block plus-btn-form">
-                      @csrf
-                      <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
-                      <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
-                      <input type="hidden" name="ITEM_QTD" id="increment-{{ $item->PRODUTO_ID }}" value="{{ $item->ITEM_QTD + 1 }}">
-                      <button type="submit" class="plus-btn btn btn-sm ml-1">+</button>
-                    </form>
-                  </div>
-                </td>
-
-                  <td class="product-subtotal text-nowrap">R$
-                    {{ number_format(($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO) * $item->ITEM_QTD, 2, ',', '.') }}
-                  </td>
-                  
-                  <td class="product-remove">
-                    <form action="{{ route('carrinho.removerItem') }}" method="POST" class="removerCarrinho">
-                      @csrf
-                      <input type="hidden" name="USUARIO_ID" value="{{ $item->USUARIO_ID }}">
-                      <input type="hidden" name="PRODUTO_ID" value="{{ $item->PRODUTO_ID }}">
-                      <button type="submit" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                        </svg>
-                      </button>
-                    </form>
-                  </td>
-                </tr>
-
-                @php
-                  $subtotal += ($item->produto->PRODUTO_PRECO - $item->produto->PRODUTO_DESCONTO) * $item->ITEM_QTD;
-                @endphp
-
-                @endforeach
-              </tbody>
-            </table>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="bg-white p-4 mt-5 container-box">
@@ -165,7 +167,7 @@
           </div>
 
         </div>
-        <div class="col-4">
+        <div class="col-12 col-xl-4 mt-5 mt-xl-0">
           <div class="bg-white py-4 container-box">
             <div class="cupom-area px-4 pb-2">
               <label for="cupom">

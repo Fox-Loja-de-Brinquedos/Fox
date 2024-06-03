@@ -13,12 +13,12 @@
     <div class="container-fluid checkout-container-header">
         <header class="container py-4">
             <div class="row">
-                <div class="col-3">
+                <div class="col-12 col-md-3 text-center text-md-start mb-3 mb-md-0">
                     <a href="/">
                         <img src="{{ asset('images/logo-fox-carrinho.png') }}" alt="Logo" class="img-fluid">
                     </a>
                 </div>
-                <div class="col-6 d-flex align-content-center flex-wrap">
+                <div class="col-12 col-md-6 d-flex align-content-center flex-wrap">
                     <div class="w-100">
                         <div class="steps-line"></div>
                         <div class="steps-btns d-flex justify-content-between">
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 text-end">
+                <div class="d-none d-md-block col-12 col-md-3 text-end">
                     <img src="{{ asset('images/icone-seguro.png') }}">
                 </div>
             </div>
@@ -57,7 +57,7 @@
     <div class="container-fluid checkout-container-body">
         <div class="container mt-5">
             <div class="row gx-5">
-                <div class="col-7">
+                <div class="col-12 col-xl-7">
                     <form action="{{ route('pedido.finalizar') }}" method="POST">
                         <input type="hidden" name="ENDERECO_ID" value="{{ $endereco->ENDERECO_ID }}">
                         @csrf
@@ -73,11 +73,19 @@
                                         <p class="text-secondary">O Boleto bancário será exibido após a confirmação da compra e poderá ser pago em qualquer agência bancária, pelo seu smartphone ou computador através de serviços digitais de bancos.</p>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn mx-auto d-block" href="{{ route('checkout.entrega') }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" />
-                            </svg> Voltar ao passo anterior</a>
-                                    <button class="pedido-btn mx-auto d-block" type="submit">Finalizar Pedido</button>
+
+                                <div class="mt-3">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6 d-flex align-items-center mb-2 mb-lg-0">
+                                            <a class="btn mx-auto d-block" href="{{ route('checkout.entrega') }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" /></svg> 
+                                                Voltar ao passo anterior
+                                            </a>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <button class="pedido-btn mx-auto d-block" type="submit">Finalizar Pedido</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                             </div>
@@ -85,7 +93,7 @@
                     </form>
                 </div>
 
-                <div class="col-5">
+                <div class="col-12 col-xl-5 mt-5 mt-xl-0">
                     <div class="bg-white pt-4 pb-1 container-box">
                         <h3 class="px-4">Resumo da compra</h3>
                         <table class="table">

@@ -13,12 +13,12 @@
   <div class="container-fluid checkout-container-header">
     <header class="container py-4">
       <div class="row">
-        <div class="col-3">
+        <div class="col-12 col-md-3 text-center text-md-start mb-3 mb-md-0">
           <a href="/">
             <img src="{{ asset('images/logo-fox-carrinho.png') }}" alt="Logo" class="img-fluid">
           </a>
         </div>
-        <div class="col-6 d-flex align-content-center flex-wrap">
+        <div class="col-12 col-md-6 d-flex align-content-center flex-wrap">
           <div class="w-100">
             <div class="steps-line"></div>
             <div class="steps-btns d-flex justify-content-between">
@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="col-3 text-end">
+        <div class="d-none d-md-block col-12 col-md-3 text-end">
           <img src="{{ asset('images/icone-seguro.png') }}">
         </div>
       </div>
@@ -52,9 +52,9 @@
     <div class="container mt-5">
       <div class="row gx-5  d-flex justify-content-center">
 
-        <div class="col-8">
+        <div class="col-12 col-md-8">
           <div class="container-box-pedido-realizado text-center">
-            <h3 class="px-4">Seu pedido foi realizado com sucesso!</h3>
+            <h3 class="px-2 px-md-4">Seu pedido foi realizado com sucesso!</h3>
             <p>Em breve voce receberá um email com os detalhes do pedido.</p>
             <span class="info-box"><img src="{{asset('images/icone-pedido-realizado.png')}}" alt="">Pagamento Aprovado</span>
           </div>

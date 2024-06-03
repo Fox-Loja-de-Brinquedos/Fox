@@ -13,12 +13,12 @@
     <div class="container-fluid checkout-container-header">
         <header class="container py-4">
             <div class="row">
-                <div class="col-3">
+                <div class="col-12 col-md-3 text-center text-md-start mb-3 mb-md-0">
                     <a href="/">
                         <img src="{{ asset('images/logo-fox-carrinho.png') }}" alt="Logo" class="img-fluid">
                     </a>
                 </div>
-                <div class="col-6 d-flex align-content-center flex-wrap">
+                <div class="col-12 col-md-6 d-flex align-content-center flex-wrap">
                     <div class="w-100">
                         <div class="steps-line"></div>
                         <div class="steps-btns d-flex justify-content-between">
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 text-end">
+                <div class="d-none d-md-block col-12 col-md-3 text-end">
                     <img src="{{ asset('images/icone-seguro.png') }}">
                 </div>
             </div>
@@ -55,7 +55,7 @@
     <div class="container-fluid checkout-container-body">
         <div class="container mt-5">
             <div class="row gx-5">
-                <div class="col-7">
+                <div class="col-12 col-xl-7">
 
                     @if($endereco)
                     <form action="{{ route('checkout.entrega.atualizarendereco', $endereco->ENDERECO_ID) }}" method="POST">
@@ -76,36 +76,36 @@
                                 <!-- ATUALIZAR ENDEREÇO -->
 
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-6 col-md-3">
                                         <input type="hidden" name="ENDERECO_ID" value="{{ $endereco->ENDERECO_ID }}">
                                         <input type="hidden" name="ENDERECO_NOME" value="{{ $endereco->ENDERECO_NOME }}">
                                         <label for="cepInput">CEP
                                             <input type="text" name="ENDERECO_CEP" id="cepInput" class="input-1-1" value="{{ $endereco->ENDERECO_CEP }}" placeholder="00000-000" maxlength="9">
                                         </label>
                                     </div>
-                                    <div class="col-7">
+                                    <div class="col-9 col-md-7">
                                         <label for="ENDERECO_LOGRADOURO">Endereço
                                             <input type="text" name="ENDERECO_LOGRADOURO" id="ENDERECO_LOGRADOURO" class="input-1-1" value="{{ $endereco->ENDERECO_LOGRADOURO }}">
                                         </label>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-3 col-md-2">
                                         <label for="ENDERECO_NUMERO">Número
                                             <input type="number" name="ENDERECO_NUMERO" id="ENDERECO_NUMERO" class="input-1-1" value="{{ $endereco->ENDERECO_NUMERO }}">
                                         </label>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-12 col-md-6">
                                         <label for="ENDERECO_COMPLEMENTO">Complemento
                                             <input type="text" name="ENDERECO_COMPLEMENTO" id="ENDERECO_COMPLEMENTO" class="input-1-1" value="{{ $endereco->ENDERECO_COMPLEMENTO }}">
                                         </label>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-9 col-md-4">
                                         <label for="ENDERECO_CIDADE">Cidade
                                             <input type="text" name="ENDERECO_CIDADE" id="ENDERECO_CIDADE" class="input-1-1" value="{{ $endereco->ENDERECO_CIDADE }}">
                                         </label>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-3 col-md-2">
                                         <label for="ENDERECO_ESTADO">Estado
                                             <input type="text" name="ENDERECO_ESTADO" id="ENDERECO_ESTADO" class="input-1-1" value="{{ $endereco->ENDERECO_ESTADO }}">
                                         </label>
@@ -118,34 +118,34 @@
 
                                 <div class="row">
                                     <input type="hidden" name="ENDERECO_NOME" value="Principal">
-                                    <div class="col-3">
+                                    <div class="col-6 col-md-3">
                                         <label for="ENDERECO_CEP">CEP
                                             <input type="text" name="ENDERECO_CEP" id="cepInput" class="input-1-1">
                                         </label>
                                     </div>
-                                    <div class="col-7">
+                                    <div class="col-9 col-md-7">
                                         <label for="ENDERECO_LOGRADOURO">Endereço
                                             <input type="text" name="ENDERECO_LOGRADOURO" id="ENDERECO_LOGRADOURO" class="input-1-1">
                                         </label>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-3 col-md-2">
                                         <label for="ENDERECO_NUMERO">Número
                                             <input type="number" name="ENDERECO_NUMERO" id="ENDERECO_NUMERO" class="input-1-1">
                                         </label>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-12 col-md-6">
                                         <label for="ENDERECO_COMPLEMENTO">Complemento
                                             <input type="text" name="ENDERECO_COMPLEMENTO" id="ENDERECO_COMPLEMENTO" class="input-1-1">
                                         </label>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-9 col-md-4">
                                         <label for="ENDERECO_CIDADE">Cidade
                                             <input type="text" name="ENDERECO_CIDADE" id="ENDERECO_CIDADE" class="input-1-1">
                                         </label>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-3 col-md-2">
                                         <label for="ENDERECO_ESTADO">Estado
                                             <input type="text" name="ENDERECO_ESTADO" id="ENDERECO_ESTADO" class="input-1-1">
                                         </label>
@@ -154,12 +154,18 @@
 
                                 @endif
 
-                                <div class="d-flex justify-content-between mt-3">
-                                    <a class="btn mx-auto d-block" type="button" href="{{ route('checkout.dadospessoais') }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" /></svg> 
-                                        Voltar ao passo anterior
-                                    </a>
-                                    <button class="pedido-btn mx-auto d-block" type="submit">Prosseguir para o pagamento</button>
+                                <div class="mt-3">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6 d-flex align-items-center mb-2 mb-lg-0">
+                                            <a class="btn mx-auto d-block" href="{{ route('checkout.dadospessoais') }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" /></svg> 
+                                                Voltar ao passo anterior
+                                            </a>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <button class="pedido-btn mx-auto d-block" type="submit">Prosseguir para o pagamento</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -167,7 +173,7 @@
                     </form>
                 </div>
 
-                <div class="col-5">
+                <div class="col-12 col-xl-5 mt-5 mt-xl-0">
                     <div class="bg-white pt-4 pb-1 container-box">
                         <h3 class="px-4">Resumo da compra</h3>
                         <table class="table">

@@ -76,8 +76,8 @@
 
   <form class="address-form" action="{{ route('address.store') }}" method="POST">
     @csrf
-    <input class="address-form-item formName" type="text" placeholder="Nome" name="ENDERECO_NOME" required> 
     <input class="address-form-item formLog" type="text" placeholder="Logradouro" name="ENDERECO_LOGRADOURO" required> 
+    <input class="address-form-item formName" type="text" placeholder="Endereço" name="ENDERECO_NOME" required> 
     <input class="address-form-item formNumber" type="number" placeholder="Número" name="ENDERECO_NUMERO" required> 
     <input class="address-form-item formCity" type="text" placeholder="Cidade" name="ENDERECO_CIDADE" required> 
     <input class="address-form-item formEstate" type="text" placeholder="Estado-UF" name="ENDERECO_ESTADO" maxlength="2" required> 
@@ -100,19 +100,20 @@
     @isset($endereco)
         @method('PUT')
     @endisset    
-    <input class="address-form-item formName" type="text" placeholder="Nome" name="ENDERECO_NOME"
+
+    <input class="address-form-item formLog" type="text" placeholder="Logradouro" name="ENDERECO_LOGRADOURO"
+        required value="{{ isset($endereco) ? $endereco->ENDERECO_LOGRADOURO : '' }}">
+
+    <input class="address-form-item formName" type="text" placeholder="Endereço" name="ENDERECO_NOME"
     required value="{{ isset($endereco) ? $endereco->ENDERECO_NOME : '' }}">
 
-<input class="address-form-item formLog" type="text" placeholder="Logradouro" name="ENDERECO_LOGRADOURO"
-    required value="{{ isset($endereco) ? $endereco->ENDERECO_LOGRADOURO : '' }}">
+    <input class="address-form-item formNumber" type="number" placeholder="Número" name="ENDERECO_NUMERO"
+        required value="{{ isset($endereco) ? $endereco->ENDERECO_NUMERO : '' }}">
 
-<input class="address-form-item formNumber" type="number" placeholder="Número" name="ENDERECO_NUMERO"
-    required value="{{ isset($endereco) ? $endereco->ENDERECO_NUMERO : '' }}">
+    <input class="address-form-item formCity" type="text" placeholder="Cidade" name="ENDERECO_CIDADE"
+        required value="{{ isset($endereco) ? $endereco->ENDERECO_CIDADE : '' }}">
 
-<input class="address-form-item formCity" type="text" placeholder="Cidade" name="ENDERECO_CIDADE"
-    required value="{{ isset($endereco) ? $endereco->ENDERECO_CIDADE : '' }}">
-
-<input class="address-form-item formEstate" type="text" placeholder="Estado-UF" name="ENDERECO_ESTADO" maxlength="2"
+    <input class="address-form-item formEstate" type="text" placeholder="Estado-UF" name="ENDERECO_ESTADO" maxlength="2"
     required value="{{ isset($endereco) ? $endereco->ENDERECO_ESTADO : '' }}">  
 
     <input class="address-form-item formZipCode" id="cepUpdate" type="text" placeholder="CEP" name="ENDERECO_CEP" maxlength="9" 

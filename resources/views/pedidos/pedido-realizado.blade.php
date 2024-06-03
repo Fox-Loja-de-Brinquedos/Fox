@@ -22,18 +22,22 @@
           <div class="w-100">
             <div class="steps-line"></div>
             <div class="steps-btns d-flex justify-content-between">
-            <div class="step-item done text-center">
-                  <div class="step-circle mx-auto">1</div>
-                  <span class="step-label mt-1 d-block">Carrinho</span>
-            </div>
-            <div class="step-item done text-center">
-                <div class="step-circle mx-auto">2</div>
-                <span class="step-label mt-1 d-block">Finalizar compra</span>
-            </div>
-            <div class="step-item selected text-center">
-                <div class="step-circle mx-auto">3</div>
-                <span class="step-label mt-1 d-block">Pedido realizado</span>
-            </div>
+              <div class="step-item done text-center">
+                    <div class="step-circle mx-auto">1</div>
+                    <span class="step-label mt-1 d-block">Carrinho</span>
+              </div>
+              <div class="step-item done text-center">
+                    <div class="step-circle mx-auto">2</div>
+                    <span class="step-label mt-1 d-block">Dados pessoais</span>
+              </div>
+              <div class="step-item done text-center">
+                    <div class="step-circle mx-auto">3</div>
+                    <span class="step-label mt-1 d-block">Entrega</span>
+              </div>
+              <div class="step-item done text-center">
+                    <div class="step-circle mx-auto">4</div>
+                    <span class="step-label mt-1 d-block">Pagamento</span>
+              </div>
             </div>
           </div>
         </div>

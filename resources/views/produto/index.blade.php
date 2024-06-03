@@ -62,10 +62,19 @@
         </div>
         <div class="col-2">
           @if( Auth::user())
-          <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
-            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
-            Olá, {{ Auth::user()->USUARIO_NOME }}
-          </a>
+          <div class="dropdown">
+            <a class="btn dropdown-toggle text-uppercase fw-bold btn-login d-flex align-items-center nav-text" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+              Olá, {{ Auth::user()->USUARIO_NOME }}
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ route('profile') }}">Minha conta</a></li>
+              <li><a class="dropdown-item" href="{{ route('orderList') }}">Meus pedidos</a></li>
+              <li><a class="dropdown-item" href="{{ route('accountDetails') }}">Editar dados pessoais</a></li>
+              <li><a class="dropdown-item" href="{{ route('address') }}">Editar endereço</a></li>
+              <li><a class="dropdown-item" href="{{ route('logout') }}">Sair</a></li>
+            </ul>
+          </div>
           @else
           <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
             <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">

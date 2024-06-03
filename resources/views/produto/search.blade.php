@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Fox Store - Loja de brinquedos</title>
+    <title>Fox Store - {{ $search }}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -58,7 +58,7 @@
                 <!-- Barra de pesquisa -->
                 <div class="col-4 col-xxl-6 d-none d-lg-block">
                     <form class="form-inline " action="{{ route('produto.search') }}" method="GET">
-                        <input class="form-control mr-2 searchbar d-inline-block" name="search" type="text" placeholder="Pesquisar produto...">
+                        <input class="form-control mr-2 searchbar d-inline-block" name="search" type="text" value="{{ $search }}" placeholder="Pesquisar produto...">
                         <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>

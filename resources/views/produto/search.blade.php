@@ -33,165 +33,191 @@
     <header>
         <div class="container-fluid">
 
-            <!-- Linha do Frete Grátis -->
-            <div class="row justify-content-center">
-                <div class="col-12 text-center ps-0 pe-0">
-                    <div class="header-top">
-                        <p style="margin-bottom: 0;"><strong>Frete grátis</strong> acima de R$ 199,99 em compras!</p>
-                    </div>
-                </div>
+        <!-- Linha do Frete Grátis -->
+        <div class="row justify-content-center">
+            <div class="col-12 text-center ps-0 pe-0">
+            <div class="header-top">
+                <p style="margin-bottom: 0;"><strong>Frete grátis</strong> acima de R$ 199,99 em compras!</p>
             </div>
+            </div>
+        </div>
         </div>
 
         <div class="container">
 
-            <!-- Linha do Logo, Barra de Pesquisa e Botões -->
-            <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center position-relative">
+        <!-- Linha do Logo, Barra de Pesquisa e Botões -->
+        <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center position-relative">
 
-                <!-- Logotipo -->
-                <div class="col-6 col-md-1 col-lg-1">
-                    <a href="{{ route('produto.index') }}" class="header-logo">
-                        <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
-                    </a>
+            <!-- Logotipo -->
+            <div class="col-6 col-md-1 col-lg-1">
+            <a href="{{ route('produto.index') }}" class="header-logo">
+                <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
+            </a>
+            </div>
+
+            <!-- Barra de pesquisa -->
+            <div class="col-4 col-xxl-6 d-none d-lg-block">
+            <form class="form-inline " action="{{ route('produto.search') }}" method="GET">
+                <input class="form-control mr-2 searchbar d-inline-block" name="search" type="text" placeholder="Pesquisar produto..." value="{{ $search }}">
+                <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+            </div>
+
+            <!-- Botão minha conta -->
+            <div class="col-2 col-md-5 col-lg-3 col-xxl-2 text-end px-0 px-md-1">
+            @if( Auth::user())
+            <div class="dropdown">
+                <a class="btn p-0 p-md-1 dropdown-toggle text-uppercase fw-bold btn-login d-flex align-items-center nav-text justify-content-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+                <span class="d-none d-md-inline-block">
+                    Olá, {{ Auth::user()->USUARIO_NOME }}
+                </span>
+                </a>
+                <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ route('profile') }}">Minha conta</a></li>
+                <li><a class="dropdown-item" href="{{ route('orderList') }}">Meus pedidos</a></li>
+                <li><a class="dropdown-item" href="{{ route('accountDetails') }}">Editar dados pessoais</a></li>
+                <li><a class="dropdown-item" href="{{ route('address') }}">Editar endereço</a></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}">Sair</a></li>
+                </ul>
+            </div>
+            @else
+            <a href="/profile" class="btn p-0 p-md-1 text-uppercase fw-bold btn-login d-flex align-items-center nav-text justify-content-end">
+                <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+                <span class="d-none d-md-inline-block">
+                Entrar /
+                Cadastrar
+                </span>
+            </a>
+            @endif
+            </div>
+
+            <!-- Botão carrinho -->
+            <div class="col-2 col-md-4 col-lg-3 col-xxl-2">
+            <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text justify-content-end">
+                <div class="d-inline-block position-relative">
+                <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+                <p id="qty-products-cart">
+                    {{ $qtdItensCarinho }}
+                </p>
                 </div>
+                <span class="ps-3 d-none d-md-inline-block">
+                Meu Carrinho
+                </span>
+            </a>
+            </div>
 
-                <!-- Barra de pesquisa -->
-                <div class="col-4 col-xxl-6 d-none d-lg-block">
-                    <form class="form-inline " action="{{ route('produto.search') }}" method="GET">
-                        <input class="form-control mr-2 searchbar d-inline-block" name="search" type="text" value="{{ $search }}" placeholder="Pesquisar produto...">
-                        <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
-                    </form>
+            <!-- Navbar para mobile -->
+            <div class="col-2 d-lg-none">
+            <nav class="navbar">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu de categorias</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}">Bonecas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}">Veículos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}">Pelúcias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}">Jogos de cartas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}">Tabuleiros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}">Eletrônicos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('produto.search' , ['search' => '%']) }}">Outros brinquedos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}">Lançamentos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}">Ofertas</a>
+                    </li>
 
-                <!-- Botão minha conta -->
-                <div class="col-2 col-md-5 col-lg-3 col-xxl-2 text-end px-0 px-md-1">
-                    @if( Auth::user())
-                    <div class="dropdown">
-                        <a class="btn p-0 p-md-1 dropdown-toggle text-uppercase fw-bold btn-login d-flex align-items-center nav-text justify-content-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
-                            <span class="d-none d-md-inline-block">
-                                Olá, {{ Auth::user()->USUARIO_NOME }}
-                            </span>
+                    <!-- MODELO DE DROPDOWN
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('profile') }}">Minha conta</a></li>
-                            <li><a class="dropdown-item" href="{{ route('orderList') }}">Meus pedidos</a></li>
-                            <li><a class="dropdown-item" href="{{ route('accountDetails') }}">Editar dados pessoais</a></li>
-                            <li><a class="dropdown-item" href="{{ route('address') }}">Editar endereço</a></li>
-                            <li><a class="dropdown-item" href="{{ route('logout') }}">Sair</a></li>
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                    </div>
-                    @else
-                    <a href="/profile" class="btn p-0 p-md-1 text-uppercase fw-bold btn-login d-flex align-items-center nav-text justify-content-end">
-                        <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
-                        <span class="d-none d-md-inline-block">
-                            Entrar /
-                            Cadastrar
-                        </span>
-                    </a>
-                    @endif
-                </div>
+                    </li>
+                    -->
+                    </ul>
 
-                <!-- Botão carrinho -->
-                <div class="col-2 col-md-4 col-lg-3 col-xxl-2">
-                    <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text justify-content-end">
-                        <div class="d-inline-block position-relative">
-                            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
-                            <p id="qty-products-cart">
-                                {{ $qtdItensCarinho }}
-                            </p>
-                        </div>
-                        <span class="ps-3 d-none d-md-inline-block">
-                            Meu Carrinho
-                        </span>
-                    </a>
-                </div>
+                    <form class="form-inline " action="{{ route('produto.search') }}" method="GET">
+                    <input class="form-control mr-2 searchbar d-inline-block mt-3" name="search" type="text" placeholder="Pesquisar produto...">
+                    <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
+                    </form>
 
-                <!-- Navbar para mobile -->
-                <div class="col-2 d-lg-none">
-                    <nav class="navbar">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                            <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>
-                            <div class="offcanvas-body">
-                                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Link</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Dropdown
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <form class="d-flex mt-3" role="search">
-                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit">Search</button>
-                                </form>
-                            </div>
-                        </div>
-                    </nav>
                 </div>
+                </div>
+            </nav>
             </div>
+        </div>
 
         </div>
 
         <!-- Linha da Navegação -->
         <div class="container d-none d-lg-block">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <nav class="navbar navbar-expand-lg navbar-light">
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="categories-menu navbar-nav mx-auto">
-                                <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="nav-link nav-link-uppercase">Bonecas</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}" class="nav-link nav-link-uppercase">Veículos</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}" class="nav-link nav-link-uppercase">Pelúcias</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}" class="nav-link nav-link-uppercase">Jogos de cartas</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}" class="nav-link nav-link-uppercase">Tabuleiros</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}" class="nav-link nav-link-uppercase">Eletrônicos</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , ['search' => '%']) }}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos" href='#lancamentos'>Lançamentos</a>
-                                </li>
-                                <li class="nav-item custom-nav-item">
-                                    <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
+        <div class="row">
+            <div class="col-12 text-center">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="categories-menu navbar-nav mx-auto">
+                    <li class="nav-item custom-nav-item">
+                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="nav-link nav-link-uppercase">Bonecas</a>
+                    </li>
+                    <li class="nav-item custom-nav-item">
+                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}" class="nav-link nav-link-uppercase">Veículos</a>
+                    </li>
+                    <li class="nav-item custom-nav-item">
+                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}" class="nav-link nav-link-uppercase">Pelúcias</a>
+                    </li>
+                    <li class="nav-item custom-nav-item">
+                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}" class="nav-link nav-link-uppercase">Jogos de cartas</a>
+                    </li>
+                    <li class="nav-item custom-nav-item">
+                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}" class="nav-link nav-link-uppercase">Tabuleiros</a>
+                    </li>
+                    <li class="nav-item custom-nav-item">
+                    <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}" class="nav-link nav-link-uppercase">Eletrônicos</a>
+                    </li>
+                    <li class="nav-item custom-nav-item">
+                    <a href="{{ route('produto.search' , ['search' => '%']) }}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
+                    </li>
+                    <li class="nav-item custom-nav-item">
+                    <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
+                    </li>
+                    <li class="nav-item custom-nav-item">
+                    <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
+                    </li>
+                </ul>
                 </div>
+            </nav>
             </div>
+        </div>
         </div>
     </header>
 
@@ -199,7 +225,7 @@
     <div class="container-fluid d-flex justify-content-around mt-5 user-select-none">
 
         <!--Container Filtros-->
-        <aside id="filter-container">
+        <aside id="filter-container" class="d-none d-xl-block">
             <div>
                 <h2 class="fs-5 fw-semibold">Selecione os filtros</h2>
                 <!--Filtrar por Categoria-->
@@ -290,7 +316,110 @@
 
             <h1 class="fs-4 text-center my-0">Resultado da Pesquisa: {{ $qtdProdutos }} produtos encontrados</h1>
 
-            <div class="d-flex justify-content-end mb-4">
+            <div class="d-flex justify-content-between mb-4 mt-4 mt-xl-0">
+
+                <div class="filter-button-container">
+                    <nav class="navbar d-xl-none">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltros" aria-controls="offcanvasFiltros" aria-label="Toggle navigation">
+                            <span class="font-weight-bold">Filtros</span>
+                        </button>
+
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFiltros" aria-labelledby="offcanvasFiltrosLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasFiltrosLabel">Selecione os filtros</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                
+                                <div>
+                                    <!--Filtrar por Categoria-->
+                                    <div>
+                                        <p class="fs-5 ms-3 fw-semibold">Categoria</p>
+                                        <div class="ms-2 overflow-y-scroll" id="category-list-mobile">
+                                            <div class="list-group">
+                                                <!-- Define o último estado de categoria, filtro e checkbox -->
+                                                @php
+                                                $selectedCategoryId = $categoria_id;
+                                                $dropdownFilter = request('dropdownFilter');
+                                                $promotionCheckbox = request('promotion_checkbox') ? 'true' : null;
+                                                @endphp
+                                                <!--Limpar filtro de categoria-->
+                                                <a href="{{ route('produto.search', ['categoria_id' => null, 'dropdownFilter' => $dropdownFilter, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox]) }}" class="list-group-item list-group-item-action {{ is_null($selectedCategoryId) ? 'active' : '' }}">
+                                                    - Sem Filtro -
+                                                </a>
+                                                @foreach ($categorias as $categoria)
+                                                @php
+                                                // Verifica o ID passado na URL e muda a classe do link correspondente
+                                                $activeClass = ($selectedCategoryId == $categoria->CATEGORIA_ID) ? 'active' : '';
+                                                // Adiciona o parâmetro 'promotion_checkbox' na URL se a caixa de seleção estiver marcada
+                                                $queryParams = ['categoria_id' => $categoria->CATEGORIA_ID, 'dropdownFilter' => $dropdownFilter, 'search' => $search, 'minValue' => request()->input('minValue'), 'maxValue' => request()->input('maxValue'), 'promotion_checkbox' => $promotionCheckbox];
+                                                @endphp
+                                                <a href="{{ route('produto.search', $queryParams) }}" class="list-group-item list-group-item-action {{ $activeClass }}">
+                                                    {{ $categoria->CATEGORIA_NOME }}
+                                                </a>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <!--Filtrar por Promoção-->
+                                    <p class="fs-5 ms-3 mt-4 fw-semibold">Promoção</p>
+                                    <div class="ms-2">
+                                        <ul class="list-group" id="promotion-checkbox-container-mobile">
+                                            <li class="list-group-item d-flex align-items-center">
+                                                <form id="promotion-form-mobile" action="{{ route('produto.search' , ['categoria_id' => $categoria->CATEGORIA_ID, 'search' => $search, 'dropdownFilter' => $dropdownFilter]) }}" method="GET">
+                                                    <input id="promotion-checkbox-mobile" name="promotion_checkbox-mobile" class="form-check-input my-0" type="checkbox">
+                                                    <label for="promotion-checkbox-mobile" class="ms-2 my-0 user-select-none">Produtos em Promoção</label>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
+                                    <!--Filtrar por Preço-->
+                                    <p class="fs-5 ms-3 mt-4 fw-semibold">Faixa de Preço</p>
+                                    <div class="container">
+
+                                        <form id="price-filter-form-mobile" action="{{ route('produto.search') }}" method="GET">
+                                            <div class="price-input">
+                                                <div class="field">
+                                                    <label for="min-price-mobile">Min</label>
+                                                    <input type="number" id="min-price-mobile" name="minValue-mobile" value="0" disabled class="min-input m-0 ms-2" />
+                                                </div>
+                                                <div class="field">
+                                                    <label for="max-price-mobile">Max</label>
+                                                    <input type="number" id="max-price-mobile" name="maxValue-mobile" value="{{ round($maxValue) }}" disabled class="max-input m-0 ms-2" />
+                                                </div>
+                                            </div>
+
+                                            <div class="slider">
+                                                <div class="progress"></div>
+                                            </div>
+
+                                            <div class="range-input">
+                                                <input type="range" min="0" max="999" value="0" class="min-range" />
+                                                <input type="range" min="1" max="{{ round($maxValue) }}" value="{{ round($maxValue) }}" class="max-range" />
+                                            </div>
+                                        </form>
+
+                                    </div>
+
+                                    <!--Limpar Filtros-->
+                                    <p class="fs-5 ms-3 mt-4 fw-semibold">Limpar Filtros</p>
+                                    <div class="d-grid gap-2">
+                                        <a id="limpar-filtros-mobile-btn" class="btn btn-primary" href="{{ route('produto.search', ['search' => $search]) }}">Limpar</a>
+                                    </div>
+
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
                 <div class="dropdown me-5">
                     <button class="dropdown-toggle filter-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Ordenar
@@ -329,7 +458,7 @@
             <div class="container-fluid d-flex justify-content-center">
                 @if($qtdProdutos > 0)
                 <!--Cards Container-->
-                <div class="d-flex justify-content-left w-100 row flex-wrap gap-4 ps-4">
+                <div class="d-flex justify-content-left w-100 row flex-wrap gap-4 ps-xl-4">
                     <!--Card-->
                     @foreach ($produtos as $produto)
 
@@ -498,66 +627,92 @@
 
 
     <footer>
-        <!--Receba promoções banner-->
-        <div id="news-and-promotions-banner" class="container-fluid">
-            <div class="row h-100 d-flex align-items-center justify-content-center">
-                <div class="col col-4 fs-3 text-light fw-semibold">RECEBA PROMOÇÕES E NOVIDADES!</div>
 
-                <div class="col col-4 d-flex justify-content-evenly">
-                    <input type="email" class="form-control text-us-input" placeholder="Seu nome">
-                    <input type="email" class="form-control text-us-input" placeholder="E-mail">
-                    <button type="button" class="btn btn-dark px-4">Enviar</button>
+    <!--Receba promoções banner-->
+    <div id="news-and-promotions-banner" class="container-fluid">
+      <div class="container py-5">
+        <div class="row align-items-center">
+          <div class="col-12 col-xl-6 fs-3 text-light fw-semibold mb-3 mb-xl-0">
+            <h2 class="newsletter-banner-title">
+              RECEBA PROMOÇÕES E NOVIDADES!
+            </h2>
+          </div>
+
+          <div class="col-12 col-xl-6 d-flex justify-content-evenly">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                  <input type="email" class="form-control text-us-input w-100" placeholder="Seu nome">
                 </div>
+                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                  <input type="email" class="form-control text-us-input w-100" placeholder="E-mail">
+                </div>
+                <div class="col-12 col-sm-3 mb-2 mb-sm-0">
+                  <button type="button" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div id="social-midia-footer" class="container-fluid">
-            <div class="row d-flex justify-content-center">
-                <div class="col col-2 d-flex flex-column footer-column">
-                    <h3 class="fs-5 text-uppercase">Institucional</h3>
-                    <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3">Sobre a marca</a>
-                    <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3">Trocas e Devoluções</a>
-                    <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3">Políticas de privacidade</a>
-                </div>
-                <div class="col col-2 d-flex flex-column footer-column">
-                    <h3 class="fs-5 text-uppercase">Loja</h3>
-                    <a href="/profile" class="link-footer mb-3">Minha conta</a>
-                    <a href="/profile" class="link-footer mb-3">Meu Carrinho</a>
-                    <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
-                </div>
-                <div class="col col-2 d-flex flex-column footer-column">
-                    <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
-                    <div class="d-flex justify-content-start mb-4">
-                        <img src="{{ asset('images/facebook.png') }}" class="footer-icon-resize me-2" alt="Icone Facebook">
-                        <a href="https://www.facebook.com/?locale=pt_BR" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
-                    </div>
-
-                    <div class="d-flex justify-content-start">
-                        <img src="{{ asset('images/instagram.png') }}" class="footer-icon-resize me-2" alt="Icone Instagram">
-                        <a href="https://www.instagram.com" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
-                    </div>
-                </div>
-                <div class="col col-2 footer-column">
-                    <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
-                    <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
-                </div>
-            </div>
+    <div id="social-midia-footer" class="container mt-5 mb-2 mb-lg-5">
+      <div class="row px-3 px-sm-0">
+        <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 d-flex flex-column footer-column">
+          <h3 class="fs-5 text-uppercase">Institucional</h3>
+          <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3">Sobre a marca</a>
+          <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3">Trocas e Devoluções</a>
+          <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3">Políticas de privacidade</a>
         </div>
-
-        <hr>
-
-        <div id="copyright-footer" class="container-fluid d-flex mb-3 mt-3 justify-content-between align-items-center">
-            <a href="#">
-                <img src="{{ asset('images/fox.png') }}" alt="Logo Fox" class="object-fit-contain ms-3" width="65px">
-            </a>
-            <i>
-                <p>Fox Store © 2024 - Todos os direitos reservados</p>
-            </i>
-
-            <a href="https://wa.me/+5511944880786" target="_blank"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
-            </a>
+        <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 d-flex flex-column footer-column">
+          <h3 class="fs-5 text-uppercase">Loja</h3>
+          <a href="/profile" class="link-footer mb-3">Minha conta</a>
+          <a href="/profile" class="link-footer mb-3">Meu Carrinho</a>
+          <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
         </div>
-    </footer>
+        <div class="col-12 col-sm-6 mb-5 mb-lg-0 col-lg-3 d-flex flex-column footer-column">
+          <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
+          <div class="d-flex justify-content-start mb-4">
+            <img src="{{ asset('images/facebook.png') }}" class="footer-icon-resize me-2" alt="Icone Facebook">
+            <a href="https://www.facebook.com/?locale=pt_BR" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
+          </div>
+
+          <div class="d-flex justify-content-start">
+            <img src="{{ asset('images/instagram.png') }}" class="footer-icon-resize me-2" alt="Icone Instagram">
+            <a href="https://www.instagram.com" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 footer-column">
+          <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
+          <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div id="copyright-footer" class="container-fluid mb-3 mt-3">
+      <div class="row">
+        <div class="col-3">
+          <a href="#">
+            <img src="{{ asset('images/fox.png') }}" alt="Logo Fox" class="object-fit-contain ms-3" width="65px">
+          </a>
+        </div>
+        <div class="col-6 d-flex align-items-center justify-content-center">
+          <i>
+            <p class="text-center">Fox Store © 2024 - Todos os direitos reservados</p>
+          </i>
+        </div>
+        <div class="col-3">
+          <a href="https://wa.me/+5511944880786" target="_blank">
+            <img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </footer>
 
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/search.js') }}"></script>

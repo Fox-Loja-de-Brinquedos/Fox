@@ -2,12 +2,14 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Encontra a caixa de seleção, o formulário e o estado da caixa de seleção
     var checkbox = document.getElementById('promotion-checkbox');
+    var checkboxMobile = document.getElementById('promotion-checkbox-mobile');
     var form = document.getElementById('promotion-form');
     var isChecked = localStorage.getItem('promotionCheckboxChecked');
 
     // Se o estado estiver marcado, marca a caixa de seleção
     if (isChecked === 'true') {
         checkbox.checked = true;
+        checkboxMobile.checked = true;
     }
 
     // Função para enviar o formulário
@@ -21,6 +23,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Adiciona um ouvinte de evento de clique na caixa de seleção
     checkbox.addEventListener('change', function () {
+        // Salva o estado da caixa de seleção no localStorage
+        localStorage.setItem('promotionCheckboxChecked', this.checked);
+
+        // Atualiza a URL apenas se a caixa de seleção estiver marcada
+        if (this.checked) {
+            var url = new URL(window.location.href);
+            url.searchParams.set('promotion_checkbox', 'true');
+            history.pushState(null, null, url.toString());
+        } else {
+            var url = new URL(window.location.href);
+            url.searchParams.delete('promotion_checkbox');
+            history.pushState(null, null, url.toString());
+        }
+
+        // Envia o formulário
+        submitForm();
+    });
+
+    // Versão mobile
+    checkboxMobile.addEventListener('change', function () {
         // Salva o estado da caixa de seleção no localStorage
         localStorage.setItem('promotionCheckboxChecked', this.checked);
 

@@ -97,16 +97,20 @@ a {
   cursor: pointer;
 }
 
+.container-features {
+  overflow-x: scroll;
+}
+
 .feature-circle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
+  width: 48px;
+  height: 48px;
   background-color: orange;
   border-radius: 50%;
   color: white;
-  font-size: 24px;
+  font-size: 16px;
   margin-right: 20px;
 }
 
@@ -340,7 +344,6 @@ a {
 }
 
 .swiper-slide {
-  width: 18em !important;
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -372,18 +375,17 @@ a {
 /*Footer*/
 
 #news-and-promotions-banner {
-  height: 280px;
   background: #43ADDA;
   margin-top: 5rem;
 }
 
-.text-us-input {
-  width: 40%;
+.newsletter-banner-title {
+  font-weight: 600;
+  text-align: center;
 }
 
-#social-midia-footer {
-  height: 250px;
-  margin-top: 5rem;
+.text-us-input {
+  width: 40%;
 }
 
 .footer-column>h3 {
@@ -695,16 +697,33 @@ label {
   .header-logo img{
     height: 91px;
   }
+  .feature-circle {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
 
  }
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {  }
+@media (min-width: 992px) { 
+  .container-features {
+    overflow-x: hidden;
+  }
+ }
 
 /* X-Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
   .searchbar {
     max-width: 300px;
+  }
+  .feature-circle {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+  .newsletter-banner-title {
+    text-align: left;
   }
  }
 
@@ -713,4 +732,9 @@ label {
   .searchbar {
     max-width: 545px;
   } 
+  .feature-circle {
+    width: 80px;
+    height: 80px;
+    font-size: 24px;
+  }
 }

@@ -116,17 +116,40 @@
 
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
               <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu de categorias</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}">Bonecas</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}">Veículos</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}">Pelúcias</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}">Jogos de cartas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}">Tabuleiros</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}">Eletrônicos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%']) }}">Outros brinquedos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}">Lançamentos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}">Ofertas</a>
+                  </li>
+
+                  <!-- MODELO DE DROPDOWN
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Dropdown
@@ -140,11 +163,14 @@
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                   </li>
+                  -->
                 </ul>
-                <form class="d-flex mt-3" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
+
+                <form class="form-inline " action="{{ route('produto.search') }}" method="GET">
+                  <input class="form-control mr-2 searchbar d-inline-block mt-3" name="search" type="text" placeholder="Pesquisar produto...">
+                  <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
                 </form>
+
               </div>
             </div>
           </nav>
@@ -182,7 +208,7 @@
                   <a href="{{ route('produto.search' , ['search' => '%']) }}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos" href='#lancamentos'>Lançamentos</a>
+                  <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
                   <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
@@ -225,11 +251,13 @@
   <!-- Linha com 4 colunas de features ---------------------------------------------------------------------------------------->
   <div class="container-fluid pt-4 pb-4" style="background-color: #FAFBFB;">
     <div class="container container-features pt-4">
-      <div class="row">
-        <div class="col-md-3 mb-4 ">
+      <div class="row flex-nowrap">
+        <div class="col-12 col-md-6 col-lg-3 mb-4 ">
           <div class="d-flex align-items-left">
-            <div class="feature-circle">
-              <i class="fa fa-credit-card" aria-hidden="true"></i>
+            <div>
+              <div class="feature-circle">
+                <i class="fa fa-credit-card" aria-hidden="true"></i>
+              </div>
             </div>
             <div class="feature-info">
               <p class="feature-title">Pague em até 12x<br>sem juros</p>
@@ -237,10 +265,12 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 mb-4">
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
           <div class="d-flex align-items-center">
-            <div class="feature-circle">
-              <i class="fa fa-percent" aria-hidden="true"></i>
+            <div>
+              <div class="feature-circle">
+                <i class="fa fa-percent" aria-hidden="true"></i>
+              </div>
             </div>
             <div class="feature-info">
               <p class="feature-title">10% de Desconto</p>
@@ -248,10 +278,12 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 mb-4">
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
           <div class="d-flex align-items-center">
-            <div class="feature-circle">
-              <i class="fa fa-th-large" aria-hidden="true"></i>
+            <div>
+              <div class="feature-circle">
+                <i class="fa fa-th-large" aria-hidden="true"></i>
+              </div>
             </div>
             <div class="feature-info">
               <p class="feature-title">5% de Desconto</p>
@@ -259,10 +291,12 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 mb-4">
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
           <div class="d-flex align-items-center">
-            <div class="feature-circle">
-              <i class="fa fa-truck" aria-hidden="true"></i>
+            <div>
+              <div class="feature-circle">
+                <i class="fa fa-truck" aria-hidden="true"></i>
+              </div>
             </div>
             <div class="feature-info">
               <p class="feature-title">Frete grátis</p>
@@ -277,7 +311,7 @@
   <!--Container Cards de Produtos Lançamentos-->
   <div class="container-fluid mb-5 mt-5">
     <h2 class="text-center mb-4 poetsen-one-regular">LANÇAMENTOS</h2>
-    <div class="swiper-container container-fluid d-flex justify-content-center">
+    <div class="swiper-container">
       <div class="swiper-content-and-buttons">
         <div class="swiper mySwiperProdutoLancametos m-0 container">
           <div class="swiper-wrapper content">
@@ -380,7 +414,7 @@
   <!--Container Navegue por Categoria-->
   <div class="container-fluid category-container">
     <h2 class="text-center mb-4 poetsen-one-regular">Navegue por categoria</h2>
-    <div class="swiper-container container-fluid d-flex justify-content-center">
+    <div class="swiper-container">
       <div class="swiper-content-and-buttons-category d-flex align-items-center">
         <div class="swiper mySwiperCategory m-0 container">
           <div class="swiper-wrapper swiper-wrapper-category">
@@ -507,7 +541,7 @@
   <!--Container Cards de Produtos Mais Vendidos-->
   <div class="container-fluid mb-5 mt-5">
     <h2 class="text-center mb-4 poetsen-one-regular">MAIS VENDIDOS</h2>
-    <div class="swiper-container container-fluid d-flex justify-content-center">
+    <div class="swiper-container">
       <div class="swiper-content-and-buttons">
         <div class="swiper mySwiperProdutoMaisVendidos m-0 container">
           <div class="swiper-wrapper content">
@@ -617,7 +651,7 @@
   <!--Container Cards de Produtos-->
   <div class="container-fluid mb-5 mt-5">
     <h2 class="text-center mb-4 poetsen-one-regular">OFERTAS IMPERDÍVEIS</h2>
-    <div class="swiper-container container-fluid d-flex justify-content-center">
+    <div class="swiper-container">
       <div class="swiper-content-and-buttons">
         <div class="swiper mySwiperProdutoOfertas m-0 container">
           <div class="swiper-wrapper content">
@@ -775,33 +809,48 @@
 
     <!--Receba promoções banner-->
     <div id="news-and-promotions-banner" class="container-fluid">
-      <div class="row h-100 d-flex align-items-center justify-content-center">
+      <div class="container py-5">
+        <div class="row align-items-center">
+          <div class="col-12 col-xl-6 fs-3 text-light fw-semibold mb-3 mb-xl-0">
+            <h2 class="newsletter-banner-title">
+              RECEBA PROMOÇÕES E NOVIDADES!
+            </h2>
+          </div>
 
-        <div class="col col-4 fs-3 text-light fw-semibold">RECEBA PROMOÇÕES E NOVIDADES!</div>
-
-        <div class="col col-4 d-flex justify-content-evenly">
-          <input type="email" class="form-control text-us-input" placeholder="Seu nome">
-          <input type="email" class="form-control text-us-input" placeholder="E-mail">
-          <button type="button" class="btn btn px-4" style="background-color: #F9A80C; color:white;">Enviar</button>
+          <div class="col-12 col-xl-6 d-flex justify-content-evenly">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                  <input type="email" class="form-control text-us-input w-100" placeholder="Seu nome">
+                </div>
+                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                  <input type="email" class="form-control text-us-input w-100" placeholder="E-mail">
+                </div>
+                <div class="col-12 col-sm-3 mb-2 mb-sm-0">
+                  <button type="button" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div id="social-midia-footer" class="container-fluid">
-      <div class="row d-flex justify-content-center">
-        <div class="col col-2 d-flex flex-column footer-column">
+    <div id="social-midia-footer" class="container mt-5 mb-2 mb-lg-5">
+      <div class="row px-3 px-sm-0">
+        <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Institucional</h3>
           <a href="{{ route('politicas.sobre-nos') }}" class="link-footer mb-3">Sobre a marca</a>
           <a href="{{ route('politicas.trocas-devolucoes') }}" class="link-footer mb-3">Trocas e Devoluções</a>
           <a href="{{ route('politicas.politica-de-privacidade') }}" class="link-footer mb-3">Políticas de privacidade</a>
         </div>
-        <div class="col col-2 d-flex flex-column footer-column">
+        <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
           <a href="/profile" class="link-footer mb-3">Minha conta</a>
           <a href="/profile" class="link-footer mb-3">Meu Carrinho</a>
           <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
         </div>
-        <div class="col col-2 d-flex flex-column footer-column">
+        <div class="col-12 col-sm-6 mb-5 mb-lg-0 col-lg-3 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
           <div class="d-flex justify-content-start mb-4">
             <img src="{{ asset('images/facebook.png') }}" class="footer-icon-resize me-2" alt="Icone Facebook">
@@ -813,7 +862,7 @@
             <a href="https://www.instagram.com" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
           </div>
         </div>
-        <div class="col col-2 footer-column d-flex flex-column align-items-center">
+        <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 footer-column">
           <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
           <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
         </div>
@@ -822,17 +871,24 @@
 
     <hr>
 
-    <div id="copyright-footer" class="container-fluid d-flex mb-3 mt-3 justify-content-between align-items-center">
-      <a href="#">
-        <img src="{{ asset('images/fox.png') }}" alt="Logo Fox" class="object-fit-contain ms-3" width="65px">
-      </a>
-
-      <i>
-        <p>Fox Store © 2024 - Todos os direitos reservados</p>
-      </i>
-
-      <a href="https://wa.me/+5511944880786" target="_blank"><img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
-      </a>
+    <div id="copyright-footer" class="container-fluid mb-3 mt-3">
+      <div class="row">
+        <div class="col-3">
+          <a href="#">
+            <img src="{{ asset('images/fox.png') }}" alt="Logo Fox" class="object-fit-contain ms-3" width="65px">
+          </a>
+        </div>
+        <div class="col-6 d-flex align-items-center justify-content-center">
+          <i>
+            <p class="text-center">Fox Store © 2024 - Todos os direitos reservados</p>
+          </i>
+        </div>
+        <div class="col-3">
+          <a href="https://wa.me/+5511944880786" target="_blank">
+            <img src="{{ asset('images/whatsapp.png') }}" alt="Logo WhatsApp" class="object-fit-contain me-3 mb-3 position-fixed bottom-0 end-0" width="58px">
+          </a>
+        </div>
+      </div>
     </div>
 
   </footer>

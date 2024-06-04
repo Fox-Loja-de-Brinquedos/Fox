@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //Carroussel de produto
 var swiperOfertas = new Swiper(".mySwiperProdutoOfertas", {
-    slidesPerView: 4,
+    slidesPerView: 1,
     spaceBetween: 37,
     slidesPerGroup: 1,
     loop: true,
@@ -30,10 +30,24 @@ var swiperOfertas = new Swiper(".mySwiperProdutoOfertas", {
       nextEl: ".offers-next",
       prevEl: ".offers-prev",
     },
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        slidesPerGroup: 2,
+      },
+      992: {
+        slidesPerView: 3,
+        slidesPerGroup: 3,
+      },
+      1200: {
+        slidesPerView: 4,
+        slidesPerGroup: 4,
+      },
+    },
   });
 
   var swiperLancamentos = new Swiper(".mySwiperProdutoLancametos", {
-    slidesPerView: 4,
+    slidesPerView: 1,
     spaceBetween: 37,
     slidesPerGroup: 1,
     loop: true,
@@ -46,11 +60,25 @@ var swiperOfertas = new Swiper(".mySwiperProdutoOfertas", {
       nextEl: ".releases-next",
       prevEl: ".releases-prev",
     },
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        slidesPerGroup: 2,
+      },
+      992: {
+        slidesPerView: 3,
+        slidesPerGroup: 3,
+      },
+      1200: {
+        slidesPerView: 4,
+        slidesPerGroup: 4,
+      },
+    },
   });
 
 
   var mySwiperCategory = new Swiper(".mySwiperCategory", {
-    slidesPerView: 4,
+    slidesPerView: 1,
     spaceBetween: 37,
     slidesPerGroup: 1,
     loop: true,
@@ -63,11 +91,22 @@ var swiperOfertas = new Swiper(".mySwiperProdutoOfertas", {
       nextEl: ".category-next",
       prevEl: ".category-prev",
     },
+    breakpoints: {
+      576: {
+        slidesPerView: 2,
+      },
+      768: {
+        slidesPerView: 3,
+      },
+      992: {
+        slidesPerView: 4,
+      },
+    },
   });
 
 
   var swiperMaisVendidos = new Swiper(".mySwiperProdutoMaisVendidos", {
-    slidesPerView: 4,
+    slidesPerView: 1,
     spaceBetween: 37,
     slidesPerGroup: 1,
     loop: true,
@@ -79,6 +118,20 @@ var swiperOfertas = new Swiper(".mySwiperProdutoOfertas", {
     navigation: {
       nextEl: ".best-sellers-next",
       prevEl: ".best-sellers-prev",
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        slidesPerGroup: 2,
+      },
+      992: {
+        slidesPerView: 3,
+        slidesPerGroup: 3,
+      },
+      1200: {
+        slidesPerView: 4,
+        slidesPerGroup: 4,
+      },
     },
   });
 });

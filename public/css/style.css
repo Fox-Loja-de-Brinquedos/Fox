@@ -182,6 +182,10 @@ a {
   min-height: 396px;
 }
 
+.product-card-catalog {
+  width: 18em !important;
+}
+
 .product-card span, h5, p{
   cursor: pointer;
 }

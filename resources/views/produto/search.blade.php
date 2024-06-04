@@ -356,7 +356,7 @@
                     @endphp
 
                     <!--Card do Produto-->
-                    <div class="card product-card swiper-slide">
+                    <div class="card product-card product-card-catalog">
                         <div style="height: 50%;">
                             @if (isset($produto->estoque->PRODUTO_QTD) && $produto->estoque->PRODUTO_QTD === 0)
                             <span class="d-flex justify-content-center align-items-center mt-5">

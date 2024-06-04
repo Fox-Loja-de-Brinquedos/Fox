@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
             Auth::login($user);
 
             // Redirecionar para a página de perfil caso seja autenticado
-            return redirect()->route('profile');
+            return redirect()->route('produto.index');
         }
 
         // Senha incorreta

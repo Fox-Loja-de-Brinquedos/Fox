@@ -17,6 +17,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
+
+  <!-- importando jquery para ajax -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <!-- Toastr CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+  <!-- Toastr JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 
 <body>
@@ -36,57 +46,115 @@
     <div class="container">
 
       <!-- Linha do Logo, Barra de Pesquisa e Botões -->
-      <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center" style="position: relative;">
-        <div class="col-1" style="position: absolute; top: -45px">
-          <a href="{{ route('produto.index') }}">
+      <div class="row mt-3 mb-3 d-flex justify-content-between align-items-center position-relative">
+
+        <!-- Logotipo -->
+        <div class="col-6 col-md-1 col-lg-1">
+          <a href="{{ route('produto.index') }}" class="header-logo">
             <img src="{{ asset('images/logo-fox.png') }}" alt="Logotipo">
           </a>
         </div>
-        <div class="col-6" style="margin-left: 120px;">
-          <form class="form-inline" action="{{ route('produto.search') }}" method="GET">
-            <input class="form-control mr-2 searchbar" name="search" style="display: inline-block; max-width: 545px;" type="text" placeholder="Qual produto você está buscando?" style="width: 80%;">
+
+        <!-- Barra de pesquisa -->
+        <div class="col-4 col-xxl-6 d-none d-lg-block">
+          <form class="form-inline " action="{{ route('produto.search') }}" method="GET">
+            <input class="form-control mr-2 searchbar d-inline-block" name="search" type="text" placeholder="Pesquisar produto...">
             <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
           </form>
         </div>
-        <div class="col-2">
+
+        <!-- Botão minha conta -->
+        <div class="col-2 col-md-5 col-lg-3 col-xxl-2 text-end px-0 px-md-1">
           @if( Auth::user())
-          <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
-            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
-            Olá, {{ Auth::user()->USUARIO_NOME }}
-          </a>
+          <div class="dropdown">
+            <a class="btn p-0 p-md-1 dropdown-toggle text-uppercase fw-bold btn-login d-flex align-items-center nav-text justify-content-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
+              <span class="d-none d-md-inline-block">
+                Olá, {{ Auth::user()->USUARIO_NOME }}
+              </span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ route('profile') }}">Minha conta</a></li>
+              <li><a class="dropdown-item" href="{{ route('orderList') }}">Meus pedidos</a></li>
+              <li><a class="dropdown-item" href="{{ route('accountDetails') }}">Editar dados pessoais</a></li>
+              <li><a class="dropdown-item" href="{{ route('address') }}">Editar endereço</a></li>
+              <li><a class="dropdown-item" href="{{ route('logout') }}">Sair</a></li>
+            </ul>
+          </div>
           @else
-          <a href="/profile" class="btn text-uppercase fw-bold btn-login d-flex align-items-center nav-text">
+          <a href="/profile" class="btn p-0 p-md-1 text-uppercase fw-bold btn-login d-flex align-items-center nav-text justify-content-end">
             <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-account.png') }}">
-            Entrar /
-            Cadastrar
+            <span class="d-none d-md-inline-block">
+              Entrar /
+              Cadastrar
+            </span>
           </a>
           @endif
-
         </div>
-        @if($qtdItensCarinho != 0)
-        <div class="col-2">
-          <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text position-relative">
-            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
-            Meu Carrinho
-            <p id="qty-products-cart">
-              {{ $qtdItensCarinho }}
-            </p>
-          </a>
 
-        </div>
-        @else
-        <div class="col-2">
-          <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text">
-            <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
-            Meu Carrinho
+        <!-- Botão carrinho -->
+        <div class="col-2 col-md-4 col-lg-3 col-xxl-2">
+          <a href="/carrinho" class="btn text-uppercase fw-bold btn-cart d-flex align-items-center nav-text justify-content-end">
+            <div class="d-inline-block position-relative">
+              <img class="mt-0 me-2 nav-img" src="{{ asset('images/icon-cart.png') }}">
+              <p id="qty-products-cart">
+                {{ $qtdItensCarinho }}
+              </p>
+            </div>
+            <span class="ps-3 d-none d-md-inline-block">
+              Meu Carrinho
+            </span>
           </a>
         </div>
-        @endif
+
+        <!-- Navbar para mobile -->
+        <div class="col-2 d-lg-none">
+          <nav class="navbar">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li>
+                        <hr class="dropdown-divider">
+                      </li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <form class="d-flex mt-3" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+        </div>
       </div>
+
     </div>
 
     <!-- Linha da Navegação -->
-    <div class="container">
+    <div class="container d-none d-lg-block">
       <div class="row">
         <div class="col-12 text-center">
           <nav class="navbar navbar-expand-lg navbar-light">
@@ -240,15 +308,31 @@
             <!--Card do Produto-->
             <div class="card product-card swiper-slide">
               <div style="height: 50%;">
-                <a class="d-flex justify-content-center align-items-center mt-2" href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
-                  @if ($produto->imagens->isNotEmpty())
-                  <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
-                  @else
-                  <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
-                  @endif
+                @if (isset($produto->estoque->PRODUTO_QTD) && $produto->estoque->PRODUTO_QTD === 0)
+                <span class="d-flex justify-content-center align-items-center mt-5">
+                  <img src="https://down-br.img.susercontent.com/file/sg-11134201-22100-pj2ikqitawiv83" class="card-img-top card-img-resize" alt="Imagem do produto">
+                </span>
+                @elseif ($produto->imagens->isNotEmpty())
+                <a class="d-flex justify-content-center align-items-center mt-5" href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
+                  <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem padrão">
                 </a>
+                @else
+                <a class="d-flex justify-content-center align-items-center mt-5" href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
+                  <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
+                </a>
+                @endif
               </div>
               <div class="card-body text-center">
+                @if (isset($produto->estoque->PRODUTO_QTD) && $produto->estoque->PRODUTO_QTD === 0)
+                <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
+                <b>
+                  <p class="card-text">R$ {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
+                </b>
+                <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
+                <button class="py-2 add-to-cart-box-out-of-stock" type="submit">
+                  Sem estoque
+                </button>
+                @else
                 <a href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
                   <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
                   <b>
@@ -256,9 +340,8 @@
                   </b>
                 </a>
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-
                 <!-- Formulário para adicionar ao carrinho -->
-                <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                <form action="{{ route('carrinho.adicionar') }}" method="POST" class="adicionarItemForm">
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
                   <input type="hidden" name="ITEM_QTD" value="1">
@@ -266,11 +349,11 @@
                     Adicionar ao Carrinho
                   </button>
                 </form>
-
+                @endif
               </div>
 
               <!--Icone de desconto do Produto-->
-              @if($produto->PRODUTO_DESCONTO > 0)
+              @if($produto->PRODUTO_DESCONTO > 0 && $produto->estoque->PRODUTO_QTD > 0)
               @php
               $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100
               @endphp
@@ -455,15 +538,31 @@
             <!--Card do Produto-->
             <div class="card product-card swiper-slide">
               <div style="height: 50%;">
-                <a class="d-flex justify-content-center align-items-center mt-2" href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
-                  @if ($produto->imagens->isNotEmpty())
-                  <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
-                  @else
-                  <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
-                  @endif
+                @if (isset($produto->estoque->PRODUTO_QTD) && $produto->estoque->PRODUTO_QTD === 0)
+                <span class="d-flex justify-content-center align-items-center mt-5">
+                  <img src="https://down-br.img.susercontent.com/file/sg-11134201-22100-pj2ikqitawiv83" class="card-img-top card-img-resize" alt="Imagem do produto">
+                </span>
+                @elseif ($produto->imagens->isNotEmpty())
+                <a class="d-flex justify-content-center align-items-center mt-5" href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
+                  <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem padrão">
                 </a>
+                @else
+                <a class="d-flex justify-content-center align-items-center mt-5" href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
+                  <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
+                </a>
+                @endif
               </div>
               <div class="card-body text-center">
+                @if (isset($produto->estoque->PRODUTO_QTD) && $produto->estoque->PRODUTO_QTD === 0)
+                <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
+                <b>
+                  <p class="card-text">R$ {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
+                </b>
+                <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
+                <button class="py-2 add-to-cart-box-out-of-stock" type="submit">
+                  Sem estoque
+                </button>
+                @else
                 <a href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
                   <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
                   <b>
@@ -471,7 +570,8 @@
                   </b>
                 </a>
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                <!-- Formulário para adicionar ao carrinho -->
+                <form action="{{ route('carrinho.adicionar') }}" method="POST" class="adicionarItemForm">
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
                   <input type="hidden" name="ITEM_QTD" value="1">
@@ -479,10 +579,11 @@
                     Adicionar ao Carrinho
                   </button>
                 </form>
+                @endif
               </div>
 
               <!--Icone de desconto do Produto-->
-              @if($produto->PRODUTO_DESCONTO > 0)
+              @if($produto->PRODUTO_DESCONTO > 0 && $produto->estoque->PRODUTO_QTD > 0)
               @php
               $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100
               @endphp
@@ -508,7 +609,7 @@
   <div class="container mt-5 mb-5">
     <div class="row">
       <div class="col-12 text-center">
-        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}"><img src="{{ asset('images/banner-color-kids.png') }}" alt=""></a>
+        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}"><img src="{{ asset('images/banner-color-kids.png') }}" class="img-fluid" alt=""></a>
       </div>
     </div>
   </div>
@@ -547,15 +648,31 @@
             <!--Card do Produto-->
             <div class="card product-card swiper-slide">
               <div style="height: 50%;">
-                <a class="d-flex justify-content-center align-items-center mt-2" href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
-                  @if ($produto->imagens->isNotEmpty())
-                  <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem do produto">
-                  @else
-                  <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
-                  @endif
+                @if (isset($produto->estoque->PRODUTO_QTD) && $produto->estoque->PRODUTO_QTD === 0)
+                <span class="d-flex justify-content-center align-items-center mt-5">
+                  <img src="https://down-br.img.susercontent.com/file/sg-11134201-22100-pj2ikqitawiv83" class="card-img-top card-img-resize" alt="Imagem do produto">
+                </span>
+                @elseif ($produto->imagens->isNotEmpty())
+                <a class="d-flex justify-content-center align-items-center mt-5" href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
+                  <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-resize" alt="Imagem padrão">
                 </a>
+                @else
+                <a class="d-flex justify-content-center align-items-center mt-5" href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
+                  <img src="https://multilit.com.br/wp-content/uploads/2020/03/Produto-sem-foto.png" class="card-img-top card-img-resize" alt="Imagem padrão">
+                </a>
+                @endif
               </div>
               <div class="card-body text-center">
+                @if (isset($produto->estoque->PRODUTO_QTD) && $produto->estoque->PRODUTO_QTD === 0)
+                <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
+                <b>
+                  <p class="card-text">R$ {{ number_format(($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO), 2, ',', '.') }}</p>
+                </b>
+                <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
+                <button class="py-2 add-to-cart-box-out-of-stock" type="submit">
+                  Sem estoque
+                </button>
+                @else
                 <a href="{{ route('produto.show', [$produto->PRODUTO_ID])}}">
                   <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
                   <b>
@@ -563,7 +680,8 @@
                   </b>
                 </a>
                 <p>{{ $qtd_parcelas }}x de R$ {{ number_format($valor_parcela, 2, ',', '.') }} sem juros</p>
-                <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                <!-- Formulário para adicionar ao carrinho -->
+                <form action="{{ route('carrinho.adicionar') }}" method="POST" class="adicionarItemForm">
                   @csrf
                   <input type="hidden" name="PRODUTO_ID" value="{{ $produto->PRODUTO_ID }}">
                   <input type="hidden" name="ITEM_QTD" value="1">
@@ -571,10 +689,11 @@
                     Adicionar ao Carrinho
                   </button>
                 </form>
+                @endif
               </div>
 
               <!--Icone de desconto do Produto-->
-              @if($produto->PRODUTO_DESCONTO > 0)
+              @if($produto->PRODUTO_DESCONTO > 0 && $produto->estoque->PRODUTO_QTD > 0)
               @php
               $porcentagem = (1 - ($produto->PRODUTO_PRECO - $produto->PRODUTO_DESCONTO) / $produto->PRODUTO_PRECO) * 100
               @endphp
@@ -678,9 +797,9 @@
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
-          <a href="/profile"class="link-footer mb-3">Minha conta</a>
-          <a href="/profile"class="link-footer mb-3">Meu Carrinho</a>
-          <a href="/profile"class="link-footer mb-3">Meus pedidos</a>
+          <a href="/profile" class="link-footer mb-3">Minha conta</a>
+          <a href="/profile" class="link-footer mb-3">Meu Carrinho</a>
+          <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
         </div>
         <div class="col col-2 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Redes Sociais</h3>
@@ -724,6 +843,7 @@
 
   <script src="{{ asset('js/cookies.js') }}"></script>
   <script src="{{ asset('js/script.js') }}"></script>
+  <script src="{{ asset('js/ajax.js') }}"></script>
 
 </body>
 

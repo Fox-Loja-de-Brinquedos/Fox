@@ -73,7 +73,7 @@
     </div>
   </main>
 
-  < <footer>
+  <footer>
 
     <!--Receba promoções banner-->
     <div id="news-and-promotions-banner" class="container-fluid">

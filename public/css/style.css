@@ -11,6 +11,10 @@ a {
   text-decoration: none;
 }
 
+.header-logo img{
+  height: 55px;
+}
+
 .poetsen-one-regular {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
@@ -27,6 +31,7 @@ a {
 .searchbar {
   border: 1px solid orange;
   border-radius: 8px 0 0 8px;
+  max-width: 250px;
 }
 
 .searchbar:focus {
@@ -126,6 +131,10 @@ a {
   font-size: 12px;
 }
 
+.btn-login {
+  border: none !important;
+}
+
 .btn-login img,
 .btn-cart img {
   width: 18px;
@@ -145,14 +154,16 @@ a {
 #qty-products-cart {
   color: white;
   position: absolute;
-  right: 8px;
+  top: -10px;
+  right: -9px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 360px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   padding: 8px;
+  font-size: 10px;
   background-color: #FFA500;
 }
 
@@ -165,6 +176,14 @@ a {
   border-radius: 16px;
   max-height: 25rem;
   min-height: 396px;
+}
+
+.product-card span, h5, p{
+  cursor: pointer;
+}
+
+.product-card span img{
+  filter:grayscale(1);
 }
 
 .card-body {
@@ -188,12 +207,20 @@ a {
   max-height: 3.6em;
 }
 
-
 .add-to-cart-box {
   width: 100%;
   background-color: #F9A80C;
   color: white;
   border: 2px solid #F9A80C;
+  transition: 0.2s;
+  border-radius: 7px;
+}
+
+.add-to-cart-box-out-of-stock {
+  width: 100%;
+  background-color: #999999;
+  color: white;
+  border: 2px solid #999999;
   transition: 0.2s;
   border-radius: 7px;
 }
@@ -653,4 +680,37 @@ label {
 /*Carrinho Japa*/
 .product-thumbnail img {
   width: 64px;
+}
+
+
+/* Small devices landscape phones, 576px and up */
+@media (min-width: 576px) {  }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+  .header-logo {
+    position: absolute;
+    top: -45px;
+  }
+  .header-logo img{
+    height: 91px;
+  }
+
+ }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {  }
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+  .searchbar {
+    max-width: 300px;
+  }
+ }
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+  .searchbar {
+    max-width: 545px;
+  } 
 }

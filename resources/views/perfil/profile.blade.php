@@ -24,7 +24,7 @@
 
 <body>
 
-<header>
+  <header>
     <div class="container">
       <div class="row pt-4 pb-2">
         <div class="col-12 col-md-4 d-flex align-items-center justify-content-center justify-content-md-start">
@@ -98,7 +98,6 @@
 
 
   <footer>
-
     <!--Receba promoções banner-->
     <div id="news-and-promotions-banner" class="container-fluid">
       <div class="container py-5">

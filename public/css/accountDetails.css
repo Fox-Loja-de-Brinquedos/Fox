@@ -11,17 +11,20 @@ main{
     margin-top: 50px;
 }
 
+.account-details-container {
+    max-width: 445px;
+}
 
 .title-details{
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
 }
 
 .title-detail{
     font-size: 16px;
     border-bottom: solid 3px black;
     padding-bottom: 4px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .profile-pref{
@@ -32,7 +35,6 @@ main{
 .formProfile{
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
 }
 
 .name-label{
@@ -67,8 +69,7 @@ main{
 }
 
 .btn-detail{
-    width: 445px;
-    height: 39px;
+    padding: 8px;
     color: #ffffff;
     background-color: #F9A80C;
 
@@ -88,3 +89,22 @@ main{
     font-weight: bold;
     font-size: 10px;
 }
+
+/* Small devices landscape phones, 576px and up */
+@media (min-width: 576px) { 
+    .title-details{
+        font-size: 1.5rem;
+    }
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {  }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {  }
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  }
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {  }

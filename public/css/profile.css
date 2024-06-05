@@ -8,20 +8,16 @@
   }
 
 .welcome-section{
-    margin-top: 30px;
-    border-top: solid 1px;
+    gap: 10px; 
+}
 
-    height: 20vh;    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 50px; 
-
+.welcome-star img{
+    max-width: 20px;
 }
 
 .star-section{
     flex: 0 0 auto;
-    padding-bottom: 40px;
+    padding-bottom: 30px;
 }
 
 
@@ -39,25 +35,19 @@
 }
 
 .profile-name{
-
     display: flex;
     justify-content: center;
 
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: bolder;
     text-transform: uppercase;
     margin: 0;
 }
 
 .orders-section{
-    margin-top: 5vh;
-    margin-left: 200px;
-    margin-right: 200px;
 
     display: flex;
     flex-direction: column;
-
-    height: 250px;
 }
 
 .order-title{
@@ -93,13 +83,8 @@
 }
 
 .account-section{
-    margin-left: 200px;
-    margin-right: 200px;
-
     display: flex;
     flex-direction: column;
-
-    height: 250px;
 }
 
 .account-title{
@@ -111,16 +96,13 @@
 .order-button{
     border-top: solid 1px #c6c6c686;
     padding-top: 30px;
-    
-    display: flex;
-    gap: 20rem;
 }
 
 .btn-order{
     background-color: transparent;
     border: none;
     display: flex;
-    gap: 10rem;
+    gap: 1rem;
 
     color: #000000;
     text-decoration: none;
@@ -138,7 +120,6 @@
     color: black;
     text-decoration: none;
     position: absolute;
-    margin-top: 60px;
 }
 
 .logout:hover{
@@ -147,10 +128,27 @@
 
 
 /* Small devices landscape phones, 576px and up */
-@media (min-width: 576px) {  }
+@media (min-width: 576px) { 
+    .profile-name{
+        font-size: 1.5rem;
+    }
+    .welcome-section{
+        gap: 50px; 
+    }
+    .welcome-star img{
+        max-width: 40px;
+    }
+    .star-section{
+        padding-bottom: 40px;
+    }
+ }
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {  }
+@media (min-width: 768px) { 
+    .btn-order{
+        gap: 10rem;
+    }
+ }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {  }

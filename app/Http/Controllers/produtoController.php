@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\Carrinho;
 use App\Models\Categoria;
-use App\Models\Produto_Estoque;
 use Illuminate\Support\Facades\DB;
 
 class produtoController extends Controller
@@ -73,6 +72,7 @@ class produtoController extends Controller
 
         // Recebe o que foi digitado pelo usuário
         $search = $request->input('search');
+        $search = empty($search) ? '%' : $search;
 
         // Verifica se a checkbox de promoção foi checada
         $isPromotionChecked = $request->has('promotion_checkbox');
@@ -89,6 +89,7 @@ class produtoController extends Controller
 
         //Verifica qual categoria foi clicada
         $categoriaNome = $request->get('categoriaNome');
+
 
         // Verifica se foi passado algum valor na pesquisa
         if ($search) {
@@ -116,7 +117,10 @@ class produtoController extends Controller
 
             // Filtra por produtos em promoção se definido
             if ($isPromotionChecked || $dropdownFilter == 'descontos') {
-                $query->where('PRODUTO_DESCONTO', '>', 0);
+                $query->where('PRODUTO_DESCONTO', '>', 0)
+                    ->whereHas('estoque', function ($query) {
+                        $query->where('PRODUTO_QTD', '>', 0);
+                    });
             }
 
             // Filtra e ordena de acordo com o dropdown
@@ -148,10 +152,10 @@ class produtoController extends Controller
                     $query->orderByRaw('(PRODUTO_PRECO - PRODUTO_DESCONTO) ASC');
                     break;
                 case 'aZ':
-                    $query->orderBy('PRODUTO_NOME', 'asc');
+                    $query->orderByRaw('TRIM(PRODUTO_NOME) ASC');
                     break;
                 case 'zA':
-                    $query->orderBy('PRODUTO_NOME', 'desc');
+                    $query->orderByRaw('TRIM(PRODUTO_NOME) DESC');
                     break;
             }
 

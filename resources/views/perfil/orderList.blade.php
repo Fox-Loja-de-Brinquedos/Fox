@@ -27,7 +27,8 @@
     <div class="container">
       <div class="row pt-4 pb-2">
         <div class="col-12 col-md-4 d-flex align-items-center justify-content-center justify-content-md-start">
-          <a href="/profile" class="voltar-a-loja"><img src="images/de-volta.png" alt="" width="23px" height="20px"> Minha conta</a></div>
+          <a href="/profile" class="voltar-a-loja"><img src="images/de-volta.png" alt="" width="23px" height="20px"> Minha conta</a>
+        </div>
         <div class="col-12 col-md-4 d-flex align-items-center justify-content-center py-3 py-md-0">
           <img src="images/fox1.svg" alt="" width="116px" height="122px">
         </div>
@@ -61,20 +62,20 @@
                   <div class="order-images">
                     <!-- Definido para exibir apenas a primeira imagem de produto encontrado no pedido  -->
                     @if ($pedido->itens->isNotEmpty())
-                      @php $primeiroItem = $pedido->itens->first(); @endphp
-                      @if ($primeiroItem->produto && $primeiroItem->produto->imagens->isNotEmpty())
-                      <img class="img-order" src="{{ $primeiroItem->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto">
-                      @endif
+                    @php $primeiroItem = $pedido->itens->first(); @endphp
+                    @if ($primeiroItem->produto && $primeiroItem->produto->imagens->isNotEmpty())
+                    <img class="img-order" src="{{ $primeiroItem->produto->imagens->first()->IMAGEM_URL }}" alt="Imagem do produto">
+                    @endif
                     @endif
                   </div>
                 </div>
-                
+
                 <div class="col-12 col-sm-6 ">
                   <!-- tipo de dado data do banco não compativel com função para formatar a data, entao importei o Carbon -->
                   <p class="date-order mb-1">{{ \Carbon\Carbon::parse($pedido->PEDIDO_DATA)->format('d/m/Y') }}</p>
 
                   <!-- iterando para mostrar a quantidade e preço de cada pedido separadamente -->
-                  
+
                   <p class="order-unit">Produtos: {{ $pedido->totalUnidades }}</p>
 
                   <p class="order-price mb-0">R$ {{ number_format($pedido->totalPreco, 2, ',', '.') }}</p>
@@ -88,7 +89,7 @@
       </div>
     </div>
 
-    
+
   </main>
 
   <footer>
@@ -104,21 +105,28 @@
 
           <div class="col-12 col-xl-6 d-flex justify-content-evenly">
             <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <input type="email" class="form-control text-us-input w-100" placeholder="Seu nome">
+              <form id="newsletter">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                    <input type="text" class="form-control text-us-input w-100" required placeholder="Seu nome">
+                  </div>
+                  <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                    <input type="email" class="form-control text-us-input w-100" required placeholder="E-mail">
+                  </div>
+                  <div class="col-12 col-sm-3 mb-2 mb-sm-0">
+                    <button type="submit" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
+                  </div>
                 </div>
-                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <input type="email" class="form-control text-us-input w-100" placeholder="E-mail">
-                </div>
-                <div class="col-12 col-sm-3 mb-2 mb-sm-0">
-                  <button type="button" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <!--Mensagem de Sucesso ao enviar formulário-->
+    <div class="mensagem">
+      <p class="p-5">Formulário enviado com sucesso!</p>
     </div>
 
     <div id="social-midia-footer" class="container mt-5 mb-2 mb-lg-5">
@@ -179,9 +187,9 @@
   </footer>
 
 
-    <script src="{{ asset('js/script.js') }}"></script>
+  <script src="{{ asset('js/script.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>

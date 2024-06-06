@@ -26,7 +26,8 @@
     <div class="container">
       <div class="row pt-4 pb-2">
         <div class="col-12 col-md-4 d-flex align-items-center justify-content-center justify-content-md-start">
-          <a href="/" class="voltar-a-loja"><img src="images/de-volta.png" alt="" width="23px" height="20px"> Voltar à loja</a></div>
+          <a href="/" class="voltar-a-loja"><img src="images/de-volta.png" alt="" width="23px" height="20px"> Voltar à loja</a>
+        </div>
         <div class="col-12 col-md-4 d-flex align-items-center justify-content-center py-3 py-md-0">
           <img src="images/fox1.svg" alt="" width="116px" height="122px">
         </div>
@@ -136,22 +137,30 @@
 
           <div class="col-12 col-xl-6 d-flex justify-content-evenly">
             <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <input type="email" class="form-control text-us-input w-100" placeholder="Seu nome">
+              <form id="newsletter">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                    <input type="text" class="form-control text-us-input w-100" required placeholder="Seu nome">
+                  </div>
+                  <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                    <input type="email" class="form-control text-us-input w-100" required placeholder="E-mail">
+                  </div>
+                  <div class="col-12 col-sm-3 mb-2 mb-sm-0">
+                    <button type="submit" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
+                  </div>
                 </div>
-                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <input type="email" class="form-control text-us-input w-100" placeholder="E-mail">
-                </div>
-                <div class="col-12 col-sm-3 mb-2 mb-sm-0">
-                  <button type="button" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!--Mensagem de Sucesso ao enviar formulário-->
+    <div class="mensagem">
+      <p class="p-5">Formulário enviado com sucesso!</p>
+    </div>
+
 
     <div id="social-midia-footer" class="container mt-5 mb-2 mb-lg-5">
       <div class="row px-3 px-sm-0">

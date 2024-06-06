@@ -122,52 +122,36 @@
               <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}">Bonecas</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Bonecas%']) }}">Bonecas</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}">Veículos</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Carrinhos de madeira%']) }}">Veículos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}">Pelúcias</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Pelúcia%']) }}">Pelúcias</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}">Jogos de cartas</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Jogos de cartas%']) }}">Jogos de cartas</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}">Tabuleiros</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Tabuleiro%']) }}">Tabuleiros</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}">Eletrônicos</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Eletrônico%']) }}">Eletrônicos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%']) }}">Outros brinquedos</a>
+                    <a class="nav-link" href="{{ route('produto.search')}}">Outros brinquedos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}">Lançamentos</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['produtoLancamentos' => true]) }}">Lançamentos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}">Ofertas</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['promotion_checkbox' => true]) }}">Ofertas</a>
                   </li>
-
-                  <!-- MODELO DE DROPDOWN
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </li>
-                  -->
                 </ul>
 
                 <form class="form-inline " action="{{ route('produto.search') }}" method="GET">
-                  <input class="form-control mr-2 searchbar d-inline-block mt-3" name="search" type="text" placeholder="Pesquisar produto...">
+                  <input class="form-control mr-2 searchbar d-inline-block mt-3" name="search" type="text" autocomplete="off" placeholder="Pesquisar produto...">
                   <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
                 </form>
 
@@ -187,31 +171,31 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="categories-menu navbar-nav mx-auto">
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="nav-link nav-link-uppercase">Bonecas</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Bonecas%']) }}" class="nav-link nav-link-uppercase">Bonecas</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}" class="nav-link nav-link-uppercase">Veículos</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Carrinhos de madeira%']) }}" class="nav-link nav-link-uppercase">Veículos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}" class="nav-link nav-link-uppercase">Pelúcias</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Pelúcia%']) }}" class="nav-link nav-link-uppercase">Pelúcias</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}" class="nav-link nav-link-uppercase">Jogos de cartas</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Jogos de cartas%']) }}" class="nav-link nav-link-uppercase">Jogos de cartas</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}" class="nav-link nav-link-uppercase">Tabuleiros</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Tabuleiro%']) }}" class="nav-link nav-link-uppercase">Tabuleiros</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}" class="nav-link nav-link-uppercase">Eletrônicos</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Eletrônico%']) }}" class="nav-link nav-link-uppercase">Eletrônicos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%']) }}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
+                  <a href="{{ route('produto.search')}}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
+                  <a href="{{ route('produto.search' , ['produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
+                  <a href="{{ route('produto.search' , ['promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
                 </li>
               </ul>
             </div>
@@ -229,13 +213,13 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%LEGO%']) }}" class="banner-slide"><img src="{{ asset('images/banner05.png') }}" class="d-block w-100" alt="..."></a>
+        <a href="{{ route('produto.search' , ['categoriaNome' => '%LEGO%']) }}" class="banner-slide"><img src="{{ asset('images/banner05.png') }}" class="d-block w-100" alt="..."></a>
       </div>
       <div class="carousel-item">
-        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="banner-slide" data-search="Monter high"><img src="{{ asset('images/banner06.png') }}" class="d-block w-100" alt="..."></a>
+        <a href="{{ route('produto.search' , ['categoriaNome' => '%Bonecas%']) }}" class="banner-slide" data-search="Monter high"><img src="{{ asset('images/banner06.png') }}" class="d-block w-100" alt="..."></a>
       </div>
       <div class="carousel-item">
-        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Mordedores%']) }}" class="banner-slide"><img src="{{ asset('images/banner04.png') }}" class="d-block w-100" alt="..."></a>
+        <a href="{{ route('produto.search' , ['categoriaNome' => '%Mordedores%']) }}" class="banner-slide"><img src="{{ asset('images/banner04.png') }}" class="d-block w-100" alt="..."></a>
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -422,7 +406,7 @@
             <!--Veículo-->
             <div class="swiper-slide swiper-slide-category">
               <div class="rounded-circle category-circle">
-                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link" href="#">
+                <a href="{{ route('produto.search' , ['categoriaNome' => '%Carrinhos de madeira%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link" href="#">
                   <img class="category-img m-0" src="{{ asset('images/monsterTruck.png') }}">
                   <p class="fs-4 poetsen-one-regular category-description">Veículo</p>
                 </a>
@@ -432,7 +416,7 @@
             <!--Decoração-->
             <div class="swiper-slide swiper-slide-category">
               <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
-                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Itens decorativos%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                <a href="{{ route('produto.search' , ['categoriaNome' => '%Itens decorativos%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
                   <img class="category-img m-0" src="{{ asset('images/capaceteStarwars.png') }}">
                   <p class="fs-4 poetsen-one-regular category-description">Decoração</p>
                 </a>
@@ -442,7 +426,7 @@
             <!--Action Figure-->
             <div class="swiper-slide swiper-slide-category">
               <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
-                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Figura de Ação%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                <a href="{{ route('produto.search' , ['categoriaNome' => '%Figura de Ação%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
                   <img class="category-img m-0" src="{{ asset('images/ellieActionFigure.png') }}">
                   <p class="fs-4 poetsen-one-regular category-description">Action Figure</p>
                 </a>
@@ -452,7 +436,7 @@
             <!--Bonecas-->
             <div class="swiper-slide swiper-slide-category">
               <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
-                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                <a href="{{ route('produto.search' , ['categoriaNome' => '%Bonecas%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
                   <img class="category-img m-0" src="{{ asset('images/barbie.png') }}">
                   <p class="fs-4 poetsen-one-regular category-description">Bonecas</p>
                 </a>
@@ -462,7 +446,7 @@
             <!--Funko-->
             <div class="swiper-slide swiper-slide-category">
               <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
-                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Mordedores%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                <a href="{{ route('produto.search' , ['categoriaNome' => '%Mordedores%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
                   <img class="category-img m-0" src="{{ asset('images/freddyFunko.png') }}">
                   <p class="fs-4 poetsen-one-regular category-description">Funko</p>
                 </a>
@@ -472,7 +456,7 @@
             <!--Cartas-->
             <div class="swiper-slide swiper-slide-category">
               <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
-                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                <a href="{{ route('produto.search' , ['categoriaNome' => '%Jogos de cartas%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
                   <img class="category-img m-0" src="{{ asset('images/unoDeck.png') }}">
                   <p class="fs-4 poetsen-one-regular category-description">Cartas</p>
                 </a>
@@ -482,7 +466,7 @@
             <!--Lego-->
             <div class="swiper-slide swiper-slide-category">
               <div class="d-flex flex-column align-items-center justify-content-center rounded-circle category-circle">
-                <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%LEGO%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
+                <a href="{{ route('produto.search' , ['categoriaNome' => '%LEGO%']) }}" class="d-flex flex-column align-items-center justify-content-center nav-link">
                   <img class="category-img m-0" src="{{ asset('images/lego.png') }}">
                   <p class="fs-4 poetsen-one-regular category-description">Lego</p>
                 </a>
@@ -643,7 +627,7 @@
   <div class="container mt-5 mb-5">
     <div class="row">
       <div class="col-12 text-center">
-        <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}"><img src="{{ asset('images/banner-color-kids.png') }}" class="img-fluid" alt=""></a>
+        <a href="{{ route('produto.search' , ['categoriaNome' => '%Jogos de cartas%']) }}"><img src="{{ asset('images/banner-color-kids.png') }}" class="img-fluid" alt=""></a>
       </div>
     </div>
   </div>
@@ -819,21 +803,28 @@
 
           <div class="col-12 col-xl-6 d-flex justify-content-evenly">
             <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <input type="email" class="form-control text-us-input w-100" placeholder="Seu nome">
+              <form id="newsletter">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                    <input type="text" class="form-control text-us-input w-100" required placeholder="Seu nome">
+                  </div>
+                  <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                    <input type="email" class="form-control text-us-input w-100" required placeholder="E-mail">
+                  </div>
+                  <div class="col-12 col-sm-3 mb-2 mb-sm-0">
+                    <button type="submit" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
+                  </div>
                 </div>
-                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <input type="email" class="form-control text-us-input w-100" placeholder="E-mail">
-                </div>
-                <div class="col-12 col-sm-3 mb-2 mb-sm-0">
-                  <button type="button" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <!--Mensagem de Sucesso ao enviar formulário-->
+    <div class="mensagem">
+      <p class="p-5">Formulário enviado com sucesso!</p>
     </div>
 
     <div id="social-midia-footer" class="container mt-5 mb-2 mb-lg-5">

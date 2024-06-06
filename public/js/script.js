@@ -1,22 +1,21 @@
-//Previne o envio de formulário de pesquisa caso esteja vazio
 document.addEventListener("DOMContentLoaded", function () {
-    // Captura o formulário
-    var form = document.querySelector(".form-inline");
 
-    // Adiciona um ouvinte de evento para a submissão do formulário
-    form.addEventListener("submit", function (event) {
-        // Captura o valor do campo de pesquisa
-        var searchTerm = document.querySelector(".searchbar").value.trim();
+  var form = document.querySelector('#newsletter');
+  form.addEventListener('submit', function () {
 
-        // Verifica se o campo de pesquisa está vazio
-        if (searchTerm === "") {
-            // Impede o envio do formulário
-            event.preventDefault();
-        }
-    });
+    // Exibe a mensagem
+    var mensagem = document.querySelector('.mensagem');
+    mensagem.style.display = 'block';
 
-//Carroussel de produto
-var swiperOfertas = new Swiper(".mySwiperProdutoOfertas", {
+    // Após um tempo, oculta a mensagem e envia o formulário
+    setTimeout(function () {
+      mensagem.style.display = 'none';
+    }, 2000); 
+  });
+
+
+  //Carroussel de produto
+  var swiperOfertas = new Swiper(".mySwiperProdutoOfertas", {
     slidesPerView: 1,
     spaceBetween: 37,
     slidesPerGroup: 1,
@@ -134,5 +133,6 @@ var swiperOfertas = new Swiper(".mySwiperProdutoOfertas", {
       },
     },
   });
+
 });
 

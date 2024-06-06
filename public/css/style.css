@@ -391,6 +391,20 @@ header .dropdown ul.dropdown-menu {
 #news-and-promotions-banner {
   background: #43ADDA;
   margin-top: 5rem;
+  padding: 4em 0em;
+}
+
+.mensagem {
+  display: none;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #3b8d04;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  z-index: 1000;
 }
 
 .newsletter-banner-title {

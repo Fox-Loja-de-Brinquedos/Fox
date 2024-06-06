@@ -16,6 +16,11 @@ a {
   border: none;
 }
 
+header .dropdown ul.dropdown-menu {
+  inset: 0px 0px auto auto;
+  max-width: 210px;
+}
+
 .header-logo img{
   height: 55px;
 }

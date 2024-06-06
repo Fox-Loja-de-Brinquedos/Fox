@@ -668,8 +668,8 @@
         <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Loja</h3>
           <a href="/profile" class="link-footer mb-3">Minha conta</a>
-          <a href="/profile" class="link-footer mb-3">Meu Carrinho</a>
-          <a href="/profile" class="link-footer mb-3">Meus pedidos</a>
+          <a href="{{ route('carrinho.listar') }}" class="link-footer mb-3">Meu Carrinho</a>
+          <a href="{{ route('orderList') }}" class="link-footer mb-3">Meus pedidos</a>
         </div>
         <div class="col-12 col-sm-6 mb-5 mb-lg-0 col-lg-3 d-flex flex-column footer-column">
           <h3 class="fs-5 text-uppercase">Redes Sociais</h3>

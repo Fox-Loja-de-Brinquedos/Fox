@@ -73,7 +73,7 @@
                     Olá, {{ Auth::user()->USUARIO_NOME }}
                 </span>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="{{ route('profile') }}">Minha conta</a></li>
                 <li><a class="dropdown-item" href="{{ route('orderList') }}">Meus pedidos</a></li>
                 <li><a class="dropdown-item" href="{{ route('accountDetails') }}">Editar dados pessoais</a></li>
@@ -273,33 +273,35 @@
                     </ul>
                 </div>
 
-
                 <!--Filtrar por Preço-->
-                <p class="fs-5 ms-3 mt-4 fw-semibold">Faixa de Preço</p>
-                <div class="container">
+                <div id="price-filter-container-desktop">
+                    <div id="price-filter">
+                        <p class="fs-5 ms-3 mt-4 fw-semibold">Faixa de Preço</p>
+                        <div class="container">
 
-                    <form id="price-filter-form" action="{{ route('produto.search') }}" method="GET">
-                        <div class="price-input">
-                            <div class="field">
-                                <label for="min-price">Min</label>
-                                <input type="number" id="min-price" name="minValue" value="0" disabled class="min-input m-0 ms-2" />
-                            </div>
-                            <div class="field">
-                                <label for="max-price">Max</label>
-                                <input type="number" id="max-price" name="maxValue" value="{{ round($maxValue) }}" disabled class="max-input m-0 ms-2" />
-                            </div>
+                            <form id="price-filter-form" action="{{ route('produto.search') }}" method="GET">
+                                <div class="price-input">
+                                    <div class="field">
+                                        <label for="min-price">Min</label>
+                                        <input type="number" id="min-price" name="minValue" value="0" disabled class="min-input m-0 ms-2" />
+                                    </div>
+                                    <div class="field">
+                                        <label for="max-price">Max</label>
+                                        <input type="number" id="max-price" name="maxValue" value="{{ round($maxValue) }}" disabled class="max-input m-0 ms-2" />
+                                    </div>
+                                </div>
+
+                                <div class="slider">
+                                    <div class="progress"></div>
+                                </div>
+
+                                <div class="range-input">
+                                    <input type="range" min="0" max="999" value="0" class="min-range" />
+                                    <input type="range" min="1" max="{{ round($maxValue) }}" value="{{ round($maxValue) }}" class="max-range" />
+                                </div>
+                            </form>
                         </div>
-
-                        <div class="slider">
-                            <div class="progress"></div>
-                        </div>
-
-                        <div class="range-input">
-                            <input type="range" min="0" max="999" value="0" class="min-range" />
-                            <input type="range" min="1" max="{{ round($maxValue) }}" value="{{ round($maxValue) }}" class="max-range" />
-                        </div>
-                    </form>
-
+                    </div>
                 </div>
 
                 <!--Limpar Filtros-->
@@ -379,32 +381,7 @@
 
 
                                     <!--Filtrar por Preço-->
-                                    <p class="fs-5 ms-3 mt-4 fw-semibold">Faixa de Preço</p>
-                                    <div class="container">
-
-                                        <form id="price-filter-form-mobile" action="{{ route('produto.search') }}" method="GET">
-                                            <div class="price-input">
-                                                <div class="field">
-                                                    <label for="min-price-mobile">Min</label>
-                                                    <input type="number" id="min-price-mobile" name="minValue-mobile" value="0" disabled class="min-input m-0 ms-2" />
-                                                </div>
-                                                <div class="field">
-                                                    <label for="max-price-mobile">Max</label>
-                                                    <input type="number" id="max-price-mobile" name="maxValue-mobile" value="{{ round($maxValue) }}" disabled class="max-input m-0 ms-2" />
-                                                </div>
-                                            </div>
-
-                                            <div class="slider">
-                                                <div class="progress"></div>
-                                            </div>
-
-                                            <div class="range-input">
-                                                <input type="range" min="0" max="999" value="0" class="min-range" />
-                                                <input type="range" min="1" max="{{ round($maxValue) }}" value="{{ round($maxValue) }}" class="max-range" />
-                                            </div>
-                                        </form>
-
-                                    </div>
+                                    <div id="price-filter-container-mobile"></div>
 
                                     <!--Limpar Filtros-->
                                     <p class="fs-5 ms-3 mt-4 fw-semibold">Limpar Filtros</p>

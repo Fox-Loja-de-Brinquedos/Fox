@@ -5,6 +5,23 @@ document.addEventListener('DOMContentLoaded', function () {
     var checkboxMobile = document.getElementById('promotion-checkbox-mobile');
     var form = document.getElementById('promotion-form');
     var isChecked = localStorage.getItem('promotionCheckboxChecked');
+    var priceFilterContainerDesktop = document.getElementById('price-filter-container-desktop');
+    var priceFilterContainerMobile = document.getElementById('price-filter-container-mobile');
+    var priceFilter = document.getElementById('price-filter');
+
+    // Move o filtro de preço de container, dependendo do tamanho da tela
+    const moveElement = (mediaQuery) => {
+        if (mediaQuery.matches) {
+            priceFilterContainerDesktop.appendChild(priceFilter);
+        } else {
+            priceFilterContainerMobile.appendChild(priceFilter);
+        }
+    };
+    const mediaQuery = window.matchMedia('(min-width: 1200px)');
+    mediaQuery.addEventListener('change', moveElement);
+
+    // Checagem inicial do tamanho da tela
+    moveElement(mediaQuery);
 
     // Se o estado estiver marcado, marca a caixa de seleção
     if (isChecked === 'true') {

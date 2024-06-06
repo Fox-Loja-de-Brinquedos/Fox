@@ -33,10 +33,14 @@
                 <span class="step-label mt-1 d-block">Carrinho</span>
               </div>
               <div class="step-item text-center">
+                @if($itens->count()>0)  
                 <a href="{{ route('checkout.dadospessoais') }}">
+                @endif
                   <div class="step-circle mx-auto">2</div>
                   <span class="step-label mt-1 d-block">Dados pessoais</span>
+                @if($itens->count()>0)  
                 </a>
+                @endif
               </div>
               <div class="step-item text-center">
                 <div class="step-circle mx-auto">3</div>

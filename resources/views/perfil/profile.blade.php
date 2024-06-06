@@ -62,7 +62,7 @@
         </div>
       </div>
 
-      <div class="orders-section mt-3 mt-sm-5">
+      <div class="orders-section mt-3 mt-sm-5 mb-5">
         <h2 class="order-title">OS SEUS PRODUTOS</h2>
         <span class="order-icon"><img src="images/sacola.svg" alt=""> Pedidos</span>
         @if($pedidos->isEmpty())

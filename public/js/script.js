@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   var form = document.querySelector('#newsletter');
-  form.addEventListener('submit', function () {
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
     // Exibe a mensagem
     var mensagem = document.querySelector('.mensagem');
     mensagem.style.display = 'block';
 
-    // Após um tempo, oculta a mensagem e envia o formulário
+    // Após um tempo, oculta a mensagem
     setTimeout(function () {
       mensagem.style.display = 'none';
-    }, 2000); 
+    }, 1700);
   });
-
 
   //Carroussel de produto
   var swiperOfertas = new Swiper(".mySwiperProdutoOfertas", {

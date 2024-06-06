@@ -218,7 +218,7 @@ label.opcao-pagamento {
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
     .item-qtd-input{
-        padding: 5px 12px 6px 12px;
+        padding: 5px 0px 6px 0px;
     }
     .container-box-pedido-realizado{
         padding: 60px 60px;

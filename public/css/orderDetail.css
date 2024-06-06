@@ -3,16 +3,6 @@
     font-family: 'Inter';
 }
 
-main{
-    display: flex;
-    justify-content: space-between;
-    margin: 7% 5% 10% 5%;
-}
-
-.details{
-    width: 30%;
-}
-
 .orderId{
     font-size: 20px;
     font-weight: bold;
@@ -42,7 +32,7 @@ main{
 .orderAddress p{
     font-size: 12px;
     margin: 2px;
-    padding: 0%;
+    padding: 0;
 }
 
 .titleAddress{
@@ -52,11 +42,9 @@ main{
 .orderItem{
     display: flex;
     flex-direction: column;
-    width: 65%;
 
     justify-content: space-between;
-    padding-bottom: 36px;
-    padding-top: 21px;
+    padding-top: 7px;
 }
 
 .tableHead{
@@ -99,3 +87,19 @@ main{
 .orderTotal{
     font-weight: bold;
 }
+
+
+/* Small devices landscape phones, 576px and up */
+@media (min-width: 576px) {  }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {  }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {  }
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  }
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {  }

@@ -17,10 +17,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
+
+  <!-- importando jquery para ajax -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <!-- Toastr CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+  <!-- Toastr JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 
 <body>
-<header>
+  <header>
     <div class="container-fluid">
 
       <!-- Linha do Frete Grátis -->
@@ -112,52 +122,36 @@
               <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}">Bonecas</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Bonecas%']) }}">Bonecas</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}">Veículos</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Carrinhos de madeira%']) }}">Veículos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}">Pelúcias</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Pelúcia%']) }}">Pelúcias</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}">Jogos de cartas</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Jogos de cartas%']) }}">Jogos de cartas</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}">Tabuleiros</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Tabuleiro%']) }}">Tabuleiros</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}">Eletrônicos</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Eletrônico%']) }}">Eletrônicos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%']) }}">Outros brinquedos</a>
+                    <a class="nav-link" href="{{ route('produto.search')}}">Outros brinquedos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}">Lançamentos</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['produtoLancamentos' => true]) }}">Lançamentos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}">Ofertas</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['promotion_checkbox' => true]) }}">Ofertas</a>
                   </li>
-
-                  <!-- MODELO DE DROPDOWN
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </li>
-                  -->
                 </ul>
 
                 <form class="form-inline " action="{{ route('produto.search') }}" method="GET">
-                  <input class="form-control mr-2 searchbar d-inline-block mt-3" name="search" type="text" placeholder="Pesquisar produto...">
+                  <input class="form-control mr-2 searchbar d-inline-block mt-3" name="search" type="text" autocomplete="off" placeholder="Pesquisar produto...">
                   <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
                 </form>
 
@@ -177,31 +171,31 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="categories-menu navbar-nav mx-auto">
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="nav-link nav-link-uppercase">Bonecas</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Bonecas%']) }}" class="nav-link nav-link-uppercase">Bonecas</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}" class="nav-link nav-link-uppercase">Veículos</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Carrinhos de madeira%']) }}" class="nav-link nav-link-uppercase">Veículos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}" class="nav-link nav-link-uppercase">Pelúcias</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Pelúcia%']) }}" class="nav-link nav-link-uppercase">Pelúcias</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}" class="nav-link nav-link-uppercase">Jogos de cartas</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Jogos de cartas%']) }}" class="nav-link nav-link-uppercase">Jogos de cartas</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}" class="nav-link nav-link-uppercase">Tabuleiros</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Tabuleiro%']) }}" class="nav-link nav-link-uppercase">Tabuleiros</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}" class="nav-link nav-link-uppercase">Eletrônicos</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Eletrônico%']) }}" class="nav-link nav-link-uppercase">Eletrônicos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%']) }}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
+                  <a href="{{ route('produto.search')}}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
+                  <a href="{{ route('produto.search' , ['produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
+                  <a href="{{ route('produto.search' , ['promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
                 </li>
               </ul>
             </div>
@@ -262,7 +256,6 @@
 
 
   <footer>
-
     <!--Receba promoções banner-->
     <div id="news-and-promotions-banner" class="container-fluid">
       <div class="container py-5">
@@ -275,21 +268,28 @@
 
           <div class="col-12 col-xl-6 d-flex justify-content-evenly">
             <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <input type="email" class="form-control text-us-input w-100" placeholder="Seu nome">
+              <form id="newsletter">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                    <input type="text" class="form-control text-us-input w-100" required placeholder="Seu nome">
+                  </div>
+                  <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                    <input type="email" class="form-control text-us-input w-100" required placeholder="E-mail">
+                  </div>
+                  <div class="col-12 col-sm-3 mb-2 mb-sm-0">
+                    <button type="submit" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
+                  </div>
                 </div>
-                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <input type="email" class="form-control text-us-input w-100" placeholder="E-mail">
-                </div>
-                <div class="col-12 col-sm-3 mb-2 mb-sm-0">
-                  <button type="button" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <!--Mensagem de Sucesso ao enviar formulário-->
+    <div class="mensagem">
+      <p class="p-5">Formulário enviado com sucesso!</p>
     </div>
 
     <div id="social-midia-footer" class="container mt-5 mb-2 mb-lg-5">
@@ -318,7 +318,7 @@
             <a href="https://www.instagram.com" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
           </div>
         </div>
-        <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 footer-column">
+        <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 footer-column d-flex flex-column align-items-center">
           <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
           <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
         </div>
@@ -349,13 +349,8 @@
 
   </footer>
 
-
-<!--Swiper JS-->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-<script src="{{ asset('js/cookies.js') }}"></script>
-<script src="{{ asset('js/script.js') }}"></script>
-
+  <script src="{{ asset('js/script.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>

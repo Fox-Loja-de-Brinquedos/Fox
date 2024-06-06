@@ -425,7 +425,7 @@
                 </div>
                 <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 d-flex flex-column footer-column">
                     <h3 class="fs-5 text-uppercase">Loja</h3>
-                    <a href="/profile" class="link-footer mb-3">Minha conta</a>
+                    <a href="{{ route('profile') }}" class="link-footer mb-3">Minha conta</a>
                     <a href="{{ route('carrinho.listar') }}" class="link-footer mb-3">Meu Carrinho</a>
                     <a href="{{ route('orderList') }}" class="link-footer mb-3">Meus pedidos</a>
                 </div>
@@ -441,7 +441,7 @@
                         <a href="https://www.instagram.com" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 footer-column">
+                <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 footer-column d-flex flex-column align-items-center">
                     <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
                     <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
                 </div>

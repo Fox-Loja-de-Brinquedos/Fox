@@ -17,6 +17,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link rel="icon" href="{{ asset('images/logo-fox.png') }}" type="image/x-icon">
+
+  <!-- importando jquery para ajax -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <!-- Toastr CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+  <!-- Toastr JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 
 <body>
@@ -112,52 +122,36 @@
               <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}">Bonecas</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Bonecas%']) }}">Bonecas</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}">Veículos</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Carrinhos de madeira%']) }}">Veículos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}">Pelúcias</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Pelúcia%']) }}">Pelúcias</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}">Jogos de cartas</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Jogos de cartas%']) }}">Jogos de cartas</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}">Tabuleiros</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Tabuleiro%']) }}">Tabuleiros</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}">Eletrônicos</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['categoriaNome' => '%Eletrônico%']) }}">Eletrônicos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%']) }}">Outros brinquedos</a>
+                    <a class="nav-link" href="{{ route('produto.search')}}">Outros brinquedos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}">Lançamentos</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['produtoLancamentos' => true]) }}">Lançamentos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}">Ofertas</a>
+                    <a class="nav-link" href="{{ route('produto.search' , ['promotion_checkbox' => true]) }}">Ofertas</a>
                   </li>
-
-                  <!-- MODELO DE DROPDOWN
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </li>
-                  -->
                 </ul>
 
                 <form class="form-inline " action="{{ route('produto.search') }}" method="GET">
-                  <input class="form-control mr-2 searchbar d-inline-block mt-3" name="search" type="text" placeholder="Pesquisar produto...">
+                  <input class="form-control mr-2 searchbar d-inline-block mt-3" name="search" type="text" autocomplete="off" placeholder="Pesquisar produto...">
                   <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
                 </form>
 
@@ -177,31 +171,31 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="categories-menu navbar-nav mx-auto">
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Bonecas%']) }}" class="nav-link nav-link-uppercase">Bonecas</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Bonecas%']) }}" class="nav-link nav-link-uppercase">Bonecas</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Carrinhos de madeira%']) }}" class="nav-link nav-link-uppercase">Veículos</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Carrinhos de madeira%']) }}" class="nav-link nav-link-uppercase">Veículos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Pelúcia%']) }}" class="nav-link nav-link-uppercase">Pelúcias</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Pelúcia%']) }}" class="nav-link nav-link-uppercase">Pelúcias</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Jogos de cartas%']) }}" class="nav-link nav-link-uppercase">Jogos de cartas</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Jogos de cartas%']) }}" class="nav-link nav-link-uppercase">Jogos de cartas</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Tabuleiro%']) }}" class="nav-link nav-link-uppercase">Tabuleiros</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Tabuleiro%']) }}" class="nav-link nav-link-uppercase">Tabuleiros</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'categoriaNome' => '%Eletrônico%']) }}" class="nav-link nav-link-uppercase">Eletrônicos</a>
+                  <a href="{{ route('produto.search' , ['categoriaNome' => '%Eletrônico%']) }}" class="nav-link nav-link-uppercase">Eletrônicos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%']) }}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
+                  <a href="{{ route('produto.search')}}" class="nav-link nav-link-uppercase">Outros brinquedos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , ['search' => '%' , 'produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
+                  <a href="{{ route('produto.search' , ['produtoLancamentos' => true]) }}" class="nav-link nav-link-uppercase lancamentos">Lançamentos</a>
                 </li>
                 <li class="nav-item custom-nav-item">
-                  <a href="{{ route('produto.search' , [ 'search' => '%', 'promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
+                  <a href="{{ route('produto.search' , ['promotion_checkbox' => true]) }}" class="nav-link nav-link-uppercase ofertas">Ofertas</a>
                 </li>
               </ul>
             </div>
@@ -211,105 +205,104 @@
     </div>
   </header>
 
-    <!--inicio do texto-->
+  <!--inicio do texto-->
 
-    <div class="container-fluid py-3 mt-3 mb-3" style="background-color: #43ADDA; color: white;">
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <h1>POLÍTICA DE PRIVACIDADE</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-
+  <div class="container-fluid py-3 mt-3 mb-3" style="background-color: #43ADDA; color: white;">
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <h3 class="mt-5 mb-5">1. Declaração de Privacidade</h3>
-                <p class="mb-5">
-                    Esta página informa sobre nossas políticas referentes à coleta, uso e divulgação de dados pessoais
-                    quando
-                    você usa nosso Serviço e os diferentes caminhos pelos quais protegemos sua privacidade.
-
-                    Nós usamos seus dados para fornecer e melhorar o Serviço. Ao utilizar o Serviço, você concorda com a
-                    coleta
-                    e uso de informações de acordo com esta política.
-                </p>
-                <h3 class="mt-5 mb-5">2.Coleta e Uso de Informações</h3>
-                <p class="mt-5 mb-5">
-                    As informações pessoais que obtemos podem ser coletadas das seguintes formas:
-                    Site: Informações pessoais são coletadas no momento que o usuário interage em nosso site por meio de
-                    formulário de contato, para solicitação de informações, envio de elogios e agradecimento,
-                    reclamações e
-                    sugestões. Essas informações pessoais incluem, dentre outras, o nome, CPF, CEP, e-mail, telefone,
-                    dados do
-                    produto e data da compra. O usuário do nosso portal não é obrigado em hipótese alguma a fornecer
-                    qualquer
-                    dado pessoal para navegar nas páginas do site, de modo que qualquer informação é fornecida por livre
-                    e
-                    espontânea vontade. Somente é necessária à coleta de dados básicos quando o usuário desejar o
-                    retorno de seu
-                    contato. Todas as informações pessoais são colhidas de maneira justa e não invasiva, com o seu
-                    consentimento
-                    voluntário. As informações pessoais não são acessíveis a nenhuma pessoa fora da função específica
-                    para a
-                    qual foram coletadas.
-                    Cookies: dados pessoais podem ser coletados por meio de cookies. Para mais informações, consulte
-                    nossa
-                    Política de Cookies.
-                    Contrato: Quando o usuário adquire um de nossos produtos, coletamos os dados necessários para a
-                    confecção do
-                    contrato e emissão de nota fiscal. Estes dados são, entre outros, o e-mail para contato e eventual
-                    envio de
-                    Nota Fiscal Eletrônica, nome, CPF, CNPJ, Razão Social, Nome completo do Responsável, Telefone,
-                    Endereço
-                    comercial completo com CEP, Bairro, Cidade e Estado e a Inscrição Estadual quando aplicável.
-
-                    Compartilhamento: Podemos ter acesso a dados pessoais compartilhados por nossos parceiros comerciais
-                    em
-                    razão do atendimento ao serviço de pós-vendas por meio de assistências técnicas e equipe de
-                    promotores para
-                    orçamento, execução e entrega dos pedidos de compra. Estes dados são, entre outros, nome, CPF, CEP,
-                    e-mail,
-                    telefone, dados do produto e data da compra.
-                    Funcionários: Quanto aos dados pessoais coletados de nossos funcionários, estes são necessários para
-                    que
-                    seja efetuado o registro do funcionário, em atendimento à legislação trabalhista e execução do
-                    contrato de
-                    trabalho.
-                </p>
-                <h3 class="mt-5 mb-5">3. Mídias Sociais</h3>
-                <p class="mt-5 mb-5">
-                    A FOX se utiliza também da Mídia Social para se comunicar e interagir com seus clientes e
-                    consumidores
-                    por meio de websites de terceiros como, por exemplo, o Facebook, Instagram, LinkedIn e o YouTube.
-                    Estes
-                    websites de terceiros são uma tecnologia baseada na Internet que não é operada ou controlada pela
-                    FOX.
-                    Ao interagir, compartilhar ou “Curtir” a página da FOX no Facebook, ou outra mídia social, ou
-                    outra
-                    mídia social, você poderá revelar determinadas informações pessoais à FOX ou a terceiros.
-                    Usamos os “botões sociais” para permitir que os nossos usuários compartilhem ou marquem páginas da
-                    web. São
-                    botões de sites terceiros de mídias sociais, e que podem registrar informações sobre suas atividades
-                    na
-                    internet, incluindo este site. Por favor, reveja os respectivos termos de uso e políticas de
-                    privacidade
-                    dessas plataformas para entender exatamente como eles usam suas informações, como optar por não
-                    receber ou
-                    excluir tais informações.
-                    A quantidade de informações pessoais visíveis dependerá das suas próprias configurações de
-                    privacidade no
-                    Facebook, Twitter e demais mídias sociais.
-                </p>
-            </div>
+      <div class="row">
+        <div class="col text-center">
+          <h1>POLÍTICA DE PRIVACIDADE</h1>
         </div>
+      </div>
     </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3 class="mt-5 mb-5">1. Declaração de Privacidade</h3>
+        <p class="mb-5">
+          Esta página informa sobre nossas políticas referentes à coleta, uso e divulgação de dados pessoais
+          quando
+          você usa nosso Serviço e os diferentes caminhos pelos quais protegemos sua privacidade.
+
+          Nós usamos seus dados para fornecer e melhorar o Serviço. Ao utilizar o Serviço, você concorda com a
+          coleta
+          e uso de informações de acordo com esta política.
+        </p>
+        <h3 class="mt-5 mb-5">2.Coleta e Uso de Informações</h3>
+        <p class="mt-5 mb-5">
+          As informações pessoais que obtemos podem ser coletadas das seguintes formas:
+          Site: Informações pessoais são coletadas no momento que o usuário interage em nosso site por meio de
+          formulário de contato, para solicitação de informações, envio de elogios e agradecimento,
+          reclamações e
+          sugestões. Essas informações pessoais incluem, dentre outras, o nome, CPF, CEP, e-mail, telefone,
+          dados do
+          produto e data da compra. O usuário do nosso portal não é obrigado em hipótese alguma a fornecer
+          qualquer
+          dado pessoal para navegar nas páginas do site, de modo que qualquer informação é fornecida por livre
+          e
+          espontânea vontade. Somente é necessária à coleta de dados básicos quando o usuário desejar o
+          retorno de seu
+          contato. Todas as informações pessoais são colhidas de maneira justa e não invasiva, com o seu
+          consentimento
+          voluntário. As informações pessoais não são acessíveis a nenhuma pessoa fora da função específica
+          para a
+          qual foram coletadas.
+          Cookies: dados pessoais podem ser coletados por meio de cookies. Para mais informações, consulte
+          nossa
+          Política de Cookies.
+          Contrato: Quando o usuário adquire um de nossos produtos, coletamos os dados necessários para a
+          confecção do
+          contrato e emissão de nota fiscal. Estes dados são, entre outros, o e-mail para contato e eventual
+          envio de
+          Nota Fiscal Eletrônica, nome, CPF, CNPJ, Razão Social, Nome completo do Responsável, Telefone,
+          Endereço
+          comercial completo com CEP, Bairro, Cidade e Estado e a Inscrição Estadual quando aplicável.
+
+          Compartilhamento: Podemos ter acesso a dados pessoais compartilhados por nossos parceiros comerciais
+          em
+          razão do atendimento ao serviço de pós-vendas por meio de assistências técnicas e equipe de
+          promotores para
+          orçamento, execução e entrega dos pedidos de compra. Estes dados são, entre outros, nome, CPF, CEP,
+          e-mail,
+          telefone, dados do produto e data da compra.
+          Funcionários: Quanto aos dados pessoais coletados de nossos funcionários, estes são necessários para
+          que
+          seja efetuado o registro do funcionário, em atendimento à legislação trabalhista e execução do
+          contrato de
+          trabalho.
+        </p>
+        <h3 class="mt-5 mb-5">3. Mídias Sociais</h3>
+        <p class="mt-5 mb-5">
+          A FOX se utiliza também da Mídia Social para se comunicar e interagir com seus clientes e
+          consumidores
+          por meio de websites de terceiros como, por exemplo, o Facebook, Instagram, LinkedIn e o YouTube.
+          Estes
+          websites de terceiros são uma tecnologia baseada na Internet que não é operada ou controlada pela
+          FOX.
+          Ao interagir, compartilhar ou “Curtir” a página da FOX no Facebook, ou outra mídia social, ou
+          outra
+          mídia social, você poderá revelar determinadas informações pessoais à FOX ou a terceiros.
+          Usamos os “botões sociais” para permitir que os nossos usuários compartilhem ou marquem páginas da
+          web. São
+          botões de sites terceiros de mídias sociais, e que podem registrar informações sobre suas atividades
+          na
+          internet, incluindo este site. Por favor, reveja os respectivos termos de uso e políticas de
+          privacidade
+          dessas plataformas para entender exatamente como eles usam suas informações, como optar por não
+          receber ou
+          excluir tais informações.
+          A quantidade de informações pessoais visíveis dependerá das suas próprias configurações de
+          privacidade no
+          Facebook, Twitter e demais mídias sociais.
+        </p>
+      </div>
+    </div>
+  </div>
 
 
-    <footer>
-
+  <footer>
     <!--Receba promoções banner-->
     <div id="news-and-promotions-banner" class="container-fluid">
       <div class="container py-5">
@@ -322,21 +315,28 @@
 
           <div class="col-12 col-xl-6 d-flex justify-content-evenly">
             <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <input type="email" class="form-control text-us-input w-100" placeholder="Seu nome">
+              <form id="newsletter">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                    <input type="text" class="form-control text-us-input w-100" required placeholder="Seu nome">
+                  </div>
+                  <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+                    <input type="email" class="form-control text-us-input w-100" required placeholder="E-mail">
+                  </div>
+                  <div class="col-12 col-sm-3 mb-2 mb-sm-0">
+                    <button type="submit" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
+                  </div>
                 </div>
-                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <input type="email" class="form-control text-us-input w-100" placeholder="E-mail">
-                </div>
-                <div class="col-12 col-sm-3 mb-2 mb-sm-0">
-                  <button type="button" class="btn btn px-4 w-100" style="background-color: #F9A80C; color:white;">Enviar</button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <!--Mensagem de Sucesso ao enviar formulário-->
+    <div class="mensagem">
+      <p class="p-5">Formulário enviado com sucesso!</p>
     </div>
 
     <div id="social-midia-footer" class="container mt-5 mb-2 mb-lg-5">
@@ -365,7 +365,7 @@
             <a href="https://www.instagram.com" class="m-0" style="text-decoration:none; color:#000000">@lojafoxbrinquedos</a>
           </div>
         </div>
-        <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 footer-column">
+        <div class="col-12 col-sm-6 mb-4 mb-lg-0 col-lg-3 footer-column d-flex flex-column align-items-center">
           <h3 class="fs-5 text-uppercase">Formas de pagamento</h3>
           <img src="{{ asset('images/cartao-footer.png') }}" alt="Cartões aceitos na loja">
         </div>
@@ -396,13 +396,8 @@
 
   </footer>
 
-
-<!--Swiper JS-->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-<script src="{{ asset('js/cookies.js') }}"></script>
-<script src="{{ asset('js/script.js') }}"></script>
-
+  <script src="{{ asset('js/script.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>

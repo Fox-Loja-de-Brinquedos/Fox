@@ -29,7 +29,9 @@
         <div class="col-12 col-md-4 d-flex align-items-center justify-content-center justify-content-md-start">
           <a href="/orderList" class="voltar-a-loja"><img src="/images/de-volta.png" alt="" width="23px" height="20px"> Meus pedidos</a></div>
         <div class="col-12 col-md-4 d-flex align-items-center justify-content-center py-3 py-md-0">
+          <a href="/">
           <img src="/images/fox1.svg" alt="" width="116px" height="122px">
+          </a>
         </div>
         <div class="col-12 col-md-4 d-flex align-items-center justify-content-center justify-content-md-end">
           <img src="/images/seguro.png" alt="" width="23px" height="20px">Ambiente 100% seguro
